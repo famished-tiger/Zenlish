@@ -49,7 +49,7 @@ The project sub-goals are:
 - Also Zenlish should determine the semantics (i.e. meaning) of the sentences
 
 #### B) Capability to read a complete book
-A good candidate book is "The Edge of the Sky" by Roberto Trotta (ISBN 978-0-465-04471-9 : hardcover, ISBN 978-0-465-04490-0 : ebook).
+A good candidate book is "The Edge of the Sky" by Roberto Trotta (ISBN 978-0-465-04471-9 : hardcover, ISBN 978-0-465-04490-0 : ebook).  
 Professor Trotta challenged himself by writing a book on Cosmology with the 1000 most used words. More details [here](http://robertotrotta.com/the-edge-of-the-sky/).
 
 In order to achieve this goal, Zenlish should:
@@ -84,7 +84,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/zenlish. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/famished-tiger/Zenlish. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -92,4 +92,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Zenlish project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/zenlish/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Zenlish project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/famished-tiger/Zenlish/blob/master/CODE_OF_CONDUCT.md).

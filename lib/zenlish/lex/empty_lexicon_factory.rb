@@ -15,13 +15,15 @@ module Zenlish
       private
 
       def add_word_classes(aLexicon)
-        aLexicon.add_terminal(WClasses::CommonNoun.new)
-        aLexicon.add_terminal(WClasses::ProperNoun.new)
-        aLexicon.add_terminal(WClasses::IrregularVerb.new)
-        aLexicon.add_terminal(WClasses::Adjective.new)
-        aLexicon.add_terminal(WClasses::DefiniteArticle.new)
-        aLexicon.add_terminal(WClasses::DemonstrativeDeterminer.new)
-        aLexicon.add_terminal(WClasses::IndefinitePronoun.new)
+        aLexicon.add_terminal(WClasses::Adjective.new.freeze)
+        aLexicon.add_terminal(WClasses::Cardinal.new.freeze)
+        aLexicon.add_terminal(WClasses::CommonNoun.new.freeze)
+        aLexicon.add_terminal(WClasses::ComparativeParticle.new.freeze)
+        aLexicon.add_terminal(WClasses::DefiniteArticle.new.freeze)
+        aLexicon.add_terminal(WClasses::DemonstrativeDeterminer.new.freeze)
+        aLexicon.add_terminal(WClasses::IndefinitePronoun.new.freeze)
+        aLexicon.add_terminal(WClasses::IrregularVerb.new.freeze)
+        aLexicon.add_terminal(WClasses::ProperNoun.new.freeze)
       end
 
       def add_punctuation(aLexicon)

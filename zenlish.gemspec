@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A toolkit for the Zenlish language (a simplified English language).}
   spec.description   = %q{A toolkit for the Zenlish language (a simplified English language).}
-  spec.homepage      = "https://github.com/famished-tiger/zenlish."
+  spec.homepage      = "https://github.com/famished-tiger/zenlish"
   spec.license       = 'MIT'
 
   spec.bindir        = 'exe'

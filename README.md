@@ -1,4 +1,5 @@
 # Zenlish
+[![Gem Version](https://badge.fury.io/rb/zenlish.svg)](https://badge.fury.io/rb/zenlish)
 
 ### What is __Zenlish__ ?  
 

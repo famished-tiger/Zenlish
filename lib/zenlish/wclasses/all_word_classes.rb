@@ -2,6 +2,8 @@
 # Algorithm: load the leaf classes from hierarchy
 
 require_relative 'adjective'
+require_relative 'cardinal'
+require_relative 'comparative_particle'
 require_relative 'common_noun'
 require_relative 'pronoun'
 require_relative 'proper_noun'

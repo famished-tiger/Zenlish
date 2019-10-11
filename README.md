@@ -5,8 +5,8 @@
 
 Zenlish = Zen + English  
 
-__Zenlish__ will be a Controlled Natural Language based on English.
-A [Controlled Natural Language]([https://en.wikipedia.org/wiki/Controlled_natural_language)
+__Zenlish__ will be a Controlled Natural Language based on English.  
+A [Controlled Natural Language](https://en.wikipedia.org/wiki/Controlled_natural_language)
 is a subset of a natural language -here English- limited to specific problem domains.
 
 The goal of this project is to implement a toolkit for subset of the English language.

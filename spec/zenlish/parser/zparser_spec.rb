@@ -21,7 +21,11 @@ module Zenlish
       end
 
       def as ; Lex::Literal.new('as', get_lexeme('as'), 0) ; end
+      def inside ; Lex::Literal.new('inside', get_lexeme('inside'), 0) ; end
+      def is ; Lex::Literal.new('is', get_lexeme('be'), 0) ; end      
       def lisa ; Lex::Literal.new('Lisa', get_lexeme('Lisa'), 0) ; end
+      def many ; Lex::Literal.new('many', get_lexeme('many'), 0) ; end
+      def not_ ; Lex::Literal.new('not', get_lexeme('not'), 0) ; end
       def one ;  Lex::Literal.new('one', get_lexeme('one'), 0) ; end
       def two ;  Lex::Literal.new('two', get_lexeme('two'), 0) ; end
       def other ;  Lex::Literal.new('other', get_lexeme('other'), 0) ; end
@@ -104,8 +108,25 @@ module Zenlish
           literals = [lisa, sees, two, people, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 1-C' do
+          # Sentence 1-09a: "Tony sees many things."
+          literals = [tony, sees, many, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-09b: "Lisa sees many people."
+          literals = [lisa, sees, many, people, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 1-10: "Tony is inside this thing."
+          literals = [tony, is, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error  
+
+          # Sentence 1-11: "Lisa is not inside this thing."
+          literals = [lisa, is, not_, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error                 
+        end
       end # context
     end # describe
   end # module
 end # module
-

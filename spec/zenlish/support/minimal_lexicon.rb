@@ -6,13 +6,16 @@ require_relative '../../../lib/zenlish/lex/lexicon'
 
 common_noun = $ZenlishLexicon.name2terminal['CommonNoun']
 adjective = $ZenlishLexicon.name2terminal['Adjective']
+adverb = $ZenlishLexicon.name2terminal['Adverb']
 proper_noun = $ZenlishLexicon.name2terminal['ProperNoun']
+preposition = $ZenlishLexicon.name2terminal['Preposition']
 irregular_verb = $ZenlishLexicon.name2terminal['IrregularVerb']
 indefinite_pronoun = $ZenlishLexicon.name2terminal['IndefinitePronoun']
 demonstrative_determiner = $ZenlishLexicon.name2terminal['DemonstrativeDeterminer']
 definite_article = $ZenlishLexicon.name2terminal['DefiniteArticle']
 cardinal = $ZenlishLexicon.name2terminal['Cardinal']
 comparative_particle = $ZenlishLexicon.name2terminal['ComparativeParticle']
+indefinite_quantifier = $ZenlishLexicon.name2terminal['IndefiniteQuantifier']
 dot = $ZenlishLexicon.name2terminal['Period']
 
 def add_entry(aLemma, aWordClass)
@@ -24,7 +27,11 @@ end
 
 # Our minimalistic lexicon
 add_entry('as', comparative_particle)
+add_entry('be', irregular_verb)
+add_entry('inside', preposition)
 add_entry('Lisa', proper_noun)
+add_entry('many', indefinite_quantifier)
+add_entry('not', adverb)
 add_entry('one', cardinal)
 add_entry('other', adjective)
 add_entry('people', common_noun)

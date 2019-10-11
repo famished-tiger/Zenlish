@@ -5,9 +5,12 @@
 
 Zenlish = Zen + English  
 
+__Zenlish__ will be a Controlled Natural Language based on English.
+A [Controlled Natural Language]([https://en.wikipedia.org/wiki/Controlled_natural_language)
+is a subset of a natural language -here English- limited to specific problem domains.
 
-The goal of this project is to implement a toolkit subset of the English language, called ... Zenlish.  
-A [Controlled Natural Language]([https://en.wikipedia.org/wiki/Controlled_natural_language) defines a subset of a natural language -English, for instance-  with a restricted syntax and restricted semantics.
+The goal of this project is to implement a toolkit for subset of the English language.
+
 
 ### Design of Zenlish language
 #### Minimalism
@@ -17,7 +20,8 @@ It reflects a desire to make Zenlish a simple language:
 - A limited lexicon. Priority on most commonly used words.
 
 #### Expressiveness
-Zenlish should be rich enough to express ideas, facts in a fluid way (vs. contrived, artificial way). Litmus test: a Zenlish text should be easy to read to an English speaking person.
+Zenlish should be rich enough to express ideas, facts in a fluid way (vs. contrived, artificial way).
+Litmus test: a Zenlish text should be easy to read to a English reading person.
 
 ### Zenlish as a library (gem)
 Over time, the zenlish gem will contain:

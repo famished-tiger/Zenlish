@@ -16,15 +16,20 @@ module Zenlish
         end
       end # context
 
-      def get_lexeme(aLemma)
-        $ZenlishLexicon.get_lexeme(aLemma)
+      def get_lexeme(aLemma, aWordClass = nil)
+        $ZenlishLexicon.get_lexeme(aLemma, aWordClass)
       end
 
+      def all ; Lex::Literal.new('all', get_lexeme('all'), 0) ; end      
+      def are ; Lex::Literal.new('are', get_lexeme('be'), 0) ; end
       def as ; Lex::Literal.new('as', get_lexeme('as'), 0) ; end
+      def of ; Lex::Literal.new('of', get_lexeme('of'), 0) ; end
+      def does ; Lex::Literal.new('does', get_lexeme('do'), 0) ; end
       def inside ; Lex::Literal.new('inside', get_lexeme('inside'), 0) ; end
-      def is ; Lex::Literal.new('is', get_lexeme('be'), 0) ; end      
+      def is ; Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def lisa ; Lex::Literal.new('Lisa', get_lexeme('Lisa'), 0) ; end
       def many ; Lex::Literal.new('many', get_lexeme('many'), 0) ; end
+      def more ; Lex::Literal.new('more', get_lexeme('more'), 0) ; end      
       def not_ ; Lex::Literal.new('not', get_lexeme('not'), 0) ; end
       def one ;  Lex::Literal.new('one', get_lexeme('one'), 0) ; end
       def two ;  Lex::Literal.new('two', get_lexeme('two'), 0) ; end
@@ -32,9 +37,14 @@ module Zenlish
       def people ;  Lex::Literal.new('people', get_lexeme('people'), 0) ; end
       def person ;  Lex::Literal.new('person', get_lexeme('person'), 0) ; end
       def same ;  Lex::Literal.new('same', get_lexeme('same'), 0) ; end
+      def some_ ;  Lex::Literal.new('some', get_lexeme('some'), 0) ; end
+      def see ; Lex::Literal.new('see', get_lexeme('see'), 0) ; end
       def sees ; Lex::Literal.new('sees', get_lexeme('see'), 0) ; end
       def something ;  Lex::Literal.new('something', get_lexeme('something'), 0) ; end
       def the ;  Lex::Literal.new('the', get_lexeme('the'), 0) ; end
+      def than ;  Lex::Literal.new('than', get_lexeme('than'), 0) ; end      
+      def there ;  Lex::Literal.new('there', get_lexeme('there'), 0) ; end      
+      def these ;  Lex::Literal.new('these', get_lexeme('this'), 0) ; end
       def thing ;  Lex::Literal.new('thing', get_lexeme('thing'), 0) ; end
       def things ;  Lex::Literal.new('things', get_lexeme('thing'), 0) ; end
       def this ;  Lex::Literal.new('this', get_lexeme('this'), 0) ; end
@@ -107,6 +117,13 @@ module Zenlish
           # Sentence 1-08b: "Lisa sees two people."
           literals = [lisa, sees, two, people, dot]
           expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-05b: "Tony sees the same person as Lisa sees."
+          literals = [tony, sees, the, same, person, as, lisa, sees, dot]
+          # same is an adjective of equality comparison
+          # as is part of same ... as combination
+          # it introduces a comparative clause
+          expect { subject.parse(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-C' do
@@ -117,14 +134,52 @@ module Zenlish
           # Sentence 1-09b: "Lisa sees many people."
           literals = [lisa, sees, many, people, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 1-10: "Tony is inside this thing."
           literals = [tony, is, inside, this, thing, dot]
-          expect { subject.parse(literals) }.not_to raise_error  
+          expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence 1-11: "Lisa is not inside this thing."
           literals = [lisa, is, not_, inside, this, thing, dot]
-          expect { subject.parse(literals) }.not_to raise_error                 
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence: "Lisa does not see people inside the other thing."
+          literals = [lisa, does, not_, see, people, inside, the, other, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 1-D' do
+          # Sentence 1-12a: "Some of these people are inside this thing."
+          literals = [some_, of, these, people, are, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 1-12b: "Some of these people are not inside this thing."
+          literals = [some_, of, these, people, are, not_, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 1-13: "All of these people are inside this thing."
+          literals = [all, of, these, people, are, not_, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 1-14a: "There are two people inside one of these things."
+          literals = [there, are, two, people, inside, one, of, these, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error  
+
+          # Sentence 1-14b: "There are not people inside the other thing."
+          literals = [there, are, not_, people, inside, the, other, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-15a: "There are many people inside this thing."
+          literals = [there, are, many, people, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-15b: "There are more people inside this thing."
+          literals = [there, are, more, people, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error  
+
+          # Sentence 1-15c: "There are more people inside the other thing than there are inside this thing."
+          literals = [there, are, more, people, inside, the, other, thing, than, there, are, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error                    
         end
       end # context
     end # describe

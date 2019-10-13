@@ -16,7 +16,11 @@ module Zenlish
 
       def add_word_classes(aLexicon)
         aLexicon.add_terminal(WClasses::Adjective.new.freeze)
-        aLexicon.add_terminal(WClasses::Adverb.new.freeze)        
+        aLexicon.add_terminal(WClasses::Adverb.new.freeze)
+        aLexicon.add_terminal(WClasses::AdverbNot.new.freeze)
+        aLexicon.add_terminal(WClasses::AdverbThere.new.freeze)        
+        # aLexicon.add_terminal(WClasses::AuxiliaryBe.new.freeze)
+        aLexicon.add_terminal(WClasses::AuxiliaryDo.new.freeze)        
         aLexicon.add_terminal(WClasses::Cardinal.new.freeze)
         aLexicon.add_terminal(WClasses::CommonNoun.new.freeze)
         aLexicon.add_terminal(WClasses::ComparativeParticle.new.freeze)
@@ -24,7 +28,9 @@ module Zenlish
         aLexicon.add_terminal(WClasses::DemonstrativeDeterminer.new.freeze)
         aLexicon.add_terminal(WClasses::IndefinitePronoun.new.freeze)
         aLexicon.add_terminal(WClasses::IrregularVerb.new.freeze)
-        aLexicon.add_terminal(WClasses::Preposition.new.freeze)        
+        aLexicon.add_terminal(WClasses::IrregularVerbBe.new.freeze)        
+        aLexicon.add_terminal(WClasses::Preposition.new.freeze)
+        aLexicon.add_terminal(WClasses::PrepositionThan.new.freeze)        
         aLexicon.add_terminal(WClasses::ProperNoun.new.freeze)
         aLexicon.add_terminal(WClasses::IndefiniteQuantifier.new.freeze)
       end

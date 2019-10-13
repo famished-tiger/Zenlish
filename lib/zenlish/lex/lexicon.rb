@@ -19,8 +19,27 @@ module Zenlish
         @name2terminal = {}
       end
 
-      def get_lexeme(aLemma)
-        lemma2entry.fetch(aLemma).lexemes.first
+      def get_lexeme(aLemma, aWordClass = nil)
+        if aWordClass
+          lexeme = nil
+          candidate = nil
+
+          entries = lemma2entry.fetch(aLemma)
+          if entries.kind_of?(Array)
+            entries.each do |e|
+              candidate = e.lexemes.first
+              break if candidate.wclass.kind_of?(aWordClass)
+            end
+            lexeme = candidate
+          else
+            candidate = entries.lexemes.first
+            lexeme = candidate if candidate.wclass.kind_of?(aWordClass)
+          end
+
+          lexeme
+        else
+          lemma2entry.fetch(aLemma).lexemes.first
+        end
       end
 
       def add_terminal(aTerminal)

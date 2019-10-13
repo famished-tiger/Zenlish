@@ -2,7 +2,10 @@ module Zenlish
   module Lex
     # TODO: document
     class Lexeme
+      # @return Zenlish::WClasses::WordClass
       attr_reader :wclass
+      
+      # @return Zenlish::Lex::LexicalEntry
       attr_reader :entry
 
       def initialize(aWordClass, anEntry)

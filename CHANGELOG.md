@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [0.1.03] - 2019-10-13
+__Zenlish__ can parse all the sentences in lessons 1-A ... 1-D from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+- Class `AdverbNot` to represent adverb `not` (for negative sentences).
+- Class `AdverbThere` to represent the adverb `there` (for `there is`, `there are`).
+- Class `AuxiliaryDo` to represent the auxiliary `do` verb.
+- Class `IrregularVerbBe` to represent the verb `be` when used as a lexical verb.
+- Class `PrepositionThan` to use with comparative clauses.
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-C.
+- `ZenlishGrammar`: new rules (i.e. negative_sentence, ...).
+
 ## [0.1.02] - 2019-10-11
 __Zenlish__ can parse all the sentences in lessons 1-A, 1-B, 1-C from
  [Learn These Words First](http://learnthesewordsfirst.com/).

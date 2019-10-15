@@ -46,6 +46,7 @@ The project is still in inception.
 |:-:|:-:|
 | Number of lemmas in lexicon           | 32 |
 | Number of production rules in grammar | 53 |
+| Number of lessons covered             |  4 |
 | Number of sentences in spec files     | 37 |
 
 

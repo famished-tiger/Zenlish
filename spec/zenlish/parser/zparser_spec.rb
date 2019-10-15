@@ -20,35 +20,52 @@ module Zenlish
         $ZenlishLexicon.get_lexeme(aLemma, aWordClass)
       end
 
-      def all ; Lex::Literal.new('all', get_lexeme('all'), 0) ; end      
-      def are ; Lex::Literal.new('are', get_lexeme('be'), 0) ; end
-      def as ; Lex::Literal.new('as', get_lexeme('as'), 0) ; end
-      def of ; Lex::Literal.new('of', get_lexeme('of'), 0) ; end
-      def does ; Lex::Literal.new('does', get_lexeme('do'), 0) ; end
-      def inside ; Lex::Literal.new('inside', get_lexeme('inside'), 0) ; end
+      def self.literal2var(aLemma, aLiteral, aSuffix = '')
+        mth_name = aLiteral.downcase + aSuffix
+        define_method(mth_name.to_sym) do
+          Lex::Literal.new(aLiteral, get_lexeme(aLemma), 0)
+        end
+      end
+
+      # In absence of a POS tagger/lemmatizer, we map input words
+      # to variables that themselves return Literal objects.
+      # For instance, next line will create a variable called 'alive'
+      literal2var('alive', 'alive')
+      literal2var('all', 'all')
+      literal2var('be', 'are')
+      literal2var('big', 'big')
+      literal2var('as', 'as')
+      literal2var('of', 'of')
+      literal2var('do', 'does')
+      literal2var('inside', 'inside')
       def is ; Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
-      def lisa ; Lex::Literal.new('Lisa', get_lexeme('Lisa'), 0) ; end
-      def many ; Lex::Literal.new('many', get_lexeme('many'), 0) ; end
-      def more ; Lex::Literal.new('more', get_lexeme('more'), 0) ; end      
-      def not_ ; Lex::Literal.new('not', get_lexeme('not'), 0) ; end
-      def one ;  Lex::Literal.new('one', get_lexeme('one'), 0) ; end
-      def two ;  Lex::Literal.new('two', get_lexeme('two'), 0) ; end
-      def other ;  Lex::Literal.new('other', get_lexeme('other'), 0) ; end
-      def people ;  Lex::Literal.new('people', get_lexeme('people'), 0) ; end
-      def person ;  Lex::Literal.new('person', get_lexeme('person'), 0) ; end
-      def same ;  Lex::Literal.new('same', get_lexeme('same'), 0) ; end
-      def some_ ;  Lex::Literal.new('some', get_lexeme('some'), 0) ; end
-      def see ; Lex::Literal.new('see', get_lexeme('see'), 0) ; end
-      def sees ; Lex::Literal.new('sees', get_lexeme('see'), 0) ; end
-      def something ;  Lex::Literal.new('something', get_lexeme('something'), 0) ; end
-      def the ;  Lex::Literal.new('the', get_lexeme('the'), 0) ; end
-      def than ;  Lex::Literal.new('than', get_lexeme('than'), 0) ; end      
-      def there ;  Lex::Literal.new('there', get_lexeme('there'), 0) ; end      
-      def these ;  Lex::Literal.new('these', get_lexeme('this'), 0) ; end
-      def thing ;  Lex::Literal.new('thing', get_lexeme('thing'), 0) ; end
-      def things ;  Lex::Literal.new('things', get_lexeme('thing'), 0) ; end
-      def this ;  Lex::Literal.new('this', get_lexeme('this'), 0) ; end
-      def tony ;  Lex::Literal.new('Tony', get_lexeme('Tony'), 0) ; end
+      literal2var('Lisa', 'Lisa')
+      literal2var('living', 'living')
+      literal2var('many', 'many')
+      literal2var('more', 'more')
+      literal2var('not', 'not', '_')
+      literal2var('one', 'one')
+      literal2var('two', 'two')
+      literal2var('other', 'other')
+      literal2var('people', 'people')
+      literal2var('person', 'person')
+      literal2var('same', 'same')
+      literal2var('small', 'small')
+      literal2var('some', 'some')
+      literal2var('see', 'see')
+      literal2var('see', 'sees')
+      literal2var('something', 'something')
+      literal2var('the', 'the')
+      literal2var('than', 'than')
+      literal2var('there', 'there')
+      literal2var('thing', 'thing')
+      literal2var('thing', 'things')
+      literal2var('this', 'these')      
+      literal2var('this', 'this')
+      literal2var('this one', 'this_one')
+      literal2var('Tony', 'Tony')
+      literal2var('very', 'very')
+
       def dot ;  Lex::Literal.new('.', get_lexeme('.'), 0) ; end
 
       class ZProxy
@@ -150,20 +167,20 @@ module Zenlish
 
         it 'should parse sample sentences from lesson 1-D' do
           # Sentence 1-12a: "Some of these people are inside this thing."
-          literals = [some_, of, these, people, are, inside, this, thing, dot]
+          literals = [some, of, these, people, are, inside, this, thing, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 1-12b: "Some of these people are not inside this thing."
-          literals = [some_, of, these, people, are, not_, inside, this, thing, dot]
+          literals = [some, of, these, people, are, not_, inside, this, thing, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 1-13: "All of these people are inside this thing."
           literals = [all, of, these, people, are, not_, inside, this, thing, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 1-14a: "There are two people inside one of these things."
           literals = [there, are, two, people, inside, one, of, these, things, dot]
-          expect { subject.parse(literals) }.not_to raise_error  
+          expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence 1-14b: "There are not people inside the other thing."
           literals = [there, are, not_, people, inside, the, other, thing, dot]
@@ -175,11 +192,57 @@ module Zenlish
 
           # Sentence 1-15b: "There are more people inside this thing."
           literals = [there, are, more, people, inside, this, thing, dot]
-          expect { subject.parse(literals) }.not_to raise_error  
+          expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence 1-15c: "There are more people inside the other thing than there are inside this thing."
           literals = [there, are, more, people, inside, the, other, thing, than, there, are, inside, this, thing, dot]
-          expect { subject.parse(literals) }.not_to raise_error                    
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 1-E' do
+          # Sentence 1-16a: "Two of these things are alive."
+          literals = [two, of, these, things, are, alive, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-16b: "One of these things is not alive."
+          literals = [one, of, these, things, is, not_, alive, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-17a: "Tony sees some living things."
+          literals = [tony, sees, some, living, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-17b: "Two of these things are big."
+          literals = [two, of, these, things, are, big, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-17c: "One of these things is not big."
+          literals = [one, of, these, things, is, not_, big, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-18a: "Tony sees some living things."
+          literals = [tony, sees, some, living, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-18b: "One of these is big."
+          literals = [one, of, these, is, big, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-18c: "Two of these are small."
+          literals = [two, of, these, are, small, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-19a: "Tony sees one living thing."
+          literals = [tony, sees, one, living, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-19b: "This one is very big."
+          literals = [this_one, is, very, big, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # # Sentence: "This thing is bigger than the other thing."
+          # literals = [this, thing, is, bigger very, big, dot]
+          # expect { subject.parse(literals) }.not_to raise_error
         end
       end # context
     end # describe

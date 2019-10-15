@@ -24,12 +24,14 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'noun_phrase' => 'numeral nominal'
   
   # Case: ... one of these things.
-  rule 'noun_phrase' => 'numeral Preposition DemonstrativeDeterminer noun_phrase'   
+  rule 'noun_phrase' => 'numeral Preposition DemonstrativeDeterminer noun_phrase'
+  rule 'noun_phrase' => 'numeral Preposition DemonstrativeDeterminer'   
   rule 'noun_phrase' => 'determiner numeral nominal' 
   
   # CGE p.359, 360: of + definite noun phrase
-  rule 'noun_phrase' => 'determiner Preposition DemonstrativeDeterminer noun_phrase'
-  rule 'noun_phrase' => 'ProperNoun' 
+  rule 'noun_phrase' => 'determiner Preposition DemonstrativeDeterminer noun_phrase' 
+  rule 'noun_phrase' => 'ProperNoun'
+  rule 'noun_phrase' => 'DemonstrativePronoun'  
   rule 'noun_phrase' => 'IndefinitePronoun'  
   rule 'nominal' => 'CommonNoun'
   rule 'nominal' => 'Adjective CommonNoun'
@@ -40,13 +42,18 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'single_determiner' => 'DefiniteArticle'
   rule 'single_determiner' => 'IndefiniteQuantifier'
   rule 'verb_phrase' => 'lexical_verb'
-  rule 'verb_phrase' => 'lexical_verb verb_complement'  
+  rule 'verb_phrase' => 'lexical_verb verb_complement'
+  rule 'verb_phrase' => 'IrregularVerbBe verb_be_complement'
   rule 'verb_complement' => 'noun_phrase'
   rule 'verb_complement' => 'adverb_phrase'   
   rule 'verb_complement' => 'propositional_phrase'
   rule 'verb_complement' => 'noun_phrase adverb_phrase'
   rule 'verb_complement' => 'noun_phrase propositional_phrase'
+  rule 'verb_be_complement' => 'adjective_as_complement'  # Specific to be as lexical verb
+  rule 'adjective_as_complement' => 'DegreeAdverb Adjective'
+  rule 'adjective_as_complement' => 'Adjective'
   rule 'negative_verb_phrase' => 'IrregularVerbBe AdverbNot verb_complement'
+  rule 'negative_verb_phrase' => 'IrregularVerbBe AdverbNot Adjective'  
   rule 'negative_verb_phrase' => 'AuxiliaryDo AdverbNot verb_phrase'
   rule 'lexical_verb' => 'IrregularVerb'
   rule 'lexical_verb' => 'IrregularVerbBe'

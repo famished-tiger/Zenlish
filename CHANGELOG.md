@@ -1,7 +1,22 @@
 # CHANGELOG
 
+## [0.1.04] - 2019-10-15
+__Zenlish__ can parse all sentences in lessons 1-A ... 1-E from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+- Class `DegreeAdverb` to represent degree adverb like `very`.
+- Class `DemonstrativePronoun` to represent the adverb `there` (for `there is`, `there are`).
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-E (37 sentences).
+- `ZenlishGrammar`: new rules (i.e. negative_sentence, ...).
+- File `minimal_lexicon.rb`: new entries in lexicon `alive`, `big`, `living`,
+`small`, `this one` and `very`.
+- File `README.md` Added a table with a couple of metrics.
+
 ## [0.1.03] - 2019-10-13
-__Zenlish__ can parse all the sentences in lessons 1-A ... 1-D from
+__Zenlish__ can parse all sentences in lessons 1-A ... 1-D from
  [Learn These Words First](http://learnthesewordsfirst.com/).
 
  ### Added
@@ -12,11 +27,11 @@ __Zenlish__ can parse all the sentences in lessons 1-A ... 1-D from
 - Class `PrepositionThan` to use with comparative clauses.
 
 ### Changed
-- File `zparser_spec.rb`: tests include all sentences from lesson 1-C.
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-D.
 - `ZenlishGrammar`: new rules (i.e. negative_sentence, ...).
 
 ## [0.1.02] - 2019-10-11
-__Zenlish__ can parse all the sentences in lessons 1-A, 1-B, 1-C from
+__Zenlish__ can parse all sentences in lessons 1-A, 1-B, 1-C from
  [Learn These Words First](http://learnthesewordsfirst.com/).
 
  ### Added
@@ -35,7 +50,7 @@ __Zenlish__ can parse all the sentences in lessons 1-A, 1-B, 1-C from
 
 
 ## [0.1.01] - 2019-10-10
-__Zenlish__ can parse all the sentences in lessons 1-A, 1-B from [Learn These Words First](http://learnthesewordsfirst.com/).
+__Zenlish__ can parse all sentences in lessons 1-A, 1-B from [Learn These Words First](http://learnthesewordsfirst.com/).
 
 ### Added
 - Class `Numeral` to represent the abstract word class for cardinal and ordinal numbers.

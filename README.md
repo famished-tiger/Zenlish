@@ -19,13 +19,6 @@ It reflects a desire to make Zenlish a simple language:
 - The focus is put on a simplified syntax,
 - A limited lexicon. Priority on most commonly used words.
 
-#### Some project metrics (v. 0.1.04)
-|Metric|Value|  
-|:-:|:-:|
-| Number of lemmas in lexicon           | 32 |
-| Number of production rules in grammar | 53 |
-| Number of sentences in spec files     | 37 |
-
 
 #### Expressiveness
 Zenlish should be rich enough to express ideas, facts in a fluid way (vs. contrived, artificial way).
@@ -45,8 +38,19 @@ Over time, the zenlish gem will contain:
 With __Zenlish__ it should be possible for a Ruby application to interact with
 users with a language that is close enough to English.
 
+### Project status
+
+The project is still in inception. 
+#### Some project metrics (v. 0.1.04)
+|Metric|Value|  
+|:-:|:-:|
+| Number of lemmas in lexicon           | 32 |
+| Number of production rules in grammar | 53 |
+| Number of sentences in spec files     | 37 |
+
+
 ### Roadmap
-The project is still in inception.  
+ 
 Here a tentative roadmap:
 
 #### A) Support vocabulary and sentences from [Learn These Words First](http://learnthesewordsfirst.com/)

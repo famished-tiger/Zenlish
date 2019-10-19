@@ -16,7 +16,7 @@ __Zenlish__ can parse all sentences in lessons 1-A ... 1-F from
 - `ZenlishGrammar`: rule refactoring and enhancements (i.e. conditional_statement, verb_grouping).
 - File `minimal_lexicon.rb`: new entries in lexicon `another`, `be` (as auxiliary verb),
  `far`, `from`, `if`, `kind`, `near to`, `of`, `then`, `touch`.
-- File `README.md` Updated a metrics table.
+- File `README.md` Updated a metrics table. Added badges for Travis CI and license.
 
 ## [0.1.04] - 2019-10-15
 __Zenlish__ can parse all sentences in lessons 1-A ... 1-E from

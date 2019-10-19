@@ -1,6 +1,7 @@
 # Zenlish
+[![Linux build Status](https://travis-ci.org/famished-tiger/Zenlish.svg?branch=master)](https://travis-ci.org/famished-tiger/Zenlish)
 [![Gem Version](https://badge.fury.io/rb/zenlish.svg)](https://badge.fury.io/rb/zenlish)
-
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/famished-tiger/Zenlish/blob/master/LICENSE.txt)
 ### What is __Zenlish__ ?  
 
 Zenlish = Zen + English  

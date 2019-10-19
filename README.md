@@ -40,18 +40,18 @@ users with a language that is close enough to English.
 
 ### Project status
 
-The project is still in inception. 
-#### Some project metrics (v. 0.1.04)
+The project is still in inception.
+#### Some project metrics (v. 0.1.05)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 32 |
-| Number of production rules in grammar | 53 |
-| Number of lessons covered             |  4 |
-| Number of sentences in spec files     | 37 |
+| Number of lemmas in lexicon           | 41 |
+| Number of production rules in grammar | 69 |
+| Number of lessons covered             |  6 |
+| Number of sentences in spec files     | 48 |
 
 
 ### Roadmap
- 
+
 Here a tentative roadmap:
 
 #### A) Support vocabulary and sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
@@ -59,8 +59,8 @@ This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM
 (Natural Semantic Metalanguage)](https://en.wikipedia.org/wiki/Natural_semantic_metalanguage).  
-The essential words are introduced in twelve lessons. Each lesson put the Words
-in examplar sentences and pictures.
+The essential words are introduced in twelve lessons. Each lesson put the words
+in exemplar sentences and pictures.
 
 The project sub-goals are:
 - To inject the 300 core words into Zenlish lexicon,

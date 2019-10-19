@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## [0.1.05] - 2019-10-19
+__Zenlish__ can parse all sentences in lessons 1-A ... 1-F from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `Conjunction` to represent conjunctions.
+- Class `LinkingAdverb` to represent adverbs like `then`.
+- Class `PrepositionOf` to represent the preposition `of`.
+- Class `RegularVerb` to represent lexical verbs that have a regular conjugation like `touch`.
+- Class `SubordinatingConjunction` to represent subordinating conjunctions like `if`.
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-F (37 sentences in total).
+- `ZenlishGrammar`: rule refactoring and enhancements (i.e. conditional_statement, verb_grouping).
+- File `minimal_lexicon.rb`: new entries in lexicon `another`, `be` (as auxiliary verb),
+ `far`, `from`, `if`, `kind`, `near to`, `of`, `then`, `touch`.
+- File `README.md` Updated a metrics table.
+
 ## [0.1.04] - 2019-10-15
 __Zenlish__ can parse all sentences in lessons 1-A ... 1-E from
  [Learn These Words First](http://learnthesewordsfirst.com/).

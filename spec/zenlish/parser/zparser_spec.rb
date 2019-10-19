@@ -32,17 +32,25 @@ module Zenlish
       # For instance, next line will create a variable called 'alive'
       literal2var('alive', 'alive')
       literal2var('all', 'all')
-      literal2var('be', 'are')
+      literal2var('another', 'another')
+      def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('big', 'big')
+      literal2var('big', 'bigger')
       literal2var('as', 'as')
       literal2var('of', 'of')
       literal2var('do', 'does')
+      literal2var('far', 'far')
+      literal2var('from', 'from')
+      literal2var('if', 'if', '_')
       literal2var('inside', 'inside')
-      def is ; Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
+      literal2var('kind', 'kind')
       literal2var('Lisa', 'Lisa')
       literal2var('living', 'living')
       literal2var('many', 'many')
       literal2var('more', 'more')
+      literal2var('near to', 'near_to')      
       literal2var('not', 'not', '_')
       literal2var('one', 'one')
       literal2var('two', 'two')
@@ -51,21 +59,27 @@ module Zenlish
       literal2var('person', 'person')
       literal2var('same', 'same')
       literal2var('small', 'small')
+      literal2var('small', 'smaller')
       literal2var('some', 'some')
       literal2var('see', 'see')
       literal2var('see', 'sees')
       literal2var('something', 'something')
       literal2var('the', 'the')
+      literal2var('then', 'then', '_')
       literal2var('than', 'than')
       literal2var('there', 'there')
       literal2var('thing', 'thing')
       literal2var('thing', 'things')
-      literal2var('this', 'these')      
-      literal2var('this', 'this')
+      def these ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
+      def these_as_pronoun ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativePronoun), 0) ; end
+      def this ; Lex::Literal.new('this', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
+      def this_as_pronoun ; Lex::Literal.new('this', get_lexeme('this', WClasses::DemonstrativePronoun), 0) ; end
       literal2var('this one', 'this_one')
       literal2var('Tony', 'Tony')
+      literal2var('touch', 'touching')
       literal2var('very', 'very')
 
+      def comma ;  Lex::Literal.new(',', get_lexeme(','), 0) ; end
       def dot ;  Lex::Literal.new('.', get_lexeme('.'), 0) ; end
 
       class ZProxy
@@ -240,9 +254,60 @@ module Zenlish
           literals = [this_one, is, very, big, dot]
           expect { subject.parse(literals) }.not_to raise_error
 
-          # # Sentence: "This thing is bigger than the other thing."
-          # literals = [this, thing, is, bigger very, big, dot]
-          # expect { subject.parse(literals) }.not_to raise_error
+          # Sentence: "This thing is bigger than the other thing."
+          literals = [this, thing, is, bigger, than, the, other, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence: "This thing is smaller than the other thing."
+          literals = [this, thing, is, smaller, than, the, other, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 1-E' do
+          # Sentence 1-20a: "Tony sees some living things."
+          literals = [tony, sees, some, living, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-20b: "Two of these are the same kind of living thing."
+          literals = [these_as_pronoun, are, the, same, kind, of, living, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-20c: "One of these is not the same kind as the other two."
+          literals = [one, of, these, is, not_, the, same, kind, as, the, other, two, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-21a: "There is one person inside this thing."
+          literals = [there, is, one, person, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-21b: "If Tony is not inside this thing, then another person is inside."
+          literals = [if_, tony, is, not_, inside, this, thing, comma, then_,
+            another, person, is, inside, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-22a: "Tony is touching something."
+          literals = [tony, is_aux, touching, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-22b: Lisa is touching Tony."
+          literals = [lisa, is_aux, touching, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-23a: Tony is far from Lisa."
+          literals = [tony, is, far, from, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 1-23b: Lisa is far from Tony."
+          literals = [lisa, is, far, from, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-23c: Tony is not far from Lisa."
+          literals = [tony, is, far, from, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-24: Tony is near to Lisa."
+          literals = [tony, is, near_to, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error        
         end
       end # context
     end # describe

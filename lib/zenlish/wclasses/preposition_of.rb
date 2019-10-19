@@ -2,8 +2,8 @@ require_relative 'preposition'
 
 module Zenlish
   module WClasses
-    # the 'than' preposition
-    class PrepositionThan < Preposition
+    # the 'of' preposition
+    class PrepositionOf < Preposition
     end # class
   end # module
 end # module

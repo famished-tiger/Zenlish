@@ -42,7 +42,7 @@ users with a language that is close enough to English.
 ### Project status
 
 The project is still in inception.
-#### Some project metrics (v. 0.1.05)
+#### Some project metrics (v. 0.1.06)
 |Metric|Value|  
 |:-:|:-:|
 | Number of lemmas in lexicon           | 45 |

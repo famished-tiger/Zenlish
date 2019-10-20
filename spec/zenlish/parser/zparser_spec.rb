@@ -30,6 +30,7 @@ module Zenlish
       # In absence of a POS tagger/lemmatizer, we map input words
       # to variables that themselves return Literal objects.
       # For instance, next line will create a variable called 'alive'
+      literal2var('above', 'above')
       literal2var('alive', 'alive')
       literal2var('all', 'all')
       literal2var('another', 'another')
@@ -42,6 +43,7 @@ module Zenlish
       literal2var('far', 'far')
       literal2var('from', 'from')
       literal2var('if', 'if', '_')
+      literal2var('in', 'in', '_')
       literal2var('inside', 'inside')
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
@@ -50,14 +52,17 @@ module Zenlish
       literal2var('living', 'living')
       literal2var('many', 'many')
       literal2var('more', 'more')
-      literal2var('near to', 'near_to')      
+      literal2var('near to', 'near_to')
       literal2var('not', 'not', '_')
+      literal2var('on', 'on')
       literal2var('one', 'one')
       literal2var('two', 'two')
       literal2var('other', 'other')
       literal2var('people', 'people')
       literal2var('person', 'person')
+      literal2var('place', 'place')
       literal2var('same', 'same')
+      literal2var('side', 'side')
       literal2var('small', 'small')
       literal2var('small', 'smaller')
       literal2var('some', 'some')
@@ -263,7 +268,7 @@ module Zenlish
           expect { subject.parse(literals) }.not_to raise_error
         end
 
-        it 'should parse sample sentences from lesson 1-E' do
+        it 'should parse sample sentences from lesson 1-F' do
           # Sentence 1-20a: "Tony sees some living things."
           literals = [tony, sees, some, living, things, dot]
           expect { subject.parse(literals) }.not_to raise_error
@@ -296,7 +301,7 @@ module Zenlish
           # Sentence 1-23a: Tony is far from Lisa."
           literals = [tony, is, far, from, lisa, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 1-23b: Lisa is far from Tony."
           literals = [lisa, is, far, from, tony, dot]
           expect { subject.parse(literals) }.not_to raise_error
@@ -307,7 +312,53 @@ module Zenlish
 
           # Sentence 1-24: Tony is near to Lisa."
           literals = [tony, is, near_to, lisa, dot]
-          expect { subject.parse(literals) }.not_to raise_error        
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 1-G' do
+          # Sentence 1-25a: Lisa is in this place."
+          literals = [lisa, is, in_, this, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-25b: There are two other things in this place."
+          literals = [there, are, two, other, things, in_, this, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-25c: Lisa is in the same place as these two other things."
+          literals = [lisa, is, in_, the, same, place, as, these, two, other, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-25d: Tony is not in this place."
+          literals = [tony, is, not_, in_, this, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-25e: Tony is in another place."
+          literals = [tony, is, in_, another, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-26a: Lisa is inside this thing."
+          literals = [lisa, is, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-26b: Tony is above this thing."
+          literals = [tony, is, above, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-26c: Tony is above lisa."
+          literals = [tony, is, above, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-27a: Tony is on one side of this thing."
+          literals = [tony, is, on, one, side, of, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-27b: Lisa is on the other side."
+          literals = [lisa, is, on, the, other, side, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 1-27c: Tony is touching one side of this thing."
+          literals = [tony, is_aux, touching, one, side, of, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
         end
       end # context
     end # describe

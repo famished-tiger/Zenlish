@@ -45,11 +45,11 @@ The project is still in inception.
 #### Some project metrics (v. 0.1.05)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 41 |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 20 |
+| Number of lemmas in lexicon           | 45 |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 22 |
 | Number of production rules in grammar | 69 |
-| Number of lessons covered             |  6 |
-| Number of sentences in spec files     | 48 |
+| Number of lessons covered             |  7 |
+| Number of sentences in spec files     | 59 |
 
 
 ### Roadmap

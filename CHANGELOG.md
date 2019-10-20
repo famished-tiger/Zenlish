@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [0.1.06] - 2019-10-20
+__Zenlish__ can parse all sentences in lessons 1-A ... 1-G from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-F (59 sentences in total).
+- File `minimal_lexicon.rb`: new entries in lexicon `above`, `in`, `on`,
+ `place`, `side`.
+- File `README.md` Updated the metrics table.
+
+
 ## [0.1.05] - 2019-10-19
 __Zenlish__ can parse all sentences in lessons 1-A ... 1-F from
  [Learn These Words First](http://learnthesewordsfirst.com/).
@@ -13,7 +24,7 @@ __Zenlish__ can parse all sentences in lessons 1-A ... 1-F from
 
 
 ### Changed
-- File `zparser_spec.rb`: tests include all sentences from lesson 1-F (37 sentences in total).
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-F (48 sentences in total).
 - `ZenlishGrammar`: rule refactoring and enhancements (i.e. conditional_statement, verb_grouping).
 - File `minimal_lexicon.rb`: new entries in lexicon `another`, `be` (as auxiliary verb),
  `far`, `from`, `if`, `kind`, `near to`, `of`, `then`, `touch`.

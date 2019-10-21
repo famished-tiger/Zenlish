@@ -8,7 +8,6 @@ require_relative '../lex/empty_lexicon'
 # Define a grammar for a highly English-like language
 builder = Rley::Syntax::GrammarBuilder.new do
   add_terminals(*$ZenlishLexicon.terminals)
-  # add_terminals('Period')
 
   rule 'language' => 'sentence'
   rule 'sentence' => 'simple_sentence Period'
@@ -20,11 +19,14 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'affirmative_sentence' => 'AdverbThere IrregularVerbBe verb_be_complement'
   rule 'affirmative_sentence' => 'numeral_of IrregularVerbBe verb_be_complement'
   rule 'affirmative_sentence' => 'DemonstrativePronoun IrregularVerbBe verb_be_complement'
+  rule 'affirmative_sentence' => 'conjunctive_prefix IrregularVerbBe verb_be_complement'
   rule 'negative_sentence' => 'noun_phrase negative_verb_phrase'
   rule 'negative_sentence' => 'AdverbThere negative_verb_phrase'
   rule 'negative_sentence' => 'numeral_of negative_verb_phrase'
+  rule 'negative_sentence' => 'conjunctive_prefix negative_verb_phrase'
   rule 'conditional_statement' => 'condition_subordinate Comma LinkingAdverb declarative_simple_sentence'
   rule 'condition_subordinate' => 'SubordinatingConjunction declarative_simple_sentence'
+  rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
   rule 'noun_phrase' => 'simple_noun_phrase'
   rule 'noun_phrase' => 'compound_noun_phrase'
   rule 'simple_noun_phrase' => 'nominal'
@@ -57,6 +59,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'verb_phrase' => 'verb_group'
   rule 'verb_phrase' => 'verb_group verb_complement'
   rule 'verb_phrase' => 'IrregularVerbBe verb_be_complement'
+  rule 'verb_phrase' => 'IrregularVerbSay Colon Quote affirmative_sentence Period Quote'
   rule 'verb_complement' => 'noun_phrase'
   rule 'verb_complement' => 'adverb_phrase'
   rule 'verb_complement' => 'noun_phrase adverb_phrase'
@@ -73,6 +76,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'RegularVerb'
   rule 'lexical_verb' => 'IrregularVerb'
   rule 'lexical_verb' => 'IrregularVerbBe'
+  rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'numeral' => 'Cardinal'
   rule 'comparative_clause' => 'comparative_start noun_phrase'
   rule 'comparative_clause' => 'comparative_start affirmative_sentence'

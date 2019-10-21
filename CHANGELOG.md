@@ -1,11 +1,26 @@
 # CHANGELOG
 
+## [0.1.07] - 2019-10-21
+__Zenlish__ can parse all sentences in lessons 1-A ... 1-H from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+- Class `ConjunctivePronoun` to represent the conjunctive `what`.
+- Class `IrregularVerbSay` to represent the verb `say`.
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-H (70 sentences in total).
+- `ZenlishGrammar`: added support for quoted text.
+- File `minimal_lexicon.rb`: new entries in lexicon `about`, `false`, `hear`,
+ `say`, `to`, `true`, `what`, `word`.
+- File `README.md` Updated the metrics table.
+
 ## [0.1.06] - 2019-10-20
 __Zenlish__ can parse all sentences in lessons 1-A ... 1-G from
  [Learn These Words First](http://learnthesewordsfirst.com/).
 
 ### Changed
-- File `zparser_spec.rb`: tests include all sentences from lesson 1-F (59 sentences in total).
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-G (59 sentences in total).
 - File `minimal_lexicon.rb`: new entries in lexicon `above`, `in`, `on`,
  `place`, `side`.
 - File `README.md` Updated the metrics table.

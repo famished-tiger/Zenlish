@@ -41,15 +41,19 @@ users with a language that is close enough to English.
 
 ### Project status
 
-The project is still in inception.
-#### Some project metrics (v. 0.1.06)
+The project is still in inception. Currently, zenlish is able to parse all
+sentences of the first lesson.
+
+The intent is to deliver gem versions in small increments.
+
+#### Some project metrics (v. 0.1.07)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 45 |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 22 |
-| Number of production rules in grammar | 69 |
-| Number of lessons covered             |  7 |
-| Number of sentences in spec files     | 59 |
+| Number of lemmas in lexicon           | 53 |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 26 |
+| Number of production rules in grammar | 74 |
+| Number of lessons covered             |  8 |
+| Number of sentences in spec files     | 70 |
 
 
 ### Roadmap

@@ -27,10 +27,12 @@ module Zenlish
         aLexicon.add_terminal(WClasses::DefiniteArticle.new.freeze)
         aLexicon.add_terminal(WClasses::DegreeAdverb.new.freeze)
         aLexicon.add_terminal(WClasses::DemonstrativeDeterminer.new.freeze)
+        aLexicon.add_terminal(WClasses::ConjunctivePronoun.new.freeze)
         aLexicon.add_terminal(WClasses::DemonstrativePronoun.new.freeze)        
         aLexicon.add_terminal(WClasses::IndefinitePronoun.new.freeze)
         aLexicon.add_terminal(WClasses::IrregularVerb.new.freeze)
-        aLexicon.add_terminal(WClasses::IrregularVerbBe.new.freeze)   
+        aLexicon.add_terminal(WClasses::IrregularVerbBe.new.freeze)
+        aLexicon.add_terminal(WClasses::IrregularVerbSay.new.freeze)         
         aLexicon.add_terminal(WClasses::LinkingAdverb.new.freeze)        
         aLexicon.add_terminal(WClasses::Preposition.new.freeze)
         aLexicon.add_terminal(WClasses::PrepositionOf.new.freeze)        
@@ -42,8 +44,10 @@ module Zenlish
       end
 
       def add_punctuation(aLexicon)
+        aLexicon.add_terminal(Rley::Syntax::Terminal.new('Colon'))
         aLexicon.add_terminal(Rley::Syntax::Terminal.new('Comma'))
         aLexicon.add_terminal(Rley::Syntax::Terminal.new('Period'))
+        aLexicon.add_terminal(Rley::Syntax::Terminal.new('Quote'))
       end
     end # module
   end # module

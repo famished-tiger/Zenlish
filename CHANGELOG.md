@@ -1,10 +1,25 @@
 # CHANGELOG
 
+## [0.1.08] - 2019-10-22
+__Zenlish__ can parse all sentences in lesson 1 and 2-A from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+ 
+### Added
+- Class `ConjunctivePronoun` to represent the conjunctive `what`.
+- Class `IrregularVerbHave` to represent the lexical verb `have`.
+- File `.appveyor.yml`
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 1-H (77 sentences in total).
+- `ZenlishGrammar`: added support for sentence like: "This thing is like two of the other things.".
+- File `minimal_lexicon.rb`: new entries in lexicon `have`, `like`, `part`.
+- File `README.md` Updated the metrics table, added AppVeyor badge
+
 ## [0.1.07] - 2019-10-21
 __Zenlish__ can parse all sentences in lessons 1-A ... 1-H from
  [Learn These Words First](http://learnthesewordsfirst.com/).
 
- ### Added
+### Added
 - Class `ConjunctivePronoun` to represent the conjunctive `what`.
 - Class `IrregularVerbSay` to represent the verb `say`.
 

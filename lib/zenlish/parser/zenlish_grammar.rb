@@ -48,6 +48,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
 
   # <numeral> of this/these...
   rule 'numeral_of' => 'numeral PrepositionOf DemonstrativeDeterminer'
+  rule 'numeral_of' => 'numeral PrepositionOf DefiniteArticle'
   rule 'subset_of' => 'IndefiniteQuantifier PrepositionOf DemonstrativeDeterminer'
   rule 'nominal' => 'CommonNoun'
   rule 'nominal' => 'Adjective CommonNoun'
@@ -76,6 +77,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'RegularVerb'
   rule 'lexical_verb' => 'IrregularVerb'
   rule 'lexical_verb' => 'IrregularVerbBe'
+  rule 'lexical_verb' => 'IrregularVerbHave'  
   rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'numeral' => 'Cardinal'
   rule 'comparative_clause' => 'comparative_start noun_phrase'

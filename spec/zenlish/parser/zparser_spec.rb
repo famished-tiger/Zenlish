@@ -44,6 +44,8 @@ module Zenlish
       literal2var('false', 'false', '_')
       literal2var('far', 'far')
       literal2var('from', 'from')
+      literal2var('have', 'has')
+      literal2var('have', 'have')
       literal2var('hear', 'hears')
       literal2var('if', 'if', '_')
       literal2var('in', 'in', '_')
@@ -51,6 +53,7 @@ module Zenlish
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
       literal2var('kind', 'kind')
+      literal2var('like', 'like')
       literal2var('Lisa', 'Lisa')
       literal2var('living', 'living')
       literal2var('many', 'many')
@@ -59,8 +62,8 @@ module Zenlish
       literal2var('not', 'not', '_')
       literal2var('on', 'on')
       literal2var('one', 'one')
-      literal2var('two', 'two')
       literal2var('other', 'other')
+      literal2var('part', 'part')
       literal2var('people', 'people')
       literal2var('person', 'person')
       literal2var('place', 'place')
@@ -88,6 +91,7 @@ module Zenlish
       literal2var('Tony', 'Tony')
       literal2var('touch', 'touching')
       literal2var('true', 'true', '_')
+      literal2var('two', 'two')
       literal2var('very', 'very')
       literal2var('what', 'what')
       literal2var('word', 'words')
@@ -418,6 +422,42 @@ module Zenlish
           literals = [what, lisa, says, is, true_, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 2-A' do
+          # Sentence 2-01a: "This thing is like two of the other things."
+          literals = [this, thing, is, like, two, of, the, other, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-01b: "One of these things is not like the other things."
+          literals = [one, of, these, things, is, not_, like, the, other, things, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-02a: "Lisa has something."
+          literals = [lisa, has, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-02b: "Tony has another thing."
+          literals = [tony, has, another, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-02c: "Lisa does not have the same kind of thing as Tony has."
+          literals = [lisa, does, not_, have, the, same, kind, of, thing, as, tony, has, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-03a: "Lisa is touching part of this thing."
+          literals = [lisa, is_aux, touching, part, of, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 2-03b: "Tony is touching the other part."
+          literals = [tony, is_aux, touching, the, other, part, dot]
+          expect { subject.parse(literals) }.not_to raise_error          
+        end
+=begin
+TODO
+Lesson 2.A
+	Xtra:
+		What Tony has is like what Lisa has.
+=end        
       end # context
     end # describe
   end # module

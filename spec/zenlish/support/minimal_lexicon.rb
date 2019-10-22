@@ -21,6 +21,7 @@ preposition_than = $ZenlishLexicon.name2terminal['PrepositionThan']
 regular_verb = $ZenlishLexicon.name2terminal['RegularVerb']
 irregular_verb = $ZenlishLexicon.name2terminal['IrregularVerb']
 irregular_verb_be = $ZenlishLexicon.name2terminal['IrregularVerbBe']
+irregular_verb_have = $ZenlishLexicon.name2terminal['IrregularVerbHave']
 irregular_verb_say = $ZenlishLexicon.name2terminal['IrregularVerbSay']
 indefinite_pronoun = $ZenlishLexicon.name2terminal['IndefinitePronoun']
 conjunctive_pronoun = $ZenlishLexicon.name2terminal['ConjunctivePronoun']
@@ -58,11 +59,13 @@ add_entry('do', auxiliary_do)
 add_entry('false', adjective)
 add_entry('far', adverb)
 add_entry('from', preposition)
-add_entry('hear', irregular_verb)
+add_entry('have', irregular_verb_have) 
+add_entry('hear', irregular_verb) 
 add_entry('if', subordinating_conjunction)
 add_entry('in', preposition)
 add_entry('inside', preposition)
 add_entry('kind', common_noun)
+add_entry('like', preposition)
 add_entry('Lisa', proper_noun)
 add_entry('living', adjective)
 add_entry('many', indefinite_quantifier)
@@ -73,6 +76,7 @@ add_entry('of', preposition_of)
 add_entry('on', preposition)
 add_entry('one', cardinal)
 add_entry('other', adjective)
+add_entry('part', common_noun)
 add_entry('people', common_noun)
 add_entry('person', common_noun)
 add_entry('place', common_noun)

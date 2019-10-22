@@ -1,5 +1,6 @@
 # Zenlish
 [![Linux build Status](https://travis-ci.org/famished-tiger/Zenlish.svg?branch=master)](https://travis-ci.org/famished-tiger/Zenlish)
+[![Build status](https://ci.appveyor.com/api/projects/status/bef59whiacuv51yn?svg=true)](https://ci.appveyor.com/project/famished-tiger/zenlish)
 [![Gem Version](https://badge.fury.io/rb/zenlish.svg)](https://badge.fury.io/rb/zenlish)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/famished-tiger/Zenlish/blob/master/LICENSE.txt)
 ### What is __Zenlish__ ?  
@@ -46,14 +47,14 @@ sentences of the first lesson.
 
 The intent is to deliver gem versions in small increments.
 
-#### Some project metrics (v. 0.1.07)
+#### Some project metrics (v. 0.1.08)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 53 |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 26 |
-| Number of production rules in grammar | 74 |
-| Number of lessons covered             |  8 |
-| Number of sentences in spec files     | 70 |
+| Number of lemmas in lexicon           | 56 |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 28 |
+| Number of production rules in grammar | 76 |
+| Number of lessons covered             |  9 |
+| Number of sentences in spec files     | 77 |
 
 
 ### Roadmap

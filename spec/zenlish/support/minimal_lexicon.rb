@@ -21,6 +21,7 @@ preposition_than = $ZenlishLexicon.name2terminal['PrepositionThan']
 regular_verb = $ZenlishLexicon.name2terminal['RegularVerb']
 irregular_verb = $ZenlishLexicon.name2terminal['IrregularVerb']
 irregular_verb_be = $ZenlishLexicon.name2terminal['IrregularVerbBe']
+irregular_verb_do = $ZenlishLexicon.name2terminal['IrregularVerbDo']
 irregular_verb_have = $ZenlishLexicon.name2terminal['IrregularVerbHave']
 irregular_verb_say = $ZenlishLexicon.name2terminal['IrregularVerbSay']
 indefinite_pronoun = $ZenlishLexicon.name2terminal['IndefinitePronoun']
@@ -54,12 +55,15 @@ add_entry('another', adjective)
 add_entry('as', comparative_particle)
 add_entry('be', auxiliary_be)
 add_entry('be', irregular_verb_be)
+add_entry('because', subordinating_conjunction)
 add_entry('big', adjective)
 add_entry('do', auxiliary_do)
+add_entry('do', irregular_verb_do)
 add_entry('false', adjective)
 add_entry('far', adverb)
 add_entry('from', preposition)
-add_entry('have', irregular_verb_have) 
+add_entry('have', irregular_verb_have)
+add_entry('happen', regular_verb)
 add_entry('hear', irregular_verb) 
 add_entry('if', subordinating_conjunction)
 add_entry('in', preposition)
@@ -102,6 +106,7 @@ add_entry('true', adjective)
 add_entry('two', cardinal)
 add_entry('very', degree_adverb)
 add_entry('what',conjunctive_pronoun)
+add_entry('with',preposition)
 add_entry('word', common_noun)
 
 add_entry(':', colon)

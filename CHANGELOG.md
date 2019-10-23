@@ -1,6 +1,20 @@
 # CHANGELOG
 
-## [0.1.08] - 2019-10-22
+## [0.1.10] - 2019-10-23
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-B from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+ 
+### Added
+- Class `ConjunctivePronoun` to represent the conjunctive `what`.
+- Class `IrregularVerbDo` to represent the lexical verb `do`.
+
+### Changed
+- File `zparser_spec.rb`: tests include all sentences from lesson 2-B (87 sentences in total).
+- `ZenlishGrammar`: added support for complex sentence with one dependent clause like: "Something happens to Lisa because Tony does this.".
+- File `minimal_lexicon.rb`: new entries in lexicon `because`, `do`, `happen`, with.
+- File `README.md` Updated the metrics table, added AppVeyor badge
+
+## [0.1.09] - 2019-10-22
 __Zenlish__ can parse all sentences in lesson 1 and 2-A from
  [Learn These Words First](http://learnthesewordsfirst.com/).
  
@@ -10,7 +24,7 @@ __Zenlish__ can parse all sentences in lesson 1 and 2-A from
 - File `.appveyor.yml`
 
 ### Changed
-- File `zparser_spec.rb`: tests include all sentences from lesson 1-H (77 sentences in total).
+- File `zparser_spec.rb`: tests include all sentences from lesson 2-A (77 sentences in total).
 - `ZenlishGrammar`: added support for sentence like: "This thing is like two of the other things.".
 - File `minimal_lexicon.rb`: new entries in lexicon `have`, `like`, `part`.
 - File `README.md` Updated the metrics table, added AppVeyor badge

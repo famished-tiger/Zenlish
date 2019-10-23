@@ -47,14 +47,14 @@ sentences of the first lesson.
 
 The intent is to deliver gem versions in small increments.
 
-#### Some project metrics (v. 0.1.08)
+#### Some project metrics (v. 0.1.10)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 56 |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 28 |
-| Number of production rules in grammar | 76 |
-| Number of lessons covered             |  9 |
-| Number of sentences in spec files     | 77 |
+| Number of lemmas in lexicon           | 61 |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 30 |
+| Number of production rules in grammar | 85 |
+| Number of lessons covered             | 10 |
+| Number of sentences in spec files     | 87 |
 
 
 ### Roadmap

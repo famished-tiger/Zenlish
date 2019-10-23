@@ -32,6 +32,7 @@ module Zenlish
         aLexicon.add_terminal(WClasses::IndefinitePronoun.new.freeze)
         aLexicon.add_terminal(WClasses::IrregularVerb.new.freeze)
         aLexicon.add_terminal(WClasses::IrregularVerbBe.new.freeze)
+        aLexicon.add_terminal(WClasses::IrregularVerbDo.new.freeze)        
         aLexicon.add_terminal(WClasses::IrregularVerbHave.new.freeze)        
         aLexicon.add_terminal(WClasses::IrregularVerbSay.new.freeze)         
         aLexicon.add_terminal(WClasses::LinkingAdverb.new.freeze)        

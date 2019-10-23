@@ -36,14 +36,17 @@ module Zenlish
       literal2var('all', 'all')
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      literal2var('because', 'because')
       literal2var('big', 'big')
       literal2var('big', 'bigger')
       literal2var('as', 'as')
       literal2var('of', 'of')
-      literal2var('do', 'does')
+      def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
+      def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       literal2var('false', 'false', '_')
       literal2var('far', 'far')
       literal2var('from', 'from')
+      literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
       literal2var('hear', 'hears')
@@ -94,6 +97,7 @@ module Zenlish
       literal2var('two', 'two')
       literal2var('very', 'very')
       literal2var('what', 'what')
+      literal2var('with', 'with')
       literal2var('word', 'words')
 
       def colon ;  Lex::Literal.new(':', get_lexeme(':'), 0) ; end
@@ -194,7 +198,7 @@ module Zenlish
           expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence: "Lisa does not see people inside the other thing."
-          literals = [lisa, does, not_, see, people, inside, the, other, thing, dot]
+          literals = [lisa, does_aux, not_, see, people, inside, the, other, thing, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
 
@@ -441,23 +445,63 @@ module Zenlish
           expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence 2-02c: "Lisa does not have the same kind of thing as Tony has."
-          literals = [lisa, does, not_, have, the, same, kind, of, thing, as, tony, has, dot]
+          literals = [lisa, does_aux, not_, have, the, same, kind, of, thing, as, tony, has, dot]
           expect { subject.parse(literals) }.not_to raise_error
 
           # Sentence 2-03a: "Lisa is touching part of this thing."
           literals = [lisa, is_aux, touching, part, of, this, thing, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 2-03b: "Tony is touching the other part."
           literals = [tony, is_aux, touching, the, other, part, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-04a: "Lisa does something."
+          literals = [lisa, does, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-04b: "Lisa does something with this thing."
+          literals = [lisa, does, something, with, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-04c: "Lisa does something to Tony."
+          literals = [lisa, does, something, to, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-04d: "Lisa does something to Tony with this thing."
+          literals = [lisa, does, something, to, tony, with, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-05a: "Something happens."
+          literals = [something, happens, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-05b: "Something happens to Lisa."
+          literals = [something, happens, to, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-06a: "Tony does something."
+          literals = [tony, does, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-06b: "Something happens to Lisa because of this."
+          literals = [something, happens, to, lisa, because, of, this_as_pronoun, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+          
+          # Sentence 2-06c: "Something happens to Lisa because Tony does this."
+          literals = [something, happens, to, lisa, because, tony, does, this_as_pronoun, dot]
           expect { subject.parse(literals) }.not_to raise_error          
+          
+          # Sentence 2-06: "Something happens to this living thing."
+          literals = [something, happens, to, this, living, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
         end
 =begin
 TODO
 Lesson 2.A
 	Xtra:
 		What Tony has is like what Lisa has.
-=end        
+=end
       end # context
     end # describe
   end # module

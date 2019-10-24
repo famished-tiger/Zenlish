@@ -36,11 +36,13 @@ module Zenlish
       literal2var('all', 'all')
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      literal2var('as', 'as')
       literal2var('because', 'because')
       literal2var('big', 'big')
       literal2var('big', 'bigger')
-      literal2var('as', 'as')
+      literal2var('can', 'can')
       literal2var('of', 'of')
+      def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       literal2var('false', 'false', '_')
@@ -56,6 +58,7 @@ module Zenlish
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
       literal2var('kind', 'kind')
+      literal2var('know', 'knows')
       literal2var('like', 'like')
       literal2var('Lisa', 'Lisa')
       literal2var('living', 'living')
@@ -85,6 +88,7 @@ module Zenlish
       literal2var('there', 'there')
       literal2var('thing', 'thing')
       literal2var('thing', 'things')
+      literal2var('think', 'thinks')
       def these ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
       def these_as_pronoun ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativePronoun), 0) ; end
       def this ; Lex::Literal.new('this', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
@@ -96,6 +100,7 @@ module Zenlish
       literal2var('true', 'true', '_')
       literal2var('two', 'two')
       literal2var('very', 'very')
+      literal2var('want', 'wants')
       literal2var('what', 'what')
       literal2var('with', 'with')
       literal2var('word', 'words')
@@ -455,7 +460,9 @@ module Zenlish
           # Sentence 2-03b: "Tony is touching the other part."
           literals = [tony, is_aux, touching, the, other, part, dot]
           expect { subject.parse(literals) }.not_to raise_error
+        end
 
+        it 'should parse sample sentences from lesson 2-B' do
           # Sentence 2-04a: "Lisa does something."
           literals = [lisa, does, something, dot]
           expect { subject.parse(literals) }.not_to raise_error
@@ -487,13 +494,60 @@ module Zenlish
           # Sentence 2-06b: "Something happens to Lisa because of this."
           literals = [something, happens, to, lisa, because, of, this_as_pronoun, dot]
           expect { subject.parse(literals) }.not_to raise_error
-          
+
           # Sentence 2-06c: "Something happens to Lisa because Tony does this."
           literals = [something, happens, to, lisa, because, tony, does, this_as_pronoun, dot]
-          expect { subject.parse(literals) }.not_to raise_error          
-          
+          expect { subject.parse(literals) }.not_to raise_error
+
           # Sentence 2-06: "Something happens to this living thing."
           literals = [something, happens, to, this, living, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 2-C' do
+          # Sentence 2-07a: "Lisa thinks Tony is inside this thing."
+          literals = [lisa, thinks, tony, is, inside, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-07b: "Lisa thinks something about Tony."
+          literals = [lisa, thinks, something, about, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-08a: "Tony knows Lisa is inside this thing, because Tony sees Lisa inside."
+          literals = [tony, knows, lisa, is, inside, this, thing, comma,
+            because, tony, sees, lisa, inside, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-08b: "Tony knows something about Lisa."
+          literals = [tony, knows, something, about, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-09a: "Tony wants this thing."
+          literals = [tony, wants, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-09b: "Tony wants to have this thing."
+          literals = [tony, wants, to, have, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-10a: "Tony wants to do something."
+          literals = [tony, wants, to, do_, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-10b: "Lisa wants to do the same thing."
+          literals = [lisa, wants, to, do_, the, same, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-10c: "Tony can do this."
+          literals = [tony, can, do_, this_as_pronoun, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-10d: "This is not something Lisa can do."
+          literals = [this_as_pronoun, is, not_, something, lisa, can, do_, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-10e: "Lisa cannot do this."
+          literals = [lisa, can, not_, do_, this_as_pronoun, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
 =begin
@@ -501,6 +555,13 @@ TODO
 Lesson 2.A
 	Xtra:
 		What Tony has is like what Lisa has.
+
+Lesson 2.C
+
+	Xtra:
+		Tony knows Lisa has something, because Tony sees what Lisa has.
+		Tony thinks about what Lisa has, because Tony want to have the same kind of thing.
+
 =end
       end # context
     end # describe

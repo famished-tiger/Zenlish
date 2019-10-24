@@ -1,9 +1,23 @@
 # CHANGELOG
 
+## [0.1.11] - 2019-10-24
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-C from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `ModalVerbCan` to represent the modal verb `can`.
+ - Class `RegularVerbWant` to represent the lexical verb `want`.
+
+ ### Changed
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-C (98 sentences in total).
+ - `ZenlishGrammar`: added support for `want` + `to` + infinitive construct, `can` modal verb".
+ - File `minimal_lexicon.rb`: new entries in lexicon `can`, `know`, `think`, `want`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.10] - 2019-10-23
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-B from
  [Learn These Words First](http://learnthesewordsfirst.com/).
- 
+
 ### Added
 - Class `ConjunctivePronoun` to represent the conjunctive `what`.
 - Class `IrregularVerbDo` to represent the lexical verb `do`.
@@ -11,13 +25,13 @@ __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-B from
 ### Changed
 - File `zparser_spec.rb`: tests include all sentences from lesson 2-B (87 sentences in total).
 - `ZenlishGrammar`: added support for complex sentence with one dependent clause like: "Something happens to Lisa because Tony does this.".
-- File `minimal_lexicon.rb`: new entries in lexicon `because`, `do`, `happen`, with.
-- File `README.md` Updated the metrics table, added AppVeyor badge
+- File `minimal_lexicon.rb`: new entries in lexicon `because`, `do`, `happen`,`with`.
+- File `README.md` Updated the metrics table
 
 ## [0.1.09] - 2019-10-22
 __Zenlish__ can parse all sentences in lesson 1 and 2-A from
  [Learn These Words First](http://learnthesewordsfirst.com/).
- 
+
 ### Added
 - Class `ConjunctivePronoun` to represent the conjunctive `what`.
 - Class `IrregularVerbHave` to represent the lexical verb `have`.

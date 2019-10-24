@@ -19,6 +19,7 @@ preposition = $ZenlishLexicon.name2terminal['Preposition']
 preposition_of = $ZenlishLexicon.name2terminal['PrepositionOf']
 preposition_than = $ZenlishLexicon.name2terminal['PrepositionThan']
 regular_verb = $ZenlishLexicon.name2terminal['RegularVerb']
+regular_verb_want = $ZenlishLexicon.name2terminal['RegularVerbWant']
 irregular_verb = $ZenlishLexicon.name2terminal['IrregularVerb']
 irregular_verb_be = $ZenlishLexicon.name2terminal['IrregularVerbBe']
 irregular_verb_do = $ZenlishLexicon.name2terminal['IrregularVerbDo']
@@ -32,6 +33,7 @@ definite_article = $ZenlishLexicon.name2terminal['DefiniteArticle']
 cardinal = $ZenlishLexicon.name2terminal['Cardinal']
 comparative_particle = $ZenlishLexicon.name2terminal['ComparativeParticle']
 indefinite_quantifier = $ZenlishLexicon.name2terminal['IndefiniteQuantifier']
+modal_verb_can = $ZenlishLexicon.name2terminal['ModalVerbCan']
 subordinating_conjunction = $ZenlishLexicon.name2terminal['SubordinatingConjunction']
 
 colon = $ZenlishLexicon.name2terminal['Colon']
@@ -57,6 +59,7 @@ add_entry('be', auxiliary_be)
 add_entry('be', irregular_verb_be)
 add_entry('because', subordinating_conjunction)
 add_entry('big', adjective)
+add_entry('can', modal_verb_can)
 add_entry('do', auxiliary_do)
 add_entry('do', irregular_verb_do)
 add_entry('false', adjective)
@@ -64,11 +67,12 @@ add_entry('far', adverb)
 add_entry('from', preposition)
 add_entry('have', irregular_verb_have)
 add_entry('happen', regular_verb)
-add_entry('hear', irregular_verb) 
+add_entry('hear', irregular_verb)
 add_entry('if', subordinating_conjunction)
 add_entry('in', preposition)
 add_entry('inside', preposition)
 add_entry('kind', common_noun)
+add_entry('know', irregular_verb)
 add_entry('like', preposition)
 add_entry('Lisa', proper_noun)
 add_entry('living', adjective)
@@ -96,6 +100,7 @@ add_entry('the', definite_article)
 add_entry('then', linking_adverb)
 add_entry('there', adverb_there)
 add_entry('thing', common_noun)
+add_entry('think', irregular_verb)
 add_entry('this', demonstrative_determiner)
 add_entry('this', demonstrative_pronoun)
 add_entry('this one', demonstrative_pronoun)
@@ -105,6 +110,7 @@ add_entry('touch', regular_verb)
 add_entry('true', adjective)
 add_entry('two', cardinal)
 add_entry('very', degree_adverb)
+add_entry('want', regular_verb_want)
 add_entry('what',conjunctive_pronoun)
 add_entry('with',preposition)
 add_entry('word', common_noun)

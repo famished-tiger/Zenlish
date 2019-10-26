@@ -47,7 +47,7 @@ sentences of the first lesson.
 
 The intent is to deliver gem versions in small increments.
 
-#### Some project metrics (v. 0.1.11)
+#### Some project metrics (v. 0.1.12)
 |Metric|Value|  
 |:-:|:-:|
 | Number of lemmas in lexicon           | 73  |
@@ -62,7 +62,7 @@ The intent is to deliver gem versions in small increments.
 Here a tentative roadmap:
 
 #### A) Ability to parse sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
-*STARTED*. 11% complete  
+*STARTED*. 12,5% complete  
 This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM

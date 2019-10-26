@@ -37,6 +37,7 @@ module Zenlish
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
+      literal2var('bad', 'bad')
       literal2var('because', 'because')
       literal2var('big', 'big')
       literal2var('big', 'bigger')
@@ -47,7 +48,11 @@ module Zenlish
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       literal2var('false', 'false', '_')
       literal2var('far', 'far')
+      literal2var('feel', 'feel')
+      literal2var('feel', 'feels')
+      literal2var('for', 'for', '_')
       literal2var('from', 'from')
+      literal2var('good', 'good')
       literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
@@ -550,6 +555,36 @@ module Zenlish
           literals = [lisa, can, not_, do_, this_as_pronoun, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 2-D' do
+          # Sentence 2-11a: "This person does something bad."
+          literals = [this, person, does, something, bad, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-11b: "This person does something bad for Tony."
+          literals = [this, person, does, something, bad, for_, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-12a: "Tony does something good."
+          literals = [tony, does, something, good, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-12b: "Tony does something good for Lisa."
+          literals = [tony, does, something, good, for_, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-13a: "Tony feels something."
+          literals = [tony, feels, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-13b: "This does not feel good for Tony."
+          literals = [this_as_pronoun, does_aux, not_, feel, good, for_, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-13b: "This feels bad for Tony."
+          literals = [this_as_pronoun, feels, bad, for_, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
 =begin
 TODO
 Lesson 2.A
@@ -562,6 +597,11 @@ Lesson 2.C
 		Tony knows Lisa has something, because Tony sees what Lisa has.
 		Tony thinks about what Lisa has, because Tony want to have the same kind of thing.
 
+Lesson 2.D
+
+	extra
+		Lisa thinks about something bad happening to this living thing.
+		Thinking about this feels bad for Lisa
 =end
       end # context
     end # describe

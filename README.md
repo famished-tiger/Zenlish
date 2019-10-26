@@ -50,11 +50,11 @@ The intent is to deliver gem versions in small increments.
 #### Some project metrics (v. 0.1.11)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 69 |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 34 |
-| Number of production rules in grammar | 95 |
-| Number of lessons covered             | 11 |
-| Number of sentences in spec files     | 98 |
+| Number of lemmas in lexicon           | 73  |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 36 |
+| Number of production rules in grammar | 98  |
+| Number of lessons covered             | 12  |
+| Number of sentences in spec files     | 105 |
 
 
 ### Roadmap

@@ -28,11 +28,12 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'affirmative_sentence' => 'AdverbThere IrregularVerbBe verb_be_complement'
   rule 'affirmative_sentence' => 'numeral_of IrregularVerbBe verb_be_complement'
   rule 'affirmative_sentence' => 'DemonstrativePronoun IrregularVerbBe verb_be_complement'
+  rule 'affirmative_sentence' => 'DemonstrativePronoun IrregularVerb verb_complement'
   rule 'affirmative_sentence' => 'conjunctive_prefix IrregularVerbBe verb_be_complement'
   rule 'negative_sentence' => 'noun_phrase negative_verb_phrase'
   rule 'negative_sentence' => 'AdverbThere negative_verb_phrase'
   rule 'negative_sentence' => 'numeral_of negative_verb_phrase'
-  rule 'negative_sentence' => 'DemonstrativePronoun IrregularVerbBe AdverbNot verb_be_complement'
+  rule 'negative_sentence' => 'DemonstrativePronoun negative_verb_phrase'
   rule 'negative_sentence' => 'conjunctive_prefix negative_verb_phrase'
   rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
   rule 'noun_phrase' => 'simple_noun_phrase'
@@ -41,7 +42,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'simple_noun_phrase' => 'determiner nominal'
   rule 'simple_noun_phrase' => 'numeral nominal'
   rule 'simple_noun_phrase' => 'determiner numeral nominal'
-  rule 'simple_noun_phrase' => 'simple_noun_phrase noun_phrase verb_phrase'
+  rule 'simple_noun_phrase' => 'simple_noun_phrase simple_noun_phrase verb_phrase'
 
   # Case: (all|many|some) one of (this|these)
   rule 'simple_noun_phrase' => 'subset_of noun_phrase'
@@ -51,6 +52,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'simple_noun_phrase' => 'ProperNoun'
   # rule 'simple_noun_phrase' => 'DemonstrativePronoun'
   rule 'simple_noun_phrase' => 'IndefinitePronoun'
+  rule 'simple_noun_phrase' => 'IndefinitePronoun Adjective'
+
 
   rule 'compound_noun_phrase' => 'simple_noun_phrase propositional_phrase'
   rule 'compound_noun_phrase' => 'simple_noun_phrase comparative_clause'
@@ -76,6 +79,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'verb_phrase' => 'IrregularVerbBe verb_be_complement'
   rule 'verb_phrase' => 'IrregularVerbSay Colon Quote affirmative_sentence Period Quote'
   rule 'verb_complement' => 'noun_phrase'
+  rule 'verb_complement' => 'Adjective propositional_phrase'
   rule 'verb_complement' => 'noun_phrase IrregularVerbBe verb_be_complement'
   rule 'verb_complement' => 'adverb_phrase'
   rule 'verb_complement' => 'noun_phrase adverb_phrase'

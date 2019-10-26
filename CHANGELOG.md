@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.1.12] - 2019-10-26
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-D from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
 ## [0.1.11] - 2019-10-24
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-C from
  [Learn These Words First](http://learnthesewordsfirst.com/).
@@ -9,9 +13,9 @@ __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-C from
  - Class `RegularVerbWant` to represent the lexical verb `want`.
 
  ### Changed
- - File `zparser_spec.rb`: tests include all sentences from lesson 2-C (98 sentences in total).
- - `ZenlishGrammar`: added support for `want` + `to` + infinitive construct, `can` modal verb".
- - File `minimal_lexicon.rb`: new entries in lexicon `can`, `know`, `think`, `want`.
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-D (105 sentences in total).
+ - `ZenlishGrammar`: generalized one `negative_sentence` production rule.
+ - File `minimal_lexicon.rb`: new entries in lexicon `bad`, `feel`, `for`, `good`.
  - File `README.md` Updated the metrics table
 
 ## [0.1.10] - 2019-10-23

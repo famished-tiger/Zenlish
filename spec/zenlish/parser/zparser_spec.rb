@@ -30,6 +30,7 @@ module Zenlish
       # In absence of a POS tagger/lemmatizer, we map input words
       # to variables that themselves return Literal objects.
       # For instance, next line will create a variable called 'alive'
+      literal2var('a', 'a', '_as_art')
       literal2var('about', 'about')
       literal2var('above', 'above')
       literal2var('alive', 'alive')
@@ -37,8 +38,11 @@ module Zenlish
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
+      literal2var('at', 'at')
       literal2var('bad', 'bad')
       literal2var('because', 'because')
+      def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
+      def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
       literal2var('big', 'big')
       literal2var('big', 'bigger')
       literal2var('can', 'can')
@@ -67,8 +71,12 @@ module Zenlish
       literal2var('like', 'like')
       literal2var('Lisa', 'Lisa')
       literal2var('living', 'living')
+      literal2var('long', 'long')
       literal2var('many', 'many')
       literal2var('more', 'more')
+      literal2var('move', 'move')
+      literal2var('move', 'moved')
+      literal2var('move', 'moves')
       literal2var('near to', 'near_to')
       literal2var('not', 'not', '_')
       literal2var('on', 'on')
@@ -79,6 +87,7 @@ module Zenlish
       literal2var('person', 'person')
       literal2var('place', 'place')
       literal2var('same', 'same')
+      literal2var('short', 'short')
       literal2var('side', 'side')
       literal2var('small', 'small')
       literal2var('small', 'smaller')
@@ -99,6 +108,7 @@ module Zenlish
       def this ; Lex::Literal.new('this', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
       def this_as_pronoun ; Lex::Literal.new('this', get_lexeme('this', WClasses::DemonstrativePronoun), 0) ; end
       literal2var('this one', 'this_one')
+      literal2var('time', 'time')
       literal2var('to', 'to')
       literal2var('Tony', 'Tony')
       literal2var('touch', 'touching')
@@ -106,6 +116,7 @@ module Zenlish
       literal2var('two', 'two')
       literal2var('very', 'very')
       literal2var('want', 'wants')
+      def was ; Lex::Literal.new('was', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('what', 'what')
       literal2var('with', 'with')
       literal2var('word', 'words')
@@ -585,8 +596,65 @@ module Zenlish
           literals = [this_as_pronoun, feels, bad, for_, tony, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 2-E' do
+          # Sentence 2-14a: "Lisa says something at this time."
+          literals = [lisa, says, something, at, this, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-14b: "Tony is not in this place at this time."
+          literals = [tony, is, not_, in_, this, place, at, this, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-15a: "At one time, Tony does something to this thing."
+          literals = [at, one, time, comma, tony, does, something, to, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-15b: "At another time, Lisa says something."
+          literals = [at, another, time, comma, lisa, says, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-15c: "Tony does something to this thing before Lisa says something."
+          literals = [tony, does, something, to, this, thing, before, lisa, says, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-16a: "Lisa does something for a long time."
+          literals = [lisa, does, something, for_, a_as_art, long, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-17a: "Tony does something for a short time."
+          literals = [tony, does, something, for_, a_as_art, short, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-17a: "Tony does not do this for a long time."
+          literals = [tony, does_aux, not_, do_, this_as_pronoun, for_, a_as_art, long, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-18a: "Lisa sees something move."
+          literals = [lisa, sees, something, move, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-18a: "Lisa moves near to this thing."
+          literals = [lisa, moves, near_to, this, thing, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-E-Xa: "A short time before, Tony was far from Lisa."
+          # Case of a time adverbial adjunct that is put in front position.
+          literals = [a_as_art, short, time, before_adverb, comma, tony, was, far, from, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-E-Xa: "At this time, Tony is near to Lisa"
+          literals = [at, this, time, comma, tony, is, near_to, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-E-Xa: "Tony is near to Lisa because Tony moved"
+          # Case of a time adverbial adjunct that is put in front position.
+          literals = [tony, is, near_to, lisa, because, tony, moved, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
 =begin
 TODO
+
 Lesson 2.A
 	Xtra:
 		What Tony has is like what Lisa has.

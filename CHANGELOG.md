@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.1.13] - 2019-10-28
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-E from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `IndefiniteArticle` to represent the article `a (an)`.
+
+ ### Changed
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-E (118 sentences in total).
+ - `ZenlishGrammar`: added production rules for adverbial and prepositional phrases put in front position.
+ - File `minimal_lexicon.rb`: new entries in lexicon `a`, `at`, `before`, `long`,
+`short`, `move`
+ - File `README.md` Updated the metrics table
+
 ## [0.1.12] - 2019-10-26
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-D from
  [Learn These Words First](http://learnthesewordsfirst.com/).

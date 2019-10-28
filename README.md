@@ -47,14 +47,14 @@ sentences of the first lesson.
 
 The intent is to deliver gem versions in small increments.
 
-#### Some project metrics (v. 0.1.12)
+#### Some project metrics (v. 0.1.13)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in lexicon           | 73  |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 36 |
-| Number of production rules in grammar | 98  |
-| Number of lessons covered             | 12  |
-| Number of sentences in spec files     | 105 |
+| Number of lemmas in lexicon           | 77  |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 39 |
+| Number of production rules in grammar | 103 |
+| Number of lessons covered             | 13  |
+| Number of sentences in spec files     | 118 |
 
 
 ### Roadmap
@@ -62,7 +62,7 @@ The intent is to deliver gem versions in small increments.
 Here a tentative roadmap:
 
 #### A) Ability to parse sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
-*STARTED*. 12,5% complete  
+*STARTED*. 14% complete  
 This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM

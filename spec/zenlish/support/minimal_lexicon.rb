@@ -30,6 +30,7 @@ conjunctive_pronoun = $ZenlishLexicon.name2terminal['ConjunctivePronoun']
 demonstrative_pronoun = $ZenlishLexicon.name2terminal['DemonstrativePronoun']
 demonstrative_determiner = $ZenlishLexicon.name2terminal['DemonstrativeDeterminer']
 definite_article = $ZenlishLexicon.name2terminal['DefiniteArticle']
+indefinite_article = $ZenlishLexicon.name2terminal['IndefiniteArticle']
 cardinal = $ZenlishLexicon.name2terminal['Cardinal']
 comparative_particle = $ZenlishLexicon.name2terminal['ComparativeParticle']
 indefinite_quantifier = $ZenlishLexicon.name2terminal['IndefiniteQuantifier']
@@ -49,16 +50,20 @@ def add_entry(aLemma, aWordClass)
 end
 
 # Our minimalistic lexicon
+add_entry('a', indefinite_article)
 add_entry('about', preposition)
 add_entry('above', preposition)
 add_entry('alive', adjective)
 add_entry('all', indefinite_quantifier)
 add_entry('another', adjective)
 add_entry('as', comparative_particle)
+add_entry('at', preposition)
 add_entry('bad', adjective)
 add_entry('be', auxiliary_be)
 add_entry('be', irregular_verb_be)
 add_entry('because', subordinating_conjunction)
+add_entry('before', adverb)
+add_entry('before', subordinating_conjunction)
 add_entry('big', adjective)
 add_entry('can', modal_verb_can)
 add_entry('do', auxiliary_do)
@@ -80,8 +85,10 @@ add_entry('know', irregular_verb)
 add_entry('like', preposition)
 add_entry('Lisa', proper_noun)
 add_entry('living', adjective)
+add_entry('long', adjective)
 add_entry('many', indefinite_quantifier)
 add_entry('more', adjective)
+add_entry('move', regular_verb)
 add_entry('near to', preposition)
 add_entry('not', adverb_not)
 add_entry('of', preposition_of)
@@ -95,6 +102,7 @@ add_entry('place', common_noun)
 add_entry('same', adjective)
 add_entry('say', irregular_verb_say)
 add_entry('see', irregular_verb)
+add_entry('short', adjective)
 add_entry('side', common_noun)
 add_entry('small', adjective)
 add_entry('some', indefinite_quantifier)
@@ -108,6 +116,7 @@ add_entry('think', irregular_verb)
 add_entry('this', demonstrative_determiner)
 add_entry('this', demonstrative_pronoun)
 add_entry('this one', demonstrative_pronoun)
+add_entry('time', common_noun)
 add_entry('to', preposition)
 add_entry('Tony', proper_noun)
 add_entry('touch', regular_verb)

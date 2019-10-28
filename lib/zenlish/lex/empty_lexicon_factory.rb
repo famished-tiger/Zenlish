@@ -25,6 +25,7 @@ module Zenlish
         aLexicon.add_terminal(WClasses::CommonNoun.new.freeze)
         aLexicon.add_terminal(WClasses::ComparativeParticle.new.freeze)
         aLexicon.add_terminal(WClasses::DefiniteArticle.new.freeze)
+        aLexicon.add_terminal(WClasses::IndefiniteArticle.new.freeze)
         aLexicon.add_terminal(WClasses::DegreeAdverb.new.freeze)
         aLexicon.add_terminal(WClasses::DemonstrativeDeterminer.new.freeze)
         aLexicon.add_terminal(WClasses::ConjunctivePronoun.new.freeze)

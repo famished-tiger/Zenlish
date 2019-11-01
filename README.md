@@ -11,10 +11,98 @@ __Zenlish__ will be a Controlled Natural Language based on English.
 A [Controlled Natural Language](https://en.wikipedia.org/wiki/Controlled_natural_language)
 is a subset of a natural language -here English- limited to specific problem domains.
 
+
+### What is the purpose of __Zenlish__ ?
 The goal of this project is to implement a toolkit for a subset of the English language.
+With __Zenlish__ it should be possible for a Ruby application to interact with
+users with a language that is close enough to English.
+
+### Project status
+
+The project is still in inception. Currently, zenlish is able to parse all
+sentences of the first lesson.
+
+The intent is to deliver gem versions in small increments.
+
+#### Zenlish as a library (gem)
+Over time, the zenlish gem will contain:
+- A tokenizer (tagging, lemmatizer)[TODO]
+- A lexicon [STARTED]
+- A context-free grammar [STARTED]
+- A parser [STARTED]
+- Feature unification (for number, gender agreement)[TODO]
+- A simplified ontology[TODO]
 
 
-### Design of Zenlish language
+#### Some project metrics (v. 0.1.14)
+|Metric|Value|  
+|:-:|:-:|
+| Number of lemmas in dictionary        | 80  |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 43 |
+| Number of production rules in grammar | 116 |
+| Number of lessons covered             | 14  |
+| Number of sentences in spec files     | 136 |
+
+
+## Installation...
+### ...with Rubygem
+Install the gem yourself as:
+
+    $ gem install zenlish
+
+### ...with Bundler
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'zenlish'
+```
+
+And then execute:
+
+    $ bundle
+
+
+### Some code snippets
+
+#### Interacting with the dictionary:
+```ruby
+require 'zenlish'
+
+# Retrieving a "word" (more precisely, a lexeme) from the dictionary.
+lexeme = Zenlish::Lang::Dictionary.get_lexeme('move')
+
+# What is the Ruby class of a lexeme?
+p lexeme.class # => Zenlish::Lex::Lexeme
+
+# What is the word class of verb 'move'?
+p lexeme.wclass.class # => Zenlish::WClasses::RegularVerb
+
+# Here is some Zenlish text to analyze:
+some_text = 'one person can move to the same place.'
+p some_text
+
+some_text.scan(/(?:\w+)|[\.,:"]/).each do |entry|
+  lexeme = Zenlish::Lang::Dictionary.get_lexeme(entry)
+  p lexeme.wclass.class
+end
+
+# Loop result should be:
+# Zenlish::WClasses::Cardinal
+# Zenlish::WClasses::CommonNoun
+# Zenlish::WClasses::ModalVerbCan
+# Zenlish::WClasses::RegularVerb
+# Zenlish::WClasses::Preposition
+# Zenlish::WClasses::DefiniteArticle
+# Zenlish::WClasses::Adjective
+# Zenlish::WClasses::CommonNoun
+# Rley::Syntax::Terminal
+```
+
+More to come...
+
+## Principles behind the Zenlish language
+
+
 #### Minimalism
 The name of the language is a combination of 'Zen' and 'English'.  
 It reflects a desire to make Zenlish a simple language:  
@@ -26,43 +114,13 @@ It reflects a desire to make Zenlish a simple language:
 Zenlish should be rich enough to express ideas, facts in a fluid way (vs. contrived, artificial way).
 Litmus test: a Zenlish text should be easy to read to a English reading person.
 
-### Zenlish as a library (gem)
-Over time, the zenlish gem will contain:
-- A tokenizer (tagging, lemmatizer)[TODO]
-- A lexicon [STARTED]
-- A context-free grammar [STARTED]
-- A parser [STARTED]
-- Feature unification (for number, gender agreement)[TODO]
-- A simplified ontology[TODO]
 
-
-### What is the purpose of __Zenlish__ ?
-With __Zenlish__ it should be possible for a Ruby application to interact with
-users with a language that is close enough to English.
-
-### Project status
-
-The project is still in inception. Currently, zenlish is able to parse all
-sentences of the first lesson.
-
-The intent is to deliver gem versions in small increments.
-
-#### Some project metrics (v. 0.1.13)
-|Metric|Value|  
-|:-:|:-:|
-| Number of lemmas in lexicon           | 77  |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 39 |
-| Number of production rules in grammar | 103 |
-| Number of lessons covered             | 13  |
-| Number of sentences in spec files     | 118 |
-
-
-### Roadmap
+## Roadmap
 
 Here a tentative roadmap:
 
 #### A) Ability to parse sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
-*STARTED*. 14% complete  
+*STARTED*. 14.5% complete  
 This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM
@@ -105,22 +163,6 @@ Probably, far-fetched. But it will be nice to launch query to Zenlish to check i
 it has some understanding of the text it reads (i.e. has a semantic representation).
 
 
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'zenlish'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install zenlish
 
 ## Usage
 

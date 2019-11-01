@@ -2,17 +2,25 @@
 # It is called Zenlish
 
 require 'rley' # Load the Rley parsing library
-require_relative '../lex/empty_lexicon'
+require_relative 'dictionary'
 
 ########################################
 # Define a grammar for a highly English-like language
 builder = Rley::Syntax::GrammarBuilder.new do
-  add_terminals(*$ZenlishLexicon.terminals)
+  add_terminals(*Zenlish::Lang::Dictionary.terminals)
 
-  rule 'language' => 'sentence'
+  rule 'zenlish' => 'prose'
+
+  # Temporary limitation: from 1 to 3 sentences
+  rule 'prose' => 'sentence'
+  rule 'prose' => 'sentence sentence'
+  rule 'prose' => 'sentence sentence sentence'
+
   rule 'sentence' => 'simple_sentence Period'
   rule 'sentence' => 'complex_sentence Period'
   rule 'simple_sentence' => 'declarative_simple_sentence'
+
+  # Case of dropped ´that´ conjunction
   rule 'complex_sentence' => 'main_clause subordination_marker dependent_clause'
   rule 'complex_sentence' => 'main_clause Comma subordination_marker dependent_clause'
   rule 'complex_sentence' => 'subordination_marker dependent_clause Comma main_clause'
@@ -46,6 +54,10 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'simple_noun_phrase' => 'determiner nominal'
   rule 'simple_noun_phrase' => 'numeral nominal'
   rule 'simple_noun_phrase' => 'determiner numeral nominal'
+  rule 'simple_noun_phrase' => 'ProperNoun'
+  rule 'simple_noun_phrase' => 'PersonalPronoun'
+  rule 'simple_noun_phrase' => 'IndefinitePronoun'
+  rule 'simple_noun_phrase' => 'IndefinitePronoun Adjective'
   rule 'simple_noun_phrase' => 'simple_noun_phrase simple_noun_phrase verb_phrase'
 
   # Case: (all|many|some) one of (this|these)
@@ -53,11 +65,6 @@ builder = Rley::Syntax::GrammarBuilder.new do
 
   # CGE p.359, 360: <numeral> of + definite noun phrase
   rule 'simple_noun_phrase' => 'numeral_of noun_phrase'
-  rule 'simple_noun_phrase' => 'ProperNoun'
-  # rule 'simple_noun_phrase' => 'DemonstrativePronoun'
-  rule 'simple_noun_phrase' => 'IndefinitePronoun'
-  rule 'simple_noun_phrase' => 'IndefinitePronoun Adjective'
-
 
   rule 'compound_noun_phrase' => 'simple_noun_phrase propositional_phrase'
   rule 'compound_noun_phrase' => 'simple_noun_phrase comparative_clause'
@@ -79,21 +86,31 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'verb_phrase' => 'RegularVerb propositional_phrase'
   rule 'verb_phrase' => 'RegularVerbWant Preposition verb_group'
   rule 'verb_phrase' => 'RegularVerbWant Preposition verb_group noun_phrase'
+  rule 'verb_phrase' => 'RegularVerbWant simple_noun_phrase Preposition verb_group noun_phrase'
   rule 'verb_phrase' => 'IrregularVerbDo DemonstrativePronoun'
   rule 'verb_phrase' => 'IrregularVerbDo DemonstrativePronoun propositional_phrase'
   rule 'verb_phrase' => 'ModalVerbCan verb_group DemonstrativePronoun'
   rule 'verb_phrase' => 'IrregularVerbBe verb_be_complement'
+
+  # Cover case where ´that´ conjunction is dropped.
+  rule 'verb_phrase' => 'mental_verb dependent_clause'
+  rule 'verb_phrase' => 'IrregularVerbSay DemonstrativePronoun Preposition noun_phrase'
+  rule 'verb_phrase' => 'IrregularVerbSay Colon affirmative_sentence'
   rule 'verb_phrase' => 'IrregularVerbSay Colon Quote affirmative_sentence Period Quote'
+  rule 'verb_phrase' => 'IrregularVerbSay Preposition noun_phrase Colon Quote affirmative_sentence Period Quote'
+  rule 'mental_verb' => 'IrregularVerbKnow'
+  rule 'mental_verb' => 'IrregularVerbThink'
   rule 'verb_complement' => 'noun_phrase'
+  rule 'verb_complement' => 'adverb_phrase'
+  rule 'verb_complement' => 'noun_phrase adverb_phrase'
+
   # perception verb (hear, see, watch, notice, ...): verb + object + infinitive
   rule 'verb_complement' => 'simple_noun_phrase lexical_verb'
   rule 'verb_complement' => 'Adjective propositional_phrase'
-  rule 'verb_complement' => 'noun_phrase IrregularVerbBe verb_be_complement'
-  rule 'verb_complement' => 'adverb_phrase'
-  rule 'verb_complement' => 'noun_phrase adverb_phrase'
   rule 'verb_be_complement' => 'noun_phrase'
   rule 'verb_be_complement' => 'adjective_as_complement'  # Specific to be as lexical verb
   rule 'verb_be_complement' => 'propositional_phrase'
+  rule 'verb_be_complement' => 'noun_phrase adverb_phrase'
   rule 'adjective_as_complement' => 'DegreeAdverb Adjective'
   rule 'adjective_as_complement' => 'Adjective'
   rule 'adjective_as_complement' => 'Adjective comparative_clause'
@@ -110,6 +127,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerbBe'
   rule 'lexical_verb' => 'IrregularVerbDo'
   rule 'lexical_verb' => 'IrregularVerbHave'
+  rule 'lexical_verb' => 'IrregularVerbKnow'
+  rule 'lexical_verb' => 'IrregularVerbThink'
   rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'numeral' => 'Cardinal'
   rule 'comparative_clause' => 'comparative_start noun_phrase'
@@ -118,6 +137,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'comparative_start' => 'PrepositionThan'
   rule 'comparative_start' => 'ComparativeParticle'
   rule 'adverb_phrase' => 'Adverb'
+  rule 'adverb_phrase' => 'Adverb Adverb' # 'here now'
   rule 'adverb_phrase' => 'Adverb propositional_phrase'
   rule 'propositional_phrase' => 'preposition propositional_complement'
   rule 'propositional_phrase' => 'preposition'

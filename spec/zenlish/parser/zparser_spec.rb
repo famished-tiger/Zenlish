@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative '../../spec_helper' # Use the RSpec framework
-require_relative '../support/minimal_lexicon'
 require_relative '../../../lib/zenlish/lex/literal'
+require_relative '../support/minimal_lexicon'
 require_relative '../../../lib/zenlish/parser/zparser' # Load the class under test
 
 module Zenlish
@@ -17,7 +17,7 @@ module Zenlish
       end # context
 
       def get_lexeme(aLemma, aWordClass = nil)
-        $ZenlishLexicon.get_lexeme(aLemma, aWordClass)
+        Zenlish::Lang::Dictionary.get_lexeme(aLemma, aWordClass)
       end
 
       def self.literal2var(aLemma, aLiteral, aSuffix = '')
@@ -46,7 +46,7 @@ module Zenlish
       literal2var('big', 'big')
       literal2var('big', 'bigger')
       literal2var('can', 'can')
-      literal2var('of', 'of')
+      def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
@@ -57,28 +57,36 @@ module Zenlish
       literal2var('for', 'for', '_')
       literal2var('from', 'from')
       literal2var('good', 'good')
+      literal2var('happen', 'happened')
       literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
       literal2var('hear', 'hears')
+      literal2var('here', 'here')
+      literal2var('I', 'I', '')
       literal2var('if', 'if', '_')
+      def i_pronoun ; Lex::Literal.new('I', get_lexeme('I'), 0) ; end
       literal2var('in', 'in', '_')
       literal2var('inside', 'inside')
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
       literal2var('kind', 'kind')
+      literal2var('know', 'know')
       literal2var('know', 'knows')
       literal2var('like', 'like')
       literal2var('Lisa', 'Lisa')
       literal2var('living', 'living')
       literal2var('long', 'long')
       literal2var('many', 'many')
+      literal2var('me', 'me')
       literal2var('more', 'more')
       literal2var('move', 'move')
       literal2var('move', 'moved')
       literal2var('move', 'moves')
       literal2var('near to', 'near_to')
       literal2var('not', 'not', '_')
+      literal2var('now', 'now')
+      literal2var('of', 'of')
       literal2var('on', 'on')
       literal2var('one', 'one')
       literal2var('other', 'other')
@@ -115,11 +123,15 @@ module Zenlish
       literal2var('true', 'true', '_')
       literal2var('two', 'two')
       literal2var('very', 'very')
+      literal2var('want', 'want')
       literal2var('want', 'wants')
       def was ; Lex::Literal.new('was', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      def were ;     Lex::Literal.new('were', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('what', 'what')
       literal2var('with', 'with')
       literal2var('word', 'words')
+      def x_as_noun ; Lex::Literal.new('X', get_lexeme('X'), 0) ; end
+      literal2var('you', 'you')
 
       def colon ;  Lex::Literal.new(':', get_lexeme(':'), 0) ; end
       def comma ;  Lex::Literal.new(',', get_lexeme(','), 0) ; end
@@ -650,6 +662,89 @@ module Zenlish
           # Sentence 2-E-Xa: "Tony is near to Lisa because Tony moved"
           # Case of a time adverbial adjunct that is put in front position.
           literals = [tony, is, near_to, lisa, because, tony, moved, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 2-F' do
+          # Sentence 2-19a: 'Tony says: "I did X.".'
+          literals = [tony, says, colon, quote, i_pronoun, did, x_as_noun, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19a definiendum: 'Tony says: "I did X.".'
+          literals = [tony, says, colon, quote, i_pronoun, did, x_as_noun, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19a definiens: 'Tony says something about Tony. Tony says: Tony did X.'
+          literals = [tony, says, something, about, tony, dot,
+                      tony, says, colon, tony, did, x_as_noun, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19a: 'Tony says: "I see Lisa.".'
+          literals = [tony, says, colon, quote, i_pronoun, see, lisa, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19b definiendum: 'Lisa says: "X happened to me.".'
+          literals = [lisa, says, colon, quote, x_as_noun, happened, to, me, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19b definiens: 'Lisa says something about Lisa. Lisa says: X happened to Lisa.'
+          literals = [lisa, says, something, about, lisa, dot,
+                      lisa, says, colon, x_as_noun, happened, to, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-19c: 'Lisa says: "Tony sees me."'
+          literals = [lisa, says, colon, quote, tony, sees, me, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-20a definiendum: 'Tony says to Lisa: "I can see you.".'
+          literals = [tony, says, to, lisa, colon, quote, i_pronoun, can, see, you, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-20a definiens: 'Tony says something about Lisa.
+          # Tony says this to Lisa. Tony says: Tony can see Lisa.'
+          literals = [tony, says, something, about, lisa, dot,
+                      tony, says, this_as_pronoun, to, lisa, dot,
+                      tony, says, colon, tony, can, see, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-20b: "I know you have something good."
+          literals = [i_pronoun, know, you, have, something, good, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-20c: "I want you to do something good for me."
+          literals = [i_pronoun, want, you, to, do_, something, good, for_, me, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-21a definiendum: 'Tony says: "X happens here.".'
+          literals = [tony, says, colon, quote, x_as_noun, happens, here, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-21a definiens: "Tony is in a place. Tony says: X happens in this place."
+          literals = [tony, is, in_, a_as_art, place, dot,
+                      tony, says, colon, x_as_noun, happens, in_, this, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-21b: "Many people were here at one time."
+          literals = [many, people, were, here, at, one, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-22a definiendum: 'Lisa says: "X happens now.".'
+          literals = [lisa, says, colon, quote, x_as_noun, happens, now, dot, quote, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-21a definiens: 'Lisa says something at a time.
+          #   Lisa says: X happens at this same time.'
+          literals = [lisa, says, something, at, a_as_art, time, dot,
+                      lisa, says, colon, x_as_noun, happens, at, this, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-21b: "There are not many people here now."
+          literals = [there, are, not_, many, people, here, now , dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-Fa: "Lisa says to Tony: "I can see many living things here."."
+          literals = [lisa, says, to, tony, colon, quote, i_pronoun,
+                      can, see, many, living, things, here, dot, quote, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
 =begin

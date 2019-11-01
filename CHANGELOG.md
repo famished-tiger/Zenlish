@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## [0.1.14] - 2019-11-01
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-F from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `IrregularVerbKnow` to represent the verb `know`.
+ - Class `IrregularVerbThink` to represent the verb `think`.
+ - Class `PersonalPronoun` to represent the pronouns `I`, `you`.
+
+ ### Changed
+ - Folder structure under `lib` and `spec`.
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-E (136 sentences in total).
+ - `ZenlishGrammar`: new production rules for multiple sentence parsing, personal pronouns and dependent clauses without conjunctions.
+ - File `dictionary.rb`: new entries in lexicon `I`, `me`, `you`, `here`, `now`.
+ - File `README.md` Reshuffled sections, added one code snippet, updated the metrics table
+
 ## [0.1.13] - 2019-10-28
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-E from
  [Learn These Words First](http://learnthesewordsfirst.com/).

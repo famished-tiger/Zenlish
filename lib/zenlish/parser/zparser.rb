@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'zenlish_grammar'
+require_relative '../lang/zenlish_grammar'
 
 module Zenlish
   class ZParser

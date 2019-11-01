@@ -1,17 +1,22 @@
 module Zenlish
   module Lex
-    # TODO: document
+    # A word in the abstract sense; an individual, distinct item of a lexicon
+    # that belongs to a word class and of which a number of actual word forms
+    # may exist. For instance, the word forms: 'hide', 'hides', 'hid', 'hidden'
+    # relate to the lexeme for verb 'hide'. Also called 'dictionary word'.
     class Lexeme
       # @return Zenlish::WClasses::WordClass
       attr_reader :wclass
-      
-      # @return Zenlish::Lex::LexicalEntry
-      attr_reader :entry
 
       def initialize(aWordClass, anEntry)
         @wclass = aWordClass
-        @entry = anEntry
-        @entry.add_lexeme(self)
+        @entry = anEntry.object_id
+        anEntry.add_lexeme(self)
+      end
+
+      # @return Zenlish::Lex::LexicalEntry
+      def entry
+        ObjectSpace._id2ref(@entry)
       end
 
       def lemma

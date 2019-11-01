@@ -4,6 +4,7 @@
 # for a Zenlish client.
 
 require_relative './zenlish/version'
-require_relative './zenlish/wclasses/all_word_classes'
+require_relative './zenlish/lang/dictionary'
+require_relative './zenlish/parser/zparser'
 
 # End of file

@@ -33,13 +33,17 @@ module Zenlish
       literal2var('a', 'a', '_as_art')
       literal2var('about', 'about')
       literal2var('above', 'above')
+      def after_adverb ; Lex::Literal.new('after', get_lexeme('after', WClasses::Adverb), 0) ; end
+      def after_ ; Lex::Literal.new('after', get_lexeme('after', WClasses::SubordinatingConjunction), 0) ; end
       literal2var('alive', 'alive')
       literal2var('all', 'all')
+      def am ; Lex::Literal.new('am', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
       literal2var('at', 'at')
       literal2var('bad', 'bad')
+      def be_ ; Lex::Literal.new('be', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('because', 'because')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
@@ -57,20 +61,24 @@ module Zenlish
       literal2var('for', 'for', '_')
       literal2var('from', 'from')
       literal2var('good', 'good')
+      literal2var('happen', 'happen')
       literal2var('happen', 'happened')
+      literal2var('happen', 'happening')
       literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
       literal2var('hear', 'hears')
       literal2var('here', 'here')
-      literal2var('I', 'I', '')
-      literal2var('if', 'if', '_')
       def i_pronoun ; Lex::Literal.new('I', get_lexeme('I'), 0) ; end
+      literal2var('if', 'if', '_')
       literal2var('in', 'in', '_')
       literal2var('inside', 'inside')
+      literal2var('J', 'j', '_')
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
+      literal2var('K', 'k', '_')
       literal2var('kind', 'kind')
+      literal2var('know', 'knew')
       literal2var('know', 'know')
       literal2var('know', 'knows')
       literal2var('like', 'like')
@@ -79,10 +87,14 @@ module Zenlish
       literal2var('long', 'long')
       literal2var('many', 'many')
       literal2var('me', 'me')
-      literal2var('more', 'more')
+      literal2var('moment', 'moment')
+      def more ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adjective), 0) ; end
+      def more_as_adverb ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adverb), 0) ; end
       literal2var('move', 'move')
       literal2var('move', 'moved')
       literal2var('move', 'moves')
+      literal2var('much', 'much')
+      literal2var('near', 'near')
       literal2var('near to', 'near_to')
       literal2var('not', 'not', '_')
       literal2var('now', 'now')
@@ -91,6 +103,7 @@ module Zenlish
       literal2var('one', 'one')
       literal2var('other', 'other')
       literal2var('part', 'part')
+      literal2var('part', 'parts')
       literal2var('people', 'people')
       literal2var('person', 'person')
       literal2var('place', 'place')
@@ -100,9 +113,11 @@ module Zenlish
       literal2var('small', 'small')
       literal2var('small', 'smaller')
       literal2var('some', 'some')
+      literal2var('say', 'said')
       literal2var('say', 'says')
       literal2var('see', 'see')
       literal2var('see', 'sees')
+      literal2var('someone', 'someone')
       literal2var('something', 'something')
       literal2var('the', 'the')
       literal2var('then', 'then', '_')
@@ -110,6 +125,7 @@ module Zenlish
       literal2var('there', 'there')
       literal2var('thing', 'thing')
       literal2var('thing', 'things')
+      literal2var('think', 'think')
       literal2var('think', 'thinks')
       def these ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativeDeterminer), 0) ; end
       def these_as_pronoun ; Lex::Literal.new('these', get_lexeme('this', WClasses::DemonstrativePronoun), 0) ; end
@@ -128,6 +144,8 @@ module Zenlish
       def was ; Lex::Literal.new('was', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def were ;     Lex::Literal.new('were', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('what', 'what')
+      literal2var('when', 'when', '_')
+      literal2var('who', 'who')
       literal2var('with', 'with')
       literal2var('word', 'words')
       def x_as_noun ; Lex::Literal.new('X', get_lexeme('X'), 0) ; end
@@ -488,6 +506,10 @@ module Zenlish
           # Sentence 2-03b: "Tony is touching the other part."
           literals = [tony, is_aux, touching, the, other, part, dot]
           expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-Ax: "What Tony has is like what Lisa has."
+          literals = [what, tony, has, is, like, what, lisa, has, dot]
+          expect { subject.parse(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 2-B' do
@@ -607,6 +629,12 @@ module Zenlish
           # Sentence 2-13b: "This feels bad for Tony."
           literals = [this_as_pronoun, feels, bad, for_, tony, dot]
           expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-Dx: "Lisa thinks about something bad happening to this
+          # living thing. Thinking about this feels bad for Lisa."
+          # literals = [lisa, thinks, about, something, bad, happening, to, this,
+            # living, thing, dot]
+          # expect { subject.parse(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 2-E' do
@@ -732,13 +760,13 @@ module Zenlish
           literals = [lisa, says, colon, quote, x_as_noun, happens, now, dot, quote, dot]
           expect { subject.parse(literals) }.not_to raise_error
 
-          # Sentence 2-21a definiens: 'Lisa says something at a time.
+          # Sentence 2-22a definiens: 'Lisa says something at a time.
           #   Lisa says: X happens at this same time.'
           literals = [lisa, says, something, at, a_as_art, time, dot,
                       lisa, says, colon, x_as_noun, happens, at, this, time, dot]
           expect { subject.parse(literals) }.not_to raise_error
 
-          # Sentence 2-21b: "There are not many people here now."
+          # Sentence 2-22b: "There are not many people here now."
           literals = [there, are, not_, many, people, here, now , dot]
           expect { subject.parse(literals) }.not_to raise_error
 
@@ -747,24 +775,109 @@ module Zenlish
                       can, see, many, living, things, here, dot, quote, dot]
           expect { subject.parse(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 2-G' do
+          # Sentence 2-23a definiendum: 'Someone does X.'
+          literals = [someone, does, x_as_noun, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-23a definiens: 'Something does X. This something can
+          #   think like people think. This something can be one person.'
+          literals = [something, does, x_as_noun, dot,
+                      this, something, can, think, like, people, think, dot,
+                      this, something, can, be_, a_as_art, person, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-23b: Someone said something to Tony.
+          literals = [someone, said, something, to, tony, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-23c definiendum: 'J knows who did K.'
+          literals = [j_, knows, who, did, k_, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-23c definiens: J thinks about someone.
+          # J knows this someone did K.
+          literals = [j_, thinks, about, someone, dot,
+            j_, knows, this, someone, did, k_, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-23d: Tony knows who said something.
+          literals = [tony, knows, who, said, something, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-24a definiendum: 'J happens after K happens.'
+          literals = [j_, happens, after_, k_, happens, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-24a definiens: K happens before J happens.
+          literals = [k_, happens, before, j_, happens, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-24b: After you do something for a long time,
+          # you can know much more about this.
+          literals = [after_, you, do_, something, for_, a_as_art, long, time,
+            comma, you, can, know, much, more_as_adverb, about, this_as_pronoun, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-25a definiendum: 'X is true for some time.'
+          literals = [x_as_noun, is, true_, for_, some, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-25a definiens: X is true at a time.
+          #   Some parts of this one time happen before other parts.
+          #   Some parts of this one time happen after other parts.
+          #   X is true at all parts of this one time.
+          literals = [x_as_noun, is, true_, at, a_as_art, time, dot,
+            some, parts, of, this, one, time, happen, before_adverb, other, parts, dot,
+            some, parts, of, this, one, time, happen, after_adverb, other, parts, dot,
+            x_as_noun, is, true_, at, all, parts, of, this, one, time, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-25b: After I moved for some time,
+          # I was near the other side of this place.
+          literals = [after_, i_pronoun, moved, for_, some, time,
+            comma, i_pronoun, was, near, the, other, side, of, this, place, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-26a definiendum: 'X happens in a moment.'
+          literals = [x_as_noun, happens, in_, a_as_art, moment, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-26a definiens: X happens for one very short time.
+          #   There are not parts of this very short time when one part
+          #   happens before other parts.
+          literals = [x_as_noun, happens, for_, one, very, short, time, dot,
+            there, are, not_, parts, of, this, very, short, time, when_,
+            one, part, happens, before_adverb, other, part, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-26b: In a moment, I knew something here was not good.
+          # 'here' is adverb that modifies the 'knew' verb
+          literals = [in_, a_as_art, moment, comma, i_pronoun, knew, something,
+                      here, was, not_, good, dot ]
+          expect { subject.parse(literals) }.not_to raise_error
+
+          # Sentence 2-Gx: Tony is inside this thing for some time.
+          # Lisa says: "I want to know who is inside this thing.".
+          # Tony hears Lisa. Because of this, Tony says: "I am inside.".
+          # Tony says this after Tony hears Lisa.
+          literals = [tony, is, inside, this, thing, for_, some, time, dot,
+            lisa, says, colon, quote, i_pronoun, want, to, know, who, is,
+            inside, this, thing, dot, quote, dot,  tony, hears, lisa, dot,
+            because, of, this_as_pronoun, comma, tony, says, colon,
+            quote, i_pronoun, am, inside, dot, quote, dot,
+            tony, says, this_as_pronoun, after_, tony, hears, lisa, dot]
+          expect { subject.parse(literals) }.not_to raise_error
+        end
 =begin
 TODO
-
-Lesson 2.A
-	Xtra:
-		What Tony has is like what Lisa has.
 
 Lesson 2.C
 
 	Xtra:
 		Tony knows Lisa has something, because Tony sees what Lisa has.
 		Tony thinks about what Lisa has, because Tony want to have the same kind of thing.
-
-Lesson 2.D
-
-	extra
-		Lisa thinks about something bad happening to this living thing.
-		Thinking about this feels bad for Lisa
 =end
       end # context
     end # describe

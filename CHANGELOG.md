@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.1.15] - 2019-11-02
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-G from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `RelativePronoun` to represent the relative pronoun `who`.
+
+ ### Changed
+ - Folder structure under `lib` and `spec`.
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-E (136 sentences in total).
+ - `ZenlishGrammar`: new production rules added.
+ - File `dictionary.rb`: new entries in lexicon `moment`, `much`, `someone`, `when`, `who`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.14] - 2019-11-01
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-F from
  [Learn These Words First](http://learnthesewordsfirst.com/).
@@ -11,7 +25,7 @@ __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-F from
 
  ### Changed
  - Folder structure under `lib` and `spec`.
- - File `zparser_spec.rb`: tests include all sentences from lesson 2-E (136 sentences in total).
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-E (184 sentences in total).
  - `ZenlishGrammar`: new production rules for multiple sentence parsing, personal pronouns and dependent clauses without conjunctions.
  - File `dictionary.rb`: new entries in lexicon `I`, `me`, `you`, `here`, `now`.
  - File `README.md` Reshuffled sections, added one code snippet, updated the metrics table

@@ -46,6 +46,7 @@ module Zenlish
         aLexicon.add_terminal(WClasses::PrepositionThan.new.freeze)
         aLexicon.add_terminal(WClasses::RegularVerb.new.freeze)
         aLexicon.add_terminal(WClasses::RegularVerbWant.new.freeze)
+        aLexicon.add_terminal(WClasses::RelativePronoun.new.freeze)
         aLexicon.add_terminal(WClasses::ProperNoun.new.freeze)
         aLexicon.add_terminal(WClasses::IndefiniteQuantifier.new.freeze)
         aLexicon.add_terminal(WClasses::SubordinatingConjunction.new.freeze)

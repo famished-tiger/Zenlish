@@ -20,7 +20,8 @@ users with a language that is close enough to English.
 ### Project status
 
 The project is still in inception. Currently, zenlish is able to parse all
-sentences from lessons 1-A up to 2-G.
+sentences from lessons 1-A up to 2-G. The parser is able to cope with syntactical
+ambiguities generating parse forests instead of parse trees.
 
 The intent is to deliver gem versions in small increments.
 
@@ -37,11 +38,11 @@ Over time, the zenlish gem will contain:
 #### Some project metrics (v. 0.1.15)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in dictionary        | 89  |
+| Number of lemmas in dictionary        | 92  |
 | [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 45 |
-| Number of production rules in grammar | 129 |
+| Number of production rules in grammar | 131 |
 | Number of lessons covered             | 15  |
-| Number of sentences in spec files     | 184 |
+| Number of sentences in spec files     | 189 |
 
 
 ## Installation...

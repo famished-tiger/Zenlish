@@ -15,122 +15,138 @@ builder = Rley::Syntax::GrammarBuilder.new do
 
   rule 'sentence' => 'simple_sentence Period'
   rule 'sentence' => 'complex_sentence Period'
-  rule 'simple_sentence' => 'declarative_simple_sentence'
 
-  # Case of dropped ´that´ conjunction
-  rule 'complex_sentence' => 'main_clause subordinated_clause'
-  rule 'complex_sentence' => 'main_clause Comma subordinated_clause'
-  rule 'complex_sentence' => 'subordinated_clause Comma main_clause'
-  rule 'complex_sentence' => 'subordinated_clause Comma LinkingAdverb main_clause'
-  rule 'subordination_marker' => 'SubordinatingConjunction'
-  rule 'subordination_marker' => 'SubordinatingConjunction PrepositionOf'
+  #################
+  # Simple sentence
+  #################
+  rule 'simple_sentence' => 'declarative_simple_sentence'
   rule 'declarative_simple_sentence' => 'affirmative_sentence'
+  rule 'declarative_simple_sentence' => 'existential_sentence'
+  rule 'declarative_simple_sentence' => 'predicative_sentence'
   rule 'declarative_simple_sentence' => 'negative_sentence'
+  rule 'declarative_simple_sentence' => 'inexistential_sentence'
+  rule 'affirmative_sentence' => 'noun_phrase verb_phrase'
+  rule 'affirmative_sentence' => 'prepositional_phrase Comma simple_sentence'
+  # Case of time adjunct adverbial put in front position
+  rule 'affirmative_sentence' => 'noun_phrase Adverb Comma simple_sentence'
+
+  # there + (auxiliary/raising verb) + be + notional subject.
+  rule 'existential_sentence' => 'ExistentialThere IrregularVerbBe existential_subject'
+  rule 'negative_sentence' => 'noun_phrase negative_verb_phrase'
+  rule 'negative_sentence' => 'negated_predicate_sentence'
+  rule 'inexistential_sentence' => 'ExistentialThere IrregularVerbBe AdverbNot existential_subject'
+  rule 'existential_subject' => 'noun_phrase adverb_phrase_opt'
+  rule 'existential_subject' => 'prepositional_phrase'
+
+  rule 'predicative_sentence' => 'noun_phrase IrregularVerbBe predicative_complement'
+  rule 'predicative_sentence' => 'conjunctive_prefix IrregularVerbBe predicative_complement'
+  rule 'negated_predicate_sentence' => 'noun_phrase adverb_phrase_opt IrregularVerbBe AdverbNot predicative_complement'
+  rule 'negated_predicate_sentence' => 'conjunctive_prefix IrregularVerbBe AdverbNot predicative_complement'
+  rule 'predicative_complement' => 'noun_phrase'
+  rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
+  # X is far from the start.
+  rule 'predicative_complement' => 'adverb_phrase_opt prepositional_phrase'
+
+  #################
+  # Complex sentence
+  #################
+  # Case of dropped ´that´ conjunction
+  rule 'complex_sentence' => 'main_clause comma_opt subordinated_clause'
+  rule 'complex_sentence' => 'subordinated_clause Comma main_clause'
+  # CGE 287d: verb + direct object + infinitive clause (without to)
+  rule 'complex_sentence' => 'main_clause infinitive_clause'
+  rule 'comma_opt' => 'Comma'
+  rule 'comma_opt' => []
+
+  ######################
+  # CLAUSES
+  ######################
   rule 'main_clause' => 'simple_sentence'
   rule 'subordinated_clause' => 'subordination_marker dependent_clause'
+  rule 'subordination_marker' => 'SubordinatingConjunction'
+  rule 'subordination_marker' => 'SubordinatingConjunction PrepositionOf'
   rule 'dependent_clause' => 'simple_sentence'
-  rule 'dependent_clause' => 'DemonstrativePronoun'
-  rule 'affirmative_sentence' => 'noun_phrase verb_phrase'
-  rule 'affirmative_sentence' => 'propositional_phrase Comma noun_phrase verb_phrase'
-  rule 'affirmative_sentence' => 'AdverbThere IrregularVerbBe verb_be_complement'
-  rule 'affirmative_sentence' => 'numeral_of IrregularVerbBe verb_be_complement'
-  rule 'affirmative_sentence' => 'DemonstrativePronoun IrregularVerbBe verb_be_complement'
-  rule 'affirmative_sentence' => 'DemonstrativePronoun IrregularVerb verb_complement'
-  rule 'affirmative_sentence' => 'conjunctive_prefix IrregularVerbBe verb_be_complement'
-
-  # Case of time adjunct adverbial put in fromt position
-  rule 'affirmative_sentence' => 'simple_noun_phrase Adverb Comma noun_phrase verb_phrase'
-  rule 'negative_sentence' => 'noun_phrase negative_verb_phrase'
-  rule 'negative_sentence' => 'AdverbThere negative_verb_phrase'
-  rule 'negative_sentence' => 'numeral_of negative_verb_phrase'
-  rule 'negative_sentence' => 'DemonstrativePronoun negative_verb_phrase'
-  rule 'negative_sentence' => 'conjunctive_prefix negative_verb_phrase'
+  rule 'dependent_clause' => 'noun_phrase'
+  rule 'infinitive_clause' => 'verb_phrase' # Too generic
+  rule 'comparative_clause_opt' => 'comparative_clause'
+  rule 'comparative_clause_opt' => []
+  rule 'comparative_clause' => 'comparative_start noun_phrase'
+  rule 'comparative_clause' => 'comparative_start declarative_simple_sentence'
+  # rule 'comparative_clause' => 'comparative_start DefiniteArticle Adjective Cardinal'
+  rule 'comparative_start' => 'PrepositionThan'
+  rule 'comparative_start' => 'ComparativeParticle'
   rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
-  rule 'noun_phrase' => 'simple_noun_phrase'
-  rule 'noun_phrase' => 'compound_noun_phrase'
-  # TODO: improve treatment of 'one very short time'
-  rule 'simple_noun_phrase' => 'nominal'
-  rule 'simple_noun_phrase' => 'determiner nominal'
-  rule 'simple_noun_phrase' => 'numeral nominal'
-  rule 'simple_noun_phrase' => 'determiner numeral nominal'
-  rule 'simple_noun_phrase' => 'ProperNoun'
-  rule 'simple_noun_phrase' => 'PersonalPronoun'
-  rule 'simple_noun_phrase' => 'IndefinitePronoun'
-  rule 'simple_noun_phrase' => 'IndefinitePronoun Adjective'
-  rule 'simple_noun_phrase' => 'DemonstrativeDeterminer IndefinitePronoun'  
-  rule 'simple_noun_phrase' => 'simple_noun_phrase simple_noun_phrase verb_phrase'
+  rule 'identifying_clause' => 'RelativePronoun verb_phrase'
 
-  # Case: (all|many|some) one of (this|these)
-  rule 'simple_noun_phrase' => 'subset_of noun_phrase'
 
-  # CGE p.359, 360: <numeral> of + definite noun phrase
-  rule 'simple_noun_phrase' => 'numeral_of noun_phrase'
+  #############
+  # NOUN PHRASE
+  #############
+  rule 'noun_phrase_opt' => 'noun_phrase'
+  rule 'noun_phrase_opt' => []
+  rule 'noun_phrase' => 'pre_head_noun head_noun post_head_noun'
+    # someone, somebody, something, somewhere; no one, nobody, nothing,
+    # nowhere; anyone, anybody, anything, anywhere; everyone, everybody,
+    # everything, everywhere, the attributive adjective phrase occurs as a postmodifier
+  rule 'pre_head_noun' => 'determiners adjective_phrase_opt'
+  rule 'head_noun' => 'CommonNoun'
+  rule 'head_noun' => 'ProperNoun'
+  rule 'head_noun' => 'PersonalPronoun'
+  rule 'head_noun' => 'DemonstrativePronoun'
+  rule 'head_noun' => 'IndefinitePronoun'  
+  # rule 'head_noun' => 'Cardinal' # ... as indefinite pronoun in complement "There were three pies. I ate one."
+  rule 'post_head_noun' => 'adjective_phrase_opt prepositional_phrases clause_noun_opt'
+  rule 'clause_noun_opt' => 'clause_noun'
+  rule 'clause_noun_opt' => []
+  rule 'clause_noun' => 'comparative_clause'
+  rule 'clause_noun' => 'dependent_clause'
 
-  rule 'compound_noun_phrase' => 'simple_noun_phrase propositional_phrase'
-  rule 'compound_noun_phrase' => 'simple_noun_phrase comparative_clause'
 
-  # <numeral> of this/these...
-  rule 'numeral_of' => 'numeral PrepositionOf DemonstrativeDeterminer'
-  rule 'numeral_of' => 'numeral PrepositionOf DefiniteArticle'
-  rule 'subset_of' => 'IndefiniteQuantifier PrepositionOf DemonstrativeDeterminer'
-  rule 'nominal' => 'CommonNoun'
-  rule 'nominal' => 'Adjective CommonNoun'
-  rule 'nominal' => 'DegreeAdverb Adjective CommonNoun'  
-  rule 'determiner' => 'determiner single_determiner'
-  rule 'determiner' => 'single_determiner'
-  rule 'single_determiner' => 'DemonstrativeDeterminer'
-  rule 'single_determiner' => 'DefiniteArticle'
-  rule 'single_determiner' => 'IndefiniteArticle'
-  rule 'single_determiner' => 'IndefiniteQuantifier'
-  rule 'verb_phrase' => 'verb_group'
-  rule 'verb_phrase' => 'verb_group verb_complement'
-  rule 'verb_phrase' => 'RegularVerb propositional_phrase'
-  rule 'verb_phrase' => 'RegularVerbWant Preposition verb_group'
-  rule 'verb_phrase' => 'RegularVerbWant Preposition IrregularVerbKnow identifying_clause'
-  rule 'verb_phrase' => 'RegularVerbWant Preposition verb_group noun_phrase'
-  rule 'verb_phrase' => 'RegularVerbWant simple_noun_phrase Preposition verb_group noun_phrase'
-  rule 'verb_phrase' => 'IrregularVerbDo DemonstrativePronoun'
-  rule 'verb_phrase' => 'IrregularVerbDo DemonstrativePronoun propositional_phrase'
-  rule 'verb_phrase' => 'ModalVerbCan verb_group DemonstrativePronoun'
-  rule 'verb_phrase' => 'IrregularVerbBe verb_be_complement'
-  rule 'verb_phrase' => 'IrregularVerbKnow identifying_clause'  
+
+  #############
+  # DETERMINERS
+  #############
+  rule 'determiners' => 'predeterminers central_determiners postdeterminers'
+
+  # Pre-determiners
+  rule 'predeterminers' => 'IndefiniteQuantifier' # all, ... both, half
+  rule 'predeterminers' => 'partitive_predeterminer'
+  rule 'predeterminers' => []
+
+  rule 'partitive_predeterminer' => 'numeral PrepositionOf' # one of ...
+  rule 'partitive_predeterminer' => 'IndefiniteQuantifier PrepositionOf' # some of...
+
+  # Central determiners: article, demonstrative or possessive
+  rule 'central_determiners' => 'article'
+  rule 'central_determiners' => 'demonstrative'
+  # central_determiners => possessive
+  rule 'central_determiners' => []
+  rule 'article' => 'DefiniteArticle' # 'the'
+  rule 'article' => 'IndefiniteArticle' # 'a/an', .., any, some, that, those,
+  rule 'demonstrative' => 'DemonstrativeDeterminer' # 'this', .., that, these, those
+  # possessive => possessive_determiner # ...my, your, his, her, its, our, their
+
+  # Postdeterminers
+  rule 'postdeterminers' => 'numeral'
+  rule 'postdeterminers' => []
+
+  #############
+  # VERB PHRASE
+  #############
+  rule 'verb_phrase' => 'pre_head_verb head_verb post_head_verb'
+  rule 'pre_head_verb' => 'adverb_phrase_opt'
+  rule 'head_verb' => 'lexical_verb'
+  rule 'head_verb' => 'AuxiliaryBe lexical_verb'
+  rule 'head_verb' => 'ModalVerbCan lexical_verb'
+  rule 'head_verb' => 'IrregularVerbSay direct_speech'
+  rule 'head_verb' => 'RegularVerbWant Preposition head_verb post_head_verb'
 
   # Cover case where ´that´ conjunction is dropped.
-  rule 'verb_phrase' => 'mental_verb dependent_clause'
-  rule 'verb_phrase' => 'mental_verb noun_phrase Adverb negative_verb_phrase'  
-  rule 'verb_phrase' => 'IrregularVerbSay DemonstrativePronoun Preposition noun_phrase'
-  rule 'verb_phrase' => 'IrregularVerbSay DemonstrativePronoun subordinated_clause'  
-  rule 'verb_phrase' => 'IrregularVerbSay Colon affirmative_sentence'
-  rule 'verb_phrase' => 'IrregularVerbSay Colon Quote affirmative_sentence Period Quote'
-  rule 'verb_phrase' => 'IrregularVerbSay Preposition noun_phrase Colon Quote affirmative_sentence Period Quote'
-  rule 'mental_verb' => 'IrregularVerbKnow'
-  rule 'mental_verb' => 'IrregularVerbThink'
-  rule 'verb_complement' => 'noun_phrase'
-  rule 'verb_complement' => 'noun_phrase adverb_phrase'
-  rule 'verb_complement' => 'adverb_phrase'  
-  rule 'verb_complement' => 'adverb_phrase nominal'    
+  rule 'head_verb' => 'mental_verb dependent_clause'
+  # ex. 2-23c
+  rule 'head_verb' => 'mental_verb identifying_clause'  
 
-  # perception verb (hear, see, watch, notice, ...): verb + object + infinitive
-  rule 'verb_complement' => 'simple_noun_phrase lexical_verb'
-  rule 'verb_complement' => 'Adjective propositional_phrase'
-  rule 'verb_complement' => 'Preposition simple_noun_phrase lexical_verb'
-  rule 'verb_complement' => 'Preposition IndefinitePronoun'  
-  rule 'verb_be_complement' => 'noun_phrase'
-  rule 'verb_be_complement' => 'adjective_as_complement'  # Specific to be as lexical verb
-  rule 'verb_be_complement' => 'propositional_phrase'
-  rule 'verb_be_complement' => 'noun_phrase adverb_phrase'
-  rule 'identifying_clause' => 'RelativePronoun verb_phrase'  
-  
-  rule 'adjective_as_complement' => 'DegreeAdverb Adjective'
-  rule 'adjective_as_complement' => 'Adjective'
-  rule 'adjective_as_complement' => 'Adjective comparative_clause'
-  rule 'negative_verb_phrase' => 'IrregularVerbBe AdverbNot verb_be_complement'
-  rule 'negative_verb_phrase' => 'AuxiliaryDo AdverbNot verb_phrase'
-  # rule 'negative_verb_phrase' => 'ModalVerbCan AdverbNot verb_phrase'
-  rule 'negative_verb_phrase' => 'ModalVerbCan AdverbNot verb_group DemonstrativePronoun'
-  rule 'verb_group' => 'lexical_verb'
-  rule 'verb_group' => 'AuxiliaryBe lexical_verb'
-  rule 'verb_group' => 'ModalVerbCan lexical_verb'
+  rule 'post_head_verb' => 'noun_phrase_opt adverb_phrase_opt prepositional_phrases adverb_phrase_opt'
   rule 'lexical_verb' => 'RegularVerb'
   rule 'lexical_verb' => 'RegularVerbWant'
   rule 'lexical_verb' => 'IrregularVerb'
@@ -138,31 +154,78 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerbDo'
   rule 'lexical_verb' => 'IrregularVerbHave'
   rule 'lexical_verb' => 'IrregularVerbKnow'
-  rule 'lexical_verb' => 'IrregularVerbThink'
   rule 'lexical_verb' => 'IrregularVerbSay'
+  rule 'lexical_verb' => 'IrregularVerbThink'
+
+  rule 'mental_verb' => 'IrregularVerbKnow'
+  rule 'mental_verb' => 'IrregularVerbThink'
+  rule 'direct_speech' => 'Colon Quote declarative_simple_sentence Period Quote'
+  rule 'direct_speech' => 'Preposition noun_phrase Colon Quote declarative_simple_sentence Period Quote'
+  rule 'direct_speech' => 'Colon declarative_simple_sentence'
+
+
+  #############
+  # NEGATIVE VERB PHRASE
+  #############
+  rule 'negative_verb_phrase' => 'AuxiliaryDo AdverbNot head_verb post_head_verb'
+  rule 'negative_verb_phrase' => 'ModalVerbCan AdverbNot head_verb post_head_verb'
+
+  ##################
+  # ADJECTIVE PHRASE
+  ##################
+  rule 'adjective_phrase_opt' => 'adjective_phrase'
+  rule 'adjective_phrase_opt' => []
+  rule 'adjective_phrase' => 'premodifiers_adj head_adjective postmodifiers_adj'
+  rule 'premodifiers_adj' => 'adverb_phrase_opt'
+  rule 'head_adjective' => 'head_adjective Adjective' # sequence of adjectives (rem: could be comma separated or anded)
+  rule 'head_adjective' => 'Adjective'
+  rule 'postmodifiers_adj' => 'prepositional_phrase' # TODO: multiple prepositional phrases, gerund and to + infinitive
+  rule 'postmodifiers_adj' => []
+
+  ################
+  # ADJVERB PHRASE
+  ################
+  rule 'adverb_phrase_opt' => 'adverb_phrase'
+  rule 'adverb_phrase_opt' => []
+  rule 'adverb_phrase' => 'premodifiers_adv head_adverb'
+  rule 'premodifiers_adv' => 'adverb_occurrence'
+  rule 'premodifiers_adv' => []
+  rule 'head_adverb' => 'adverb_occurrence'
+  rule 'adverb_occurrence' => 'Adverb'
+  rule 'adverb_occurrence' => 'DegreeAdverb'
+  rule 'adverb_occurrence' => 'LinkingAdverb'
+
+
+  ######################
+  # PREPOSITIONAL PHRASE
+  ######################
+  rule 'prepositional_phrases' => 'prepositional_phrases prepositional_phrase'
+  rule 'prepositional_phrases' => []
+  rule 'prepositional_phrase' => 'premodifier_prep preposition_head preposition_object'
+  # premodifier_prep =>  # "A degree word" example 1: _straight_ across the street example 2: _right_ from the start
+  rule 'premodifier_prep' => []
+  rule 'preposition_head' => 'Preposition'
+  rule 'preposition_head' => 'PrepositionOf'
+  rule 'preposition_object' => 'noun_phrase' # (noun and pronoun)
+
+  # complementation by a verb: gerund -ing form...
+  rule 'preposition_object' => 'noun_phrase_opt lexical_verb post_head_verb'
+  # preposition_object => "a gerund (a verb form ending in "-ing") that acts as a noun # Example: He beat Lee without overly trying.
+  rule 'preposition_object' => 'conjunctive_prefix'		# It's obvious from _what he said_.
+  rule 'preposition_object' => []
+
+  ######################
+  # REMAINING RULES
+  ######################
   rule 'numeral' => 'Cardinal'
-  rule 'comparative_clause' => 'comparative_start noun_phrase'
-  rule 'comparative_clause' => 'comparative_start affirmative_sentence'
-  rule 'comparative_clause' => 'comparative_start DefiniteArticle Adjective Cardinal'
-  rule 'comparative_start' => 'PrepositionThan'
-  rule 'comparative_start' => 'ComparativeParticle'
-  rule 'adverb_phrase' => 'adverbial_marker'
-  rule 'adverb_phrase' => 'adverbial_marker propositional_phrase'
-  rule 'adverbial_marker' => 'Adverb'
-  rule 'adverbial_marker' => 'Adverb Adverb'  # 'here now', 'much more'
-  rule 'propositional_phrase' => 'preposition propositional_complement'
-  rule 'propositional_phrase' => 'preposition'
-  rule 'propositional_complement' => 'noun_phrase'
-  # rule 'propositional_complement' => 'simple_noun_phrase lexical_verb propositional_phrase'  
-  rule 'propositional_complement' => 'conjunctive_prefix'  
-  rule 'propositional_complement' => 'DemonstrativePronoun'
-  rule 'preposition' => 'Preposition'
-  rule 'preposition' => 'PrepositionOf'
+
+
+
+  ######################
+  # DUMMY RULE
+  ######################
+  rule 'dummy' => "ConjunctivePronoun RelativePronoun"
 end
-
-
-# CGE p. 354 The order of determiners: quantifier > article or demonstrative
-# or possessive > numeral > head
 
 # And now build the grammar...
 ZenlishGrammar = builder.grammar

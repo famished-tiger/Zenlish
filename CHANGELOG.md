@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.1.16] - 2019-11-23
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-G from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+- `ZenlishGrammar`: Vast grammar reworking.
+- File `dictionary.rb`: `there` in lexicon has `ExistentialThere` as word class.
+- File `dictionary.rb`: new entries for `body`, `one` (as indefinite pronoun), `two` (as indefinite pronoun)
+- Class `ZParser`: Added method `to_pforest` to generate a parse forest, `to_ptree` is an alias of `parse`
+
 ## [0.1.15] - 2019-11-02
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-G from
  [Learn These Words First](http://learnthesewordsfirst.com/).

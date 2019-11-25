@@ -1,8 +1,24 @@
 # CHANGELOG
 
+## [0.1.17] - 2019-11-25
+__Zenlish__ can parse all sentences in lesson 1 and 2-A..2-H from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `AdverbMaybe` to represent the relative pronoun `who`.
+
+ ### Changed
+ - Folder structure under `lib` and `spec`.
+ - File `zparser_spec.rb`: tests include all sentences from lesson 2-H (207 sentences in total).
+ - `ZenlishGrammar`: new production rules added (especially for linking/copular verbs).
+ - File `dictionary.rb`: new entries in lexicon `below`, `live`, `maybe`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.16] - 2019-11-23
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-G from
  [Learn These Words First](http://learnthesewordsfirst.com/).
+ 
+### Changed
 - `ZenlishGrammar`: Vast grammar reworking.
 - File `dictionary.rb`: `there` in lexicon has `ExistentialThere` as word class.
 - File `dictionary.rb`: new entries for `body`, `one` (as indefinite pronoun), `two` (as indefinite pronoun)

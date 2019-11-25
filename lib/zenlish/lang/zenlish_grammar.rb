@@ -4,6 +4,22 @@
 require 'rley' # Load the Rley parsing library
 require_relative 'dictionary'
 
+# Carnie 2012
+# CP ➝ (C) TP
+# TP ➝ {NP/CP} (T) VP
+# VP ➝(AdvP+) V (NP)({NP/CP}) (AdvP+) (PP+) (AdvP+)
+# NP ➝ (D) (AdjP+) N (PP+) (CP)
+# PP ➝ P (NP)
+# AdjP ➝ (AdvP) Adj
+# AdvP ➝ (AdvP) Adv
+
+# Slide show on ajective and adverb phrases
+# https://www.slideshare.net/UtTramTran/advadj-phrase
+
+# A Lexicalized Tree Adjoining Grammar for English
+# https://www.cis.upenn.edu/~xtag/tech-report/tech-report.html
+
+
 ########################################
 # Define a grammar for a highly English-like language
 builder = Rley::Syntax::GrammarBuilder.new do
@@ -20,19 +36,20 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # Simple sentence
   #################
   rule 'simple_sentence' => 'declarative_simple_sentence'
+  rule 'simple_sentence' => 'AdverbMaybe declarative_simple_sentence'
   rule 'declarative_simple_sentence' => 'affirmative_sentence'
   rule 'declarative_simple_sentence' => 'existential_sentence'
   rule 'declarative_simple_sentence' => 'predicative_sentence'
   rule 'declarative_simple_sentence' => 'negative_sentence'
   rule 'declarative_simple_sentence' => 'inexistential_sentence'
-  rule 'affirmative_sentence' => 'noun_phrase verb_phrase'
+  rule 'affirmative_sentence' => 'tense_phrase'
   rule 'affirmative_sentence' => 'prepositional_phrase Comma simple_sentence'
   # Case of time adjunct adverbial put in front position
   rule 'affirmative_sentence' => 'noun_phrase Adverb Comma simple_sentence'
 
   # there + (auxiliary/raising verb) + be + notional subject.
   rule 'existential_sentence' => 'ExistentialThere IrregularVerbBe existential_subject'
-  rule 'negative_sentence' => 'noun_phrase negative_verb_phrase'
+  rule 'negative_sentence' => 'negative_tense_phrase'
   rule 'negative_sentence' => 'negated_predicate_sentence'
   rule 'inexistential_sentence' => 'ExistentialThere IrregularVerbBe AdverbNot existential_subject'
   rule 'existential_subject' => 'noun_phrase adverb_phrase_opt'
@@ -44,6 +61,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'negated_predicate_sentence' => 'conjunctive_prefix IrregularVerbBe AdverbNot predicative_complement'
   rule 'predicative_complement' => 'noun_phrase'
   rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
+  # 2-28b X is alive before this moment.
+  rule 'predicative_complement' => 'adjective_phrase adverb_phrase noun_phrase'
   # X is far from the start.
   rule 'predicative_complement' => 'adverb_phrase_opt prepositional_phrase'
 
@@ -67,7 +86,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'subordination_marker' => 'SubordinatingConjunction PrepositionOf'
   rule 'dependent_clause' => 'simple_sentence'
   rule 'dependent_clause' => 'noun_phrase'
-  rule 'infinitive_clause' => 'verb_phrase' # Too generic
+  rule 'infinitive_clause' => 'verb_phrase' # Too broad
   rule 'comparative_clause_opt' => 'comparative_clause'
   rule 'comparative_clause_opt' => []
   rule 'comparative_clause' => 'comparative_start noun_phrase'
@@ -79,28 +98,38 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'identifying_clause' => 'RelativePronoun verb_phrase'
 
 
+  ##############
+  # TENSE PHRASE
+  ##############
+  rule 'tense_phrase' => 'noun_phrase tense_opt verb_phrase'
+  rule 'negative_tense_phrase' => 'noun_phrase tense AdverbNot verb_phrase'  
+  rule 'tense_opt' => 'tense'
+  rule 'tense_opt' => []
+  rule 'tense' => 'AuxiliaryBe'
+  rule 'tense' => 'AuxiliaryDo'  
+  rule 'tense' => 'ModalVerbCan'
+  
   #############
   # NOUN PHRASE
   #############
   rule 'noun_phrase_opt' => 'noun_phrase'
   rule 'noun_phrase_opt' => []
-  rule 'noun_phrase' => 'pre_head_noun head_noun post_head_noun'
+  rule 'noun_phrase' => 'pre_head_np head_np post_head_np'
     # someone, somebody, something, somewhere; no one, nobody, nothing,
     # nowhere; anyone, anybody, anything, anywhere; everyone, everybody,
     # everything, everywhere, the attributive adjective phrase occurs as a postmodifier
-  rule 'pre_head_noun' => 'determiners adjective_phrase_opt'
-  rule 'head_noun' => 'CommonNoun'
-  rule 'head_noun' => 'ProperNoun'
-  rule 'head_noun' => 'PersonalPronoun'
-  rule 'head_noun' => 'DemonstrativePronoun'
-  rule 'head_noun' => 'IndefinitePronoun'  
-  # rule 'head_noun' => 'Cardinal' # ... as indefinite pronoun in complement "There were three pies. I ate one."
-  rule 'post_head_noun' => 'adjective_phrase_opt prepositional_phrases clause_noun_opt'
+  rule 'pre_head_np' => 'determiners adjective_phrase_opt'
+  rule 'head_np' => 'CommonNoun'
+  rule 'head_np' => 'ProperNoun'
+  rule 'head_np' => 'PersonalPronoun'
+  rule 'head_np' => 'DemonstrativePronoun'
+  rule 'head_np' => 'IndefinitePronoun'  
+  # rule 'head_np' => 'Cardinal' # ... as indefinite pronoun in complement "There were three pies. I ate one."
+  rule 'post_head_np' => 'adjective_phrase_opt prepositional_phrases clause_noun_opt'
   rule 'clause_noun_opt' => 'clause_noun'
   rule 'clause_noun_opt' => []
   rule 'clause_noun' => 'comparative_clause'
   rule 'clause_noun' => 'dependent_clause'
-
 
 
   #############
@@ -133,23 +162,24 @@ builder = Rley::Syntax::GrammarBuilder.new do
   #############
   # VERB PHRASE
   #############
-  rule 'verb_phrase' => 'pre_head_verb head_verb post_head_verb'
-  rule 'pre_head_verb' => 'adverb_phrase_opt'
-  rule 'head_verb' => 'lexical_verb'
-  rule 'head_verb' => 'AuxiliaryBe lexical_verb'
-  rule 'head_verb' => 'ModalVerbCan lexical_verb'
-  rule 'head_verb' => 'IrregularVerbSay direct_speech'
-  rule 'head_verb' => 'RegularVerbWant Preposition head_verb post_head_verb'
+  rule 'verb_phrase' => 'pre_head_vp head_vp post_head_vp'
+  # Rule specific to linking/copular verbs (CEG 288b). Example: I feel very bad.
+  rule 'verb_phrase' => 'pre_head_vp linking_verb adjective_phrase'  
+  rule 'pre_head_vp' => 'adverb_phrase_opt'
+  rule 'head_vp' => 'lexical_verb'
+  rule 'head_vp' => 'IrregularVerbSay direct_speech'
+  rule 'head_vp' => 'RegularVerbWant Preposition head_vp post_head_vp'
 
   # Cover case where ´that´ conjunction is dropped.
-  rule 'head_verb' => 'mental_verb dependent_clause'
+  rule 'head_vp' => 'mental_verb dependent_clause'
   # ex. 2-23c
-  rule 'head_verb' => 'mental_verb identifying_clause'  
+  rule 'head_vp' => 'mental_verb identifying_clause'  
 
-  rule 'post_head_verb' => 'noun_phrase_opt adverb_phrase_opt prepositional_phrases adverb_phrase_opt'
+  rule 'post_head_vp' => 'noun_phrase_opt adverb_phrase_opt prepositional_phrases adverb_phrase_opt'
   rule 'lexical_verb' => 'RegularVerb'
   rule 'lexical_verb' => 'RegularVerbWant'
   rule 'lexical_verb' => 'IrregularVerb'
+  rule 'lexical_verb' => 'IrregularLinkingVerb'  
   rule 'lexical_verb' => 'IrregularVerbBe'
   rule 'lexical_verb' => 'IrregularVerbDo'
   rule 'lexical_verb' => 'IrregularVerbHave'
@@ -157,18 +187,14 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'lexical_verb' => 'IrregularVerbThink'
 
+
+  rule 'linking_verb' => 'IrregularLinkingVerb'
+
   rule 'mental_verb' => 'IrregularVerbKnow'
   rule 'mental_verb' => 'IrregularVerbThink'
   rule 'direct_speech' => 'Colon Quote declarative_simple_sentence Period Quote'
   rule 'direct_speech' => 'Preposition noun_phrase Colon Quote declarative_simple_sentence Period Quote'
   rule 'direct_speech' => 'Colon declarative_simple_sentence'
-
-
-  #############
-  # NEGATIVE VERB PHRASE
-  #############
-  rule 'negative_verb_phrase' => 'AuxiliaryDo AdverbNot head_verb post_head_verb'
-  rule 'negative_verb_phrase' => 'ModalVerbCan AdverbNot head_verb post_head_verb'
 
   ##################
   # ADJECTIVE PHRASE
@@ -180,6 +206,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'head_adjective' => 'head_adjective Adjective' # sequence of adjectives (rem: could be comma separated or anded)
   rule 'head_adjective' => 'Adjective'
   rule 'postmodifiers_adj' => 'prepositional_phrase' # TODO: multiple prepositional phrases, gerund and to + infinitive
+  # Adverbs such as enough, indeed can post-modify an adjective
   rule 'postmodifiers_adj' => []
 
   ################
@@ -209,7 +236,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'preposition_object' => 'noun_phrase' # (noun and pronoun)
 
   # complementation by a verb: gerund -ing form...
-  rule 'preposition_object' => 'noun_phrase_opt lexical_verb post_head_verb'
+  rule 'preposition_object' => 'noun_phrase_opt lexical_verb post_head_vp'
   # preposition_object => "a gerund (a verb form ending in "-ing") that acts as a noun # Example: He beat Lee without overly trying.
   rule 'preposition_object' => 'conjunctive_prefix'		# It's obvious from _what he said_.
   rule 'preposition_object' => []
@@ -218,13 +245,6 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # REMAINING RULES
   ######################
   rule 'numeral' => 'Cardinal'
-
-
-
-  ######################
-  # DUMMY RULE
-  ######################
-  rule 'dummy' => "ConjunctivePronoun RelativePronoun"
 end
 
 # And now build the grammar...

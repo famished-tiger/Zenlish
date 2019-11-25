@@ -47,18 +47,24 @@ module Zenlish
       literal2var('because', 'because')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
+      literal2var('below', 'below')
       literal2var('big', 'big')
       literal2var('big', 'bigger')
       literal2var('body', 'body')
       literal2var('can', 'can')
       def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
+      literal2var('die', 'died')
+      literal2var('die', 'dies')
       def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
+      def do_aux ; Lex::Literal.new('do', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       literal2var('false', 'false', '_')
       literal2var('far', 'far')
+      literal2var('far from', 'far_from')
       literal2var('feel', 'feel')
       literal2var('feel', 'feels')
+      literal2var('feel', 'felt')
       literal2var('for', 'for', '_')
       literal2var('from', 'from')
       literal2var('good', 'good')
@@ -69,7 +75,8 @@ module Zenlish
       literal2var('have', 'has')
       literal2var('have', 'have')
       literal2var('hear', 'hears')
-      literal2var('here', 'here')
+      def here ;     Lex::Literal.new('here', get_lexeme('here', WClasses::Adverb), 0) ; end
+      def here_as_noun ;  Lex::Literal.new('here', get_lexeme('here', WClasses::CommonNoun), 0) ; end
       def i_pronoun ; Lex::Literal.new('I', get_lexeme('I'), 0) ; end
       literal2var('if', 'if', '_')
       literal2var('in', 'in', '_')
@@ -84,15 +91,18 @@ module Zenlish
       literal2var('know', 'knows')
       literal2var('like', 'like')
       literal2var('Lisa', 'Lisa')
+      literal2var('live', 'lived')
       literal2var('living', 'living')
       literal2var('long', 'long')
       literal2var('many', 'many')
+      literal2var('maybe', 'maybe')
       literal2var('me', 'me')
       literal2var('moment', 'moment')
       def more ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adjective), 0) ; end
       def more_as_adverb ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adverb), 0) ; end
       literal2var('move', 'move')
       literal2var('move', 'moved')
+      literal2var('move', 'moving')      
       literal2var('move', 'moves')
       literal2var('much', 'much')
       literal2var('near', 'near')
@@ -102,7 +112,7 @@ module Zenlish
       literal2var('of', 'of')
       literal2var('on', 'on')
       def one ; Lex::Literal.new('one', get_lexeme('one', WClasses::Cardinal), 0) ; end
-      def one_as_pronoun ; Lex::Literal.new('one', get_lexeme('one', WClasses::IndefinitePronoun), 0) ; end      
+      def one_as_pronoun ; Lex::Literal.new('one', get_lexeme('one', WClasses::IndefinitePronoun), 0) ; end
       literal2var('other', 'other')
       literal2var('part', 'part')
       literal2var('part', 'parts')
@@ -138,10 +148,11 @@ module Zenlish
       literal2var('time', 'time')
       literal2var('to', 'to')
       literal2var('Tony', 'Tony')
+      literal2var('touch', 'touch')
       literal2var('touch', 'touching')
       literal2var('true', 'true', '_')
       def two ; Lex::Literal.new('two', get_lexeme('two', WClasses::Cardinal), 0) ; end
-      def two_as_pronoun ; Lex::Literal.new('two', get_lexeme('two', WClasses::IndefinitePronoun), 0) ; end        
+      def two_as_pronoun ; Lex::Literal.new('two', get_lexeme('two', WClasses::IndefinitePronoun), 0) ; end
       literal2var('very', 'very')
       literal2var('want', 'want')
       literal2var('want', 'wants')
@@ -212,7 +223,7 @@ module Zenlish
 
           # Sentence 1-04: "Lisa sees the other thing."
           sentence_literals = [lisa, sees, the, other, thing, dot]
-          expect { subject.to_ptree(sentence_literals) }.not_to raise_error         
+          expect { subject.to_ptree(sentence_literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-B' do
@@ -248,7 +259,7 @@ module Zenlish
           # same is an adjective of equality comparison
           # as is part of same ... as combination
           # it introduces a comparative clause
-          expect { subject.to_pforest(literals) }.not_to raise_error        
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-C' do
@@ -271,7 +282,7 @@ module Zenlish
           # Sentence: "Lisa does not see people inside the other thing."
           literals = [lisa, does_aux, not_, see, people, inside, the, other, thing, dot]
           # Ambiguous parse...
-          expect { subject.to_pforest(literals) }.not_to raise_error         
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-D' do
@@ -308,7 +319,7 @@ module Zenlish
           literals = [there, are, more, people, inside, the, other, thing,
                       than, there, are, inside, this, thing, dot]
           # Ambiguous parse
-          expect { subject.to_pforest(literals) }.not_to raise_error 
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-E' do
@@ -371,7 +382,7 @@ module Zenlish
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 1-20c: "One of these is not the same kind as the other two."
-          literals = [one, of, these_as_pronoun, is, not_, the, same, kind, 
+          literals = [one, of, these_as_pronoun, is, not_, the, same, kind,
             as, the, other, two_as_pronoun, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
@@ -407,7 +418,7 @@ module Zenlish
 
           # Sentence 1-24: "Tony is near to Lisa."
           literals = [tony, is, near_to, lisa, dot]
-          expect { subject.to_pforest(literals) }.not_to raise_error          
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-G' do
@@ -454,7 +465,7 @@ module Zenlish
           # Sentence 1-27c: "Tony is touching one side of this thing."
           literals = [tony, is_aux, touching, one, side, of, this, thing, dot]
           # Ambiguous parse
-          expect { subject.to_pforest(literals) }.not_to raise_error         
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 1-H' do
@@ -539,7 +550,7 @@ module Zenlish
 
           # Sentence 2-Ax: "What Tony has is like what Lisa has."
           literals = [what, tony, has, is, like, what, lisa, has, dot]
-          expect { subject.to_pforest(literals) }.not_to raise_error         
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 2-B' do
@@ -638,7 +649,7 @@ module Zenlish
 
           # Sentence 2-10e: "Lisa cannot do this."
           literals = [lisa, can, not_, do_, this_as_pronoun, dot]
-          expect { subject.to_pforest(literals) }.not_to raise_error          
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
         it 'should parse sample sentences from lesson 2-D' do
@@ -675,7 +686,7 @@ module Zenlish
           # Sentence 2-Dx: "Lisa thinks about something bad happening to this
           # living thing. Thinking about this feels bad for Lisa."
           literals = [lisa, thinks, about, something, bad, happening, to, this,
-            living, thing, dot, 
+            living, thing, dot,
             #thinking, about, this_as_pronoun, feels, bad,
             #for_, lisa, dot
           ]
@@ -739,7 +750,7 @@ module Zenlish
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
-        it 'should parse sample sentences from lesson 2-F' do       
+        it 'should parse sample sentences from lesson 2-F' do
           # Sentence 2-19a: 'Tony says: "I did X.".'
           literals = [tony, says, colon, quote, i_pronoun, did, x_as_noun, dot, quote, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
@@ -921,31 +932,70 @@ module Zenlish
           # Sentence 2-27a definiendum: 'X is the body of this person.'
           literals = [x_as_noun, is, the, body, of, this, person, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 2-27b "Parts of this person can touch other things.
+          #  Parts of this person can touch other parts inside this person.
+          #  X is all of these parts of this person."
+          # [One part of the body of this person felt very bad.]
+          literals = [ parts, of, this, person, can, touch, other, things, dot,
+            parts, of, this, person, can, touch, other, parts, inside,
+              this, person, dot,
+            x_as_noun, is, all, of, these, parts, of, this, person, dot,
+            one, part, of, the, body, of, this, person, felt, very, bad, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 2-28a definiendum "X dies."
+          literals = [x_as_noun, dies, dot]
+          expect { subject.to_ptree(literals) }.not_to raise_error
+
+          # Sentence 2-28b definiens "Something happens to X in a moment.
+          # X is alive before this moment. X is not alive after this moment.
+          # [After this person lived for a long time, this person died."
+          literals = [ something, happens, to, x_as_noun, in_, a_as_art,
+              moment, dot,
+            x_as_noun, is, alive, before_adverb, this, moment, dot,
+            x_as_noun, is, not_, alive, after_adverb, this, moment, dot,
+            after_, this, person, lived, for_, a_as_art, long, time, comma,
+              this, person, died, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 2-29a definiendum "You think maybe X is true."
+          literals = [you, think, maybe, x_as_noun, is, true_, dot]
+          expect { subject.to_ptree(literals) }.not_to raise_error
+
+          # Sentence 2-29b definiens "You think something like X
+          # can be true. You do not know X is true.
+          # You do not know X is not true.
+          # [Maybe some people far from here can see me.]"
+          literals = [  you, do_aux, not_, know, x_as_noun, is, true_, dot,
+            you, do_aux, not_, know, x_as_noun, is, not_, true_, dot,
+            maybe, some, people, far_from, here_as_noun, can, see, me, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 2-30a definiendum "J is below K."
+          literals = [j_, is, below, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+          
+          # Sentence 2-30b definiens "K is above J.
+          # [I am touching this thing below me.]
+          literals = [  j_, is, below, k_, dot,
+            i_pronoun, am, touching, this, thing, below, me, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 2-H extra "Someone sees this thing.
+          #   The body of this thing is not moving.
+          #   Maybe this thing is dead."
+          literals = [ someone, sees, thing, dot,
+            the, body, of, this, thing, is_aux, not_, moving, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error             
         end
 =begin
 TODO
-Lesson 2-H
-2-27. body, bodies, the body of, the bodies of.
-[X is the body of this person.] = Parts of this person can touch other things. Parts of this person can touch other parts inside this person. X is all of these parts of this person.
-[One part of the body of this person felt very bad.]
-
-2-28. die, dies, to die, dying, died, dead, is dead.
-[X dies.] = Something happens to X in a moment. X is alive before this moment. X is not alive after this moment.
-[After this person lived for a long time, this person died.]
-
-2-29. maybe.
-[You think maybe X is true.] = You think something like X can be true. You do not know X is true. You do not know X is not true.
-[Maybe some people far from here can see me.]
-
-2-30. below, is below.
-[J is below K.] = K is above J.
-[I am touching this thing below me.]
-
-Someone sees this thing.
-The body of this thing is not moving.
-Maybe this thing __________.
-is far below this person
-
 Lesson 2.C
 
 	Xtra:

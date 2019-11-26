@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.1.18] - 2019-11-26
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `Coordinator` to represent the coordinating conjunctions `and`, `or`.
+
+ ### Changed
+ - Folder structure under `lib` and `spec`.
+ - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-A (235 sentences in total).
+ - `ZenlishGrammar`: new production rules added (especially for coordinators).
+ - File `dictionary.rb`: new entries in lexicon `and`, `belong`, `it`, `or`, `that`, `them`, `they`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.17] - 2019-11-25
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-H from
  [Learn These Words First](http://learnthesewordsfirst.com/).

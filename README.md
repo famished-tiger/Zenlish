@@ -20,7 +20,7 @@ users with a language that is close enough to English.
 ### Project status
 
 The project is still in inception. Currently, zenlish is able to parse all
-sentences from lessons 1-A up to 2-H. The parser is able to cope with syntactical
+sentences from lessons 1-A up to 3-A. The parser is able to cope with syntactical
 ambiguities generating parse forests instead of parse trees.
 
 The intent is to deliver gem versions in small increments.
@@ -38,11 +38,11 @@ Over time, the zenlish gem will contain:
 #### Some project metrics (v. 0.1.15)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in dictionary        | 102  |
-| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 45 |
-| Number of production rules in grammar | 137 |
-| Number of lessons covered             | 16  |
-| Number of sentences in spec files     | 207 |
+| Number of lemmas in dictionary        | 106  |
+| [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 53% |
+| Number of production rules in grammar | 148 |
+| Number of lessons covered             | 17  |
+| Number of sentences in spec files     | 235 |
 
 
 ## Installation...
@@ -121,7 +121,7 @@ Litmus test: a Zenlish text should be easy to read to a English reading person.
 Here a tentative roadmap:
 
 #### A) Ability to parse sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
-*STARTED*. 16.7% complete  
+*STARTED*. 17.7% complete  
 This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM

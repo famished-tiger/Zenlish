@@ -38,6 +38,7 @@ module Zenlish
       literal2var('alive', 'alive')
       literal2var('all', 'all')
       def am ; Lex::Literal.new('am', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+      literal2var('and', 'and', '_')
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
@@ -47,6 +48,7 @@ module Zenlish
       literal2var('because', 'because')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
+      literal2var('belong', 'belongs')
       literal2var('below', 'below')
       literal2var('big', 'big')
       literal2var('big', 'bigger')
@@ -74,6 +76,7 @@ module Zenlish
       literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
+      literal2var('hear', 'heard')
       literal2var('hear', 'hears')
       def here ;     Lex::Literal.new('here', get_lexeme('here', WClasses::Adverb), 0) ; end
       def here_as_noun ;  Lex::Literal.new('here', get_lexeme('here', WClasses::CommonNoun), 0) ; end
@@ -81,6 +84,7 @@ module Zenlish
       literal2var('if', 'if', '_')
       literal2var('in', 'in', '_')
       literal2var('inside', 'inside')
+      literal2var('it', 'it', '_')
       literal2var('J', 'j', '_')
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
@@ -102,7 +106,7 @@ module Zenlish
       def more_as_adverb ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adverb), 0) ; end
       literal2var('move', 'move')
       literal2var('move', 'moved')
-      literal2var('move', 'moving')      
+      literal2var('move', 'moving')
       literal2var('move', 'moves')
       literal2var('much', 'much')
       literal2var('near', 'near')
@@ -112,7 +116,9 @@ module Zenlish
       literal2var('of', 'of')
       literal2var('on', 'on')
       def one ; Lex::Literal.new('one', get_lexeme('one', WClasses::Cardinal), 0) ; end
+      def one_as_adj ; Lex::Literal.new('one', get_lexeme('one', WClasses::Adjective), 0) ; end
       def one_as_pronoun ; Lex::Literal.new('one', get_lexeme('one', WClasses::IndefinitePronoun), 0) ; end
+      literal2var('or', 'or', '_')
       literal2var('other', 'other')
       literal2var('part', 'part')
       literal2var('part', 'parts')
@@ -120,6 +126,7 @@ module Zenlish
       literal2var('person', 'person')
       literal2var('place', 'place')
       literal2var('same', 'same')
+      literal2var('see', 'saw')
       literal2var('short', 'short')
       literal2var('side', 'side')
       literal2var('small', 'small')
@@ -132,8 +139,11 @@ module Zenlish
       literal2var('someone', 'someone')
       literal2var('something', 'something')
       literal2var('the', 'the')
+      literal2var('them', 'them')
       literal2var('then', 'then', '_')
+      literal2var('they', 'they')
       literal2var('than', 'than')
+      literal2var('that', 'that')
       literal2var('there', 'there')
       literal2var('thing', 'thing')
       literal2var('thing', 'things')
@@ -149,6 +159,7 @@ module Zenlish
       literal2var('to', 'to')
       literal2var('Tony', 'Tony')
       literal2var('touch', 'touch')
+      literal2var('touch', 'touched')
       literal2var('touch', 'touching')
       literal2var('true', 'true', '_')
       def two ; Lex::Literal.new('two', get_lexeme('two', WClasses::Cardinal), 0) ; end
@@ -963,7 +974,7 @@ module Zenlish
 
           # Sentence 2-29a definiendum "You think maybe X is true."
           literals = [you, think, maybe, x_as_noun, is, true_, dot]
-          expect { subject.to_ptree(literals) }.not_to raise_error
+          expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-29b definiens "You think something like X
           # can be true. You do not know X is true.
@@ -978,7 +989,7 @@ module Zenlish
           # Sentence 2-30a definiendum "J is below K."
           literals = [j_, is, below, k_, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
-          
+
           # Sentence 2-30b definiens "K is above J.
           # [I am touching this thing below me.]
           literals = [  j_, is, below, k_, dot,
@@ -992,7 +1003,105 @@ module Zenlish
           literals = [ someone, sees, thing, dot,
             the, body, of, this, thing, is_aux, not_, moving, dot
           ]
-          expect { subject.to_pforest(literals) }.not_to raise_error             
+          expect { subject.to_pforest(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 3-A' do
+          # Sentence 3-01a definiendum: 'J happens to something that does K.'
+          literals = [j_, happens, to, something, that, does, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-01b definiens: 'J happens to something.
+          #   This same something does K.
+          #   [Tony has something that Lisa wants.]'
+          literals = [j_, happens, to, something, dot,
+            this, same, thing, does, k_, dot,
+            tony, has, something, that, lisa, wants, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-02a definiendum: 'J is true, and K is true.'
+          literals = [j_, is, true_, comma, and_, k_, is, true_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-02b definiens: 'These two things are true: J is true.
+          #   K is true.'
+          #   [Lisa sees Tony, and Tony sees Lisa.]'
+          literals = [these, two, things, are, true_, colon, j_, is, true_, dot,
+            k_, is, true_, dot,
+            lisa, sees, tony, comma, and_, tony, sees, lisa, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-02c definiendum: 'J and K do X.'
+          literals = [j_, and_, k_, do_, x_as_noun, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-02d definiens: 'These two things do X.
+          #   J is one that does this.
+          #   K is another that does this.'
+          #   [Tony and Lisa want to see me.]
+          #   [I see Tony and Lisa.]'
+          literals = [these, two, things, do_, x_as_noun, dot,
+            j_, is, one_as_adj, that, does, this_as_pronoun, dot,
+            k_, is, another, that, does, this_as_pronoun, dot,
+            tony, and_, lisa, want, to, see, me, dot,
+            i_pronoun, see, tony, and_, lisa, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-03a definiendum: 'J is true, or K is true.'
+          literals = [j_, is, true_, comma, or_, k_, is, true_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-03b definiens: 'If J is not true, then K is true.
+          # [Tony saw me, or Lisa heard me.]
+          literals = [if_, j_, is, not_, true_, comma,
+              then_, k_, is, true_, dot,
+            tony, saw, me, comma, or_, lisa, heard, me, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-03c definiendum: 'J or K does this.'
+          literals = [j_, or_, k_, does, this_as_pronoun, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-03d definiendum: 'If J does not do this, then K does this.'
+          literals = [if_, j_, does_aux, not_, do_, this_as_pronoun, comma,
+            then_, k_, does, this_as_pronoun, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-03e: '[Lisa or Tony said something.]
+          # [This belongs to Tony or Lisa.]'
+          literals = [lisa, or_, tony, said, something, dot,
+            this_as_pronoun, belongs, to, tony, or_, lisa, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-04a definiendum: 'It does something.'
+          literals = [it_, does, something, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-04b definiens: 'This thing does something.'
+          # [I touched this thing, and it moved.]
+          literals = [this, thing, does, something, dot,
+            i_pronoun, touched, this, thing, comma, and_, it_, moved, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-04c definiendum: 'They do something.'
+          literals = [they, does, something, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-04d definiens: 'These things or people do something.'
+          # [Something happens to them.] = Something happens to these things or people.
+          literals = [ these, things, or_, people, do_, something, dot,
+            something, happens, to, them, dot,
+            something, happens, to, these, things, or_, people, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 =begin
 TODO

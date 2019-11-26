@@ -61,6 +61,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'negated_predicate_sentence' => 'conjunctive_prefix IrregularVerbBe AdverbNot predicative_complement'
   rule 'predicative_complement' => 'noun_phrase'
   rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
+  # 3-02d J is one that does this.
+  rule 'predicative_complement' => 'adjective_phrase relative_clause_opt'
   # 2-28b X is alive before this moment.
   rule 'predicative_complement' => 'adjective_phrase adverb_phrase noun_phrase'
   # X is far from the start.
@@ -71,9 +73,15 @@ builder = Rley::Syntax::GrammarBuilder.new do
   #################
   # Case of dropped ´that´ conjunction
   rule 'complex_sentence' => 'main_clause comma_opt subordinated_clause'
+  rule 'complex_sentence' => 'main_clause comma_opt relative_clause'
+  rule 'complex_sentence' => 'main_clause comma_opt coordinate_clause'
   rule 'complex_sentence' => 'subordinated_clause Comma main_clause'
+  # 3-03b If J is not true, then K is true.
+  rule 'complex_sentence' => 'subordinated_clause Comma LinkingAdverb main_clause'
   # CGE 287d: verb + direct object + infinitive clause (without to)
   rule 'complex_sentence' => 'main_clause infinitive_clause'
+  # Colon used to introduce an explanatory sentence.
+  rule 'complex_sentence' => 'main_clause Colon simple_sentence'
   rule 'comma_opt' => 'Comma'
   rule 'comma_opt' => []
 
@@ -96,25 +104,31 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'comparative_start' => 'ComparativeParticle'
   rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
   rule 'identifying_clause' => 'RelativePronoun verb_phrase'
+  rule 'relative_clause_opt' =>  'relative_clause'
+  rule 'relative_clause_opt' => []
+  rule 'relative_clause' => 'RelativePronoun tense_phrase'
+  rule 'relative_clause' => 'identifying_clause'
+  rule 'coordinate_clause' => 'Coordinator simple_sentence'
 
 
   ##############
   # TENSE PHRASE
   ##############
   rule 'tense_phrase' => 'noun_phrase tense_opt verb_phrase'
-  rule 'negative_tense_phrase' => 'noun_phrase tense AdverbNot verb_phrase'  
+  rule 'negative_tense_phrase' => 'noun_phrase tense AdverbNot verb_phrase'
   rule 'tense_opt' => 'tense'
   rule 'tense_opt' => []
   rule 'tense' => 'AuxiliaryBe'
-  rule 'tense' => 'AuxiliaryDo'  
+  rule 'tense' => 'AuxiliaryDo'
   rule 'tense' => 'ModalVerbCan'
-  
+
   #############
   # NOUN PHRASE
   #############
   rule 'noun_phrase_opt' => 'noun_phrase'
   rule 'noun_phrase_opt' => []
   rule 'noun_phrase' => 'pre_head_np head_np post_head_np'
+  rule 'noun_phrase' => 'noun_phrase Coordinator noun_phrase'
     # someone, somebody, something, somewhere; no one, nobody, nothing,
     # nowhere; anyone, anybody, anything, anywhere; everyone, everybody,
     # everything, everywhere, the attributive adjective phrase occurs as a postmodifier
@@ -123,7 +137,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'head_np' => 'ProperNoun'
   rule 'head_np' => 'PersonalPronoun'
   rule 'head_np' => 'DemonstrativePronoun'
-  rule 'head_np' => 'IndefinitePronoun'  
+  rule 'head_np' => 'IndefinitePronoun'
   # rule 'head_np' => 'Cardinal' # ... as indefinite pronoun in complement "There were three pies. I ate one."
   rule 'post_head_np' => 'adjective_phrase_opt prepositional_phrases clause_noun_opt'
   rule 'clause_noun_opt' => 'clause_noun'
@@ -164,7 +178,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   #############
   rule 'verb_phrase' => 'pre_head_vp head_vp post_head_vp'
   # Rule specific to linking/copular verbs (CEG 288b). Example: I feel very bad.
-  rule 'verb_phrase' => 'pre_head_vp linking_verb adjective_phrase'  
+  rule 'verb_phrase' => 'pre_head_vp linking_verb adjective_phrase'
   rule 'pre_head_vp' => 'adverb_phrase_opt'
   rule 'head_vp' => 'lexical_verb'
   rule 'head_vp' => 'IrregularVerbSay direct_speech'
@@ -173,13 +187,13 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # Cover case where ´that´ conjunction is dropped.
   rule 'head_vp' => 'mental_verb dependent_clause'
   # ex. 2-23c
-  rule 'head_vp' => 'mental_verb identifying_clause'  
+  rule 'head_vp' => 'mental_verb identifying_clause'
 
   rule 'post_head_vp' => 'noun_phrase_opt adverb_phrase_opt prepositional_phrases adverb_phrase_opt'
   rule 'lexical_verb' => 'RegularVerb'
   rule 'lexical_verb' => 'RegularVerbWant'
   rule 'lexical_verb' => 'IrregularVerb'
-  rule 'lexical_verb' => 'IrregularLinkingVerb'  
+  rule 'lexical_verb' => 'IrregularLinkingVerb'
   rule 'lexical_verb' => 'IrregularVerbBe'
   rule 'lexical_verb' => 'IrregularVerbDo'
   rule 'lexical_verb' => 'IrregularVerbHave'

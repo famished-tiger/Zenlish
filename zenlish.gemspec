@@ -54,7 +54,7 @@ Gem::Specification.new do |spec|
   PkgExtending.pkg_documentation(spec)
   
   # Runtime dependencies
-  spec.add_dependency 'rley', '~> 0.7'  
+  spec.add_dependency 'rley', '~> 0.7.06'  
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 12.0"

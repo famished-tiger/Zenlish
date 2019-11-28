@@ -107,8 +107,12 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'relative_clause_opt' =>  'relative_clause'
   rule 'relative_clause_opt' => []
   rule 'relative_clause' => 'RelativePronoun tense_phrase'
+  # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
+  rule 'relative_clause' => 'RelativePronoun IrregularVerbBe predicative_complement'
   rule 'relative_clause' => 'identifying_clause'
   rule 'coordinate_clause' => 'Coordinator simple_sentence'
+  # Implicit subject. 3-05b: I saw this thing and touched some of its parts.
+  rule 'coordinate_clause' => 'Coordinator verb_phrase'
 
 
   ##############
@@ -162,7 +166,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # Central determiners: article, demonstrative or possessive
   rule 'central_determiners' => 'article'
   rule 'central_determiners' => 'demonstrative'
-  # central_determiners => possessive
+  rule 'central_determiners' => 'PossessiveDeterminer'
   rule 'central_determiners' => []
   rule 'article' => 'DefiniteArticle' # 'the'
   rule 'article' => 'IndefiniteArticle' # 'a/an', .., any, some, that, those,
@@ -206,7 +210,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
 
   rule 'mental_verb' => 'IrregularVerbKnow'
   rule 'mental_verb' => 'IrregularVerbThink'
-  rule 'direct_speech' => 'Colon Quote declarative_simple_sentence Period Quote'
+  rule 'direct_speech' => 'Colon Quote prose Quote'
   rule 'direct_speech' => 'Preposition noun_phrase Colon Quote declarative_simple_sentence Period Quote'
   rule 'direct_speech' => 'Colon declarative_simple_sentence'
 

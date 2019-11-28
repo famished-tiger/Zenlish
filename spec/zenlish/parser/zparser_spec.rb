@@ -31,6 +31,7 @@ module Zenlish
       # to variables that themselves return Literal objects.
       # For instance, next line will create a variable called 'alive'
       literal2var('a', 'a', '_as_art')
+      literal2var('a', 'an')
       literal2var('about', 'about')
       literal2var('above', 'above')
       def after_adverb ; Lex::Literal.new('after', get_lexeme('after', WClasses::Adverb), 0) ; end
@@ -48,6 +49,7 @@ module Zenlish
       literal2var('because', 'because')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
+      literal2var('belong', 'belong')
       literal2var('belong', 'belongs')
       literal2var('below', 'below')
       literal2var('big', 'big')
@@ -85,6 +87,7 @@ module Zenlish
       literal2var('in', 'in', '_')
       literal2var('inside', 'inside')
       literal2var('it', 'it', '_')
+      literal2var('its', 'its')
       literal2var('J', 'j', '_')
       def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
@@ -109,10 +112,12 @@ module Zenlish
       literal2var('move', 'moving')
       literal2var('move', 'moves')
       literal2var('much', 'much')
+      literal2var('my', 'my')
       literal2var('near', 'near')
       literal2var('near to', 'near_to')
       literal2var('not', 'not', '_')
-      literal2var('now', 'now')
+      def now ; Lex::Literal.new('now', get_lexeme('now', WClasses::Adverb), 0) ; end
+      def now_as_noun ; Lex::Literal.new('now', get_lexeme('now', WClasses::CommonNoun), 0) ; end
       literal2var('of', 'of')
       literal2var('on', 'on')
       def one ; Lex::Literal.new('one', get_lexeme('one', WClasses::Cardinal), 0) ; end
@@ -139,6 +144,7 @@ module Zenlish
       literal2var('someone', 'someone')
       literal2var('something', 'something')
       literal2var('the', 'the')
+      literal2var('their', 'their')
       literal2var('them', 'them')
       literal2var('then', 'then', '_')
       literal2var('they', 'they')
@@ -176,6 +182,7 @@ module Zenlish
       literal2var('word', 'words')
       def x_as_noun ; Lex::Literal.new('X', get_lexeme('X'), 0) ; end
       literal2var('you', 'you')
+      literal2var('you', 'your')
 
       def colon ;  Lex::Literal.new(':', get_lexeme(':'), 0) ; end
       def comma ;  Lex::Literal.new(',', get_lexeme(','), 0) ; end
@@ -1103,8 +1110,83 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 3-B' do
+          # Sentence 3-05a definiendum: 'This is its X.'
+          literals = [this_as_pronoun, is, its, x_as_noun, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-05b definiens: 'This X belongs to it.
+          # [I saw this thing and touched some of its parts.]
+          # [These things are their things.] = These things belong to them.
+          literals = [this, x_as_noun, belongs, to, it_, dot,
+            i_pronoun, saw, this, thing, and_, touched, some, of, its, parts, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-05c definiendum: 'These things are their things.'
+          literals = [these, things, are, their, things, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-05d definiens: 'These things belong to them.
+          literals = [these, things, belong, to, them, dot,
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-06a definiendum: 'This is your X.'
+          literals = [this_as_pronoun, is, your, x_as_noun, dot,
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-06b definien: 'This X belongs to you.
+          # [You feel something touching your body.]
+          literals = [this, x_as_noun, belongs, to, you, dot,
+            you, feel, something, touching, your, body, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-07a definiendum: 'This is my X.'
+          literals = [this_as_pronoun, is, my, x_as_noun, dot,
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-07b definiens: 'This X belongs to me.
+          # [I do not want you to touch my body.]
+          literals = [this, x_as_noun, belongs, to, me, dot,
+            i_pronoun, do_aux, not_, want, to, touch, my, body, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-08a definiendum: 'There is an X here.'
+          literals = [there, is, an, x_as_noun, here, dot,
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-0bb definiens: 'X is some kind of thing.
+          # There is one of this kind of thing here.
+          # This is not one that you said something about a short time before now.
+          # [I did not know there was a person in this place.]
+          literals = [x_as_noun, is, some, kind, of, thing, dot,
+            there, is, one, of, this, kind, of, thing, here, dot,
+            this_as_pronoun, is, not_, one_as_adj, that, you, said, something,
+              about, a_as_art, short, time, before, now_as_noun, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
+          # Lisa says: "I see one living thing. Its body is bigger than my body.", dot
+          literals = [
+            lisa, sees, a_as_art, living, thing, that, is, very, big, dot,
+            lisa, says, colon, quote, i_pronoun, see, one, living, thing, dot,
+              its, body, is, bigger, than, my, body, dot, quote, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+        end
 =begin
 TODO
+
 Lesson 2.C
 
 	Xtra:

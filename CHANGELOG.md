@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.1.19] - 2019-11-28
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-B from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `PossessiveDeterminer` to represent the posessive determiners `its`, `my`, `their`, `your`.
+
+ ### Changed
+ - File `zenlish.gemspec`: raise an error if Rley version is < 0.7.06
+ - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-B (255 sentences in total).
+ - `ZenlishGrammar`: new production rules added (especially for posessive determiners a multiple sentences in direct speech).
+ - File `dictionary.rb`: new entries in lexicon `and`, `belong`, `it`, `or`, `that`, `them`, `they`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.18] - 2019-11-26
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A from
  [Learn These Words First](http://learnthesewordsfirst.com/).
@@ -8,7 +22,6 @@ __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A from
  - Class `Coordinator` to represent the coordinating conjunctions `and`, `or`.
 
  ### Changed
- - Folder structure under `lib` and `spec`.
  - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-A (235 sentences in total).
  - `ZenlishGrammar`: new production rules added (especially for coordinators).
  - File `dictionary.rb`: new entries in lexicon `and`, `belong`, `it`, `or`, `that`, `them`, `they`.

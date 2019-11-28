@@ -44,6 +44,7 @@ module Zenlish
         aLexicon.add_terminal(WClasses::LinkingAdverb.new.freeze)
         aLexicon.add_terminal(WClasses::ModalVerbCan.new.freeze)
         aLexicon.add_terminal(WClasses::PersonalPronoun.new.freeze)
+        aLexicon.add_terminal(WClasses::PossessiveDeterminer.new.freeze)
         aLexicon.add_terminal(WClasses::Preposition.new.freeze)
         aLexicon.add_terminal(WClasses::PrepositionOf.new.freeze)
         aLexicon.add_terminal(WClasses::PrepositionThan.new.freeze)

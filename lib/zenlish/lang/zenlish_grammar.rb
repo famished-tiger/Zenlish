@@ -4,39 +4,25 @@
 require 'rley' # Load the Rley parsing library
 require_relative 'dictionary'
 
-# Carnie 2012
-# CP ➝ (C) TP
-# TP ➝ {NP/CP} (T) VP
-# VP ➝(AdvP+) V (NP)({NP/CP}) (AdvP+) (PP+) (AdvP+)
-# NP ➝ (D) (AdjP+) N (PP+) (CP)
-# PP ➝ P (NP)
-# AdjP ➝ (AdvP) Adj
-# AdvP ➝ (AdvP) Adv
-
-# Slide show on ajective and adverb phrases
-# https://www.slideshare.net/UtTramTran/advadj-phrase
-
-# A Lexicalized Tree Adjoining Grammar for English
-# https://www.cis.upenn.edu/~xtag/tech-report/tech-report.html
-
-
 ########################################
 # Define a grammar for a highly English-like language
 builder = Rley::Syntax::GrammarBuilder.new do
   add_terminals(*Zenlish::Lang::Dictionary.terminals)
 
   rule 'zenlish' => 'prose'
-  rule 'prose' => 'sentence'
-  rule 'prose' => 'prose sentence'
+  rule 'prose' => 'sentence Period'
+  rule 'prose' => 'prose sentence Period'
 
-  rule 'sentence' => 'simple_sentence Period'
-  rule 'sentence' => 'complex_sentence Period'
+  rule 'sentence' => 'simple_sentence'
+  rule 'sentence' => 'complex_sentence'
 
   #################
   # Simple sentence
   #################
+  rule 'simple_sentence' =>  'front_adverb simple_sentence'
+  rule 'front_adverb' => 'AdverbMaybe'
+  rule 'front_adverb' => 'Adverb'
   rule 'simple_sentence' => 'declarative_simple_sentence'
-  rule 'simple_sentence' => 'AdverbMaybe declarative_simple_sentence'
   rule 'declarative_simple_sentence' => 'affirmative_sentence'
   rule 'declarative_simple_sentence' => 'existential_sentence'
   rule 'declarative_simple_sentence' => 'predicative_sentence'
@@ -55,10 +41,12 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'existential_subject' => 'noun_phrase adverb_phrase_opt'
   rule 'existential_subject' => 'prepositional_phrase'
 
-  rule 'predicative_sentence' => 'noun_phrase IrregularVerbBe predicative_complement'
-  rule 'predicative_sentence' => 'conjunctive_prefix IrregularVerbBe predicative_complement'
-  rule 'negated_predicate_sentence' => 'noun_phrase adverb_phrase_opt IrregularVerbBe AdverbNot predicative_complement'
-  rule 'negated_predicate_sentence' => 'conjunctive_prefix IrregularVerbBe AdverbNot predicative_complement'
+  rule 'predicative_sentence' => 'noun_phrase affirmation'
+  rule 'predicative_sentence' => 'conjunctive_prefix affirmation'
+  rule 'negated_predicate_sentence' => 'noun_phrase adverb_phrase_opt negation'
+  rule 'negated_predicate_sentence' => 'conjunctive_prefix negation'
+  rule 'affirmation' => 'IrregularVerbBe predicative_complement'
+  rule 'negation' => 'IrregularVerbBe AdverbNot predicative_complement'
   rule 'predicative_complement' => 'noun_phrase'
   rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
   # 3-02d J is one that does this.
@@ -72,6 +60,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # Complex sentence
   #################
   # Case of dropped ´that´ conjunction
+  rule 'complex_sentence' => 'AdverbMaybe complex_sentence'
   rule 'complex_sentence' => 'main_clause comma_opt subordinated_clause'
   rule 'complex_sentence' => 'main_clause comma_opt relative_clause'
   rule 'complex_sentence' => 'main_clause comma_opt coordinate_clause'
@@ -88,7 +77,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   ######################
   # CLAUSES
   ######################
-  rule 'main_clause' => 'simple_sentence'
+  rule 'main_clause' => 'sentence'
   rule 'subordinated_clause' => 'subordination_marker dependent_clause'
   rule 'subordination_marker' => 'SubordinatingConjunction'
   rule 'subordination_marker' => 'SubordinatingConjunction PrepositionOf'
@@ -103,23 +92,29 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'comparative_start' => 'PrepositionThan'
   rule 'comparative_start' => 'ComparativeParticle'
   rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
-  rule 'identifying_clause' => 'RelativePronoun verb_phrase'
+  rule 'identifying_clause' => 'RelativePronoun tense_verb_phrase'
   rule 'relative_clause_opt' =>  'relative_clause'
   rule 'relative_clause_opt' => []
   rule 'relative_clause' => 'RelativePronoun tense_phrase'
   # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
-  rule 'relative_clause' => 'RelativePronoun IrregularVerbBe predicative_complement'
+  rule 'relative_clause' => 'RelativePronoun affirmation'
   rule 'relative_clause' => 'identifying_clause'
   rule 'coordinate_clause' => 'Coordinator simple_sentence'
+  # Sentence 3-11b K happens because J happens or because J does something.
+  rule 'coordinate_clause' => 'Coordinator subordinated_clause'
+
   # Implicit subject. 3-05b: I saw this thing and touched some of its parts.
-  rule 'coordinate_clause' => 'Coordinator verb_phrase'
+  rule 'coordinate_clause' => 'Coordinator tense_verb_phrase'
 
 
   ##############
   # TENSE PHRASE
   ##############
-  rule 'tense_phrase' => 'noun_phrase tense_opt verb_phrase'
-  rule 'negative_tense_phrase' => 'noun_phrase tense AdverbNot verb_phrase'
+  # Leading adverb phrase: now I see it. now is an adjunct)
+  rule 'tense_phrase' => 'adverb_phrase_opt noun_phrase tense_verb_phrase'
+  rule 'negative_tense_phrase' => 'noun_phrase negative_tense_verb_phrase'
+  rule 'tense_verb_phrase' => 'tense_opt verb_phrase'
+  rule 'negative_tense_verb_phrase' => 'tense_opt AdverbNot verb_phrase'
   rule 'tense_opt' => 'tense'
   rule 'tense_opt' => []
   rule 'tense' => 'AuxiliaryBe'
@@ -149,11 +144,10 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'clause_noun' => 'comparative_clause'
   rule 'clause_noun' => 'dependent_clause'
 
-
   #############
   # DETERMINERS
   #############
-  rule 'determiners' => 'predeterminers central_determiners postdeterminers'
+  rule 'determiners' => 'predeterminers central_determiner postdeterminers'
 
   # Pre-determiners
   rule 'predeterminers' => 'IndefiniteQuantifier' # all, ... both, half
@@ -164,10 +158,10 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'partitive_predeterminer' => 'IndefiniteQuantifier PrepositionOf' # some of...
 
   # Central determiners: article, demonstrative or possessive
-  rule 'central_determiners' => 'article'
-  rule 'central_determiners' => 'demonstrative'
-  rule 'central_determiners' => 'PossessiveDeterminer'
-  rule 'central_determiners' => []
+  rule 'central_determiner' => 'article'
+  rule 'central_determiner' => 'demonstrative'
+  rule 'central_determiner' => 'PossessiveDeterminer'
+  rule 'central_determiner' => []
   rule 'article' => 'DefiniteArticle' # 'the'
   rule 'article' => 'IndefiniteArticle' # 'a/an', .., any, some, that, those,
   rule 'demonstrative' => 'DemonstrativeDeterminer' # 'this', .., that, these, those
@@ -177,12 +171,15 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'postdeterminers' => 'numeral'
   rule 'postdeterminers' => []
 
+
   #############
   # VERB PHRASE
   #############
   rule 'verb_phrase' => 'pre_head_vp head_vp post_head_vp'
   # Rule specific to linking/copular verbs (CEG 288b). Example: I feel very bad.
   rule 'verb_phrase' => 'pre_head_vp linking_verb adjective_phrase'
+  # Sentence 3-12b: Maybe when some people hear J is true
+  rule 'verb_phrase' => 'pre_head_vp linking_verb dependent_clause'
   rule 'pre_head_vp' => 'adverb_phrase_opt'
   rule 'head_vp' => 'lexical_verb'
   rule 'head_vp' => 'IrregularVerbSay direct_speech'
@@ -204,7 +201,6 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerbKnow'
   rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'lexical_verb' => 'IrregularVerbThink'
-
 
   rule 'linking_verb' => 'IrregularLinkingVerb'
 

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [0.1.20] - 2019-11-30
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-C from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `PossessiveDeterminer` to represent the posessive determiners `its`, `my`, `their`, `your`.
+
+ ### Changed
+ - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-C (255 sentences in total).
+ - `ZenlishGrammar`: new production rules added (especially for posessive determiners a multiple sentences in direct speech).
+ - File `dictionary.rb`: new entries in lexicon `animal`, `but`, `cause`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.19] - 2019-11-28
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-B from
  [Learn These Words First](http://learnthesewordsfirst.com/).

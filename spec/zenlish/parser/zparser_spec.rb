@@ -40,6 +40,7 @@ module Zenlish
       literal2var('all', 'all')
       def am ; Lex::Literal.new('am', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('and', 'and', '_')
+      literal2var('animal', 'animal')
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
@@ -48,6 +49,7 @@ module Zenlish
       def be_ ; Lex::Literal.new('be', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('because', 'because')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
+      def before_as_adj ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adjective), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
       literal2var('belong', 'belong')
       literal2var('belong', 'belongs')
@@ -55,8 +57,12 @@ module Zenlish
       literal2var('big', 'big')
       literal2var('big', 'bigger')
       literal2var('body', 'body')
+      literal2var('but', 'but')
       literal2var('can', 'can')
+      literal2var('cause', 'caused')
+      literal2var('cause', 'causes')
       def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
+      literal2var('die', 'die')
       literal2var('die', 'died')
       literal2var('die', 'dies')
       def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
@@ -78,6 +84,7 @@ module Zenlish
       literal2var('happen', 'happens')
       literal2var('have', 'has')
       literal2var('have', 'have')
+      literal2var('hear', 'hear')
       literal2var('hear', 'heard')
       literal2var('hear', 'hears')
       def here ;     Lex::Literal.new('here', get_lexeme('here', WClasses::Adverb), 0) ; end
@@ -93,6 +100,7 @@ module Zenlish
       def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
       literal2var('K', 'k', '_')
       literal2var('kind', 'kind')
+      literal2var('kind', 'kinds')
       literal2var('know', 'knew')
       literal2var('know', 'know')
       literal2var('know', 'knows')
@@ -137,6 +145,7 @@ module Zenlish
       literal2var('small', 'small')
       literal2var('small', 'smaller')
       literal2var('some', 'some')
+      literal2var('say', 'say')
       literal2var('say', 'said')
       literal2var('say', 'says')
       literal2var('see', 'see')
@@ -1086,8 +1095,7 @@ module Zenlish
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-04a definiendum: 'It does something.'
-          literals = [it_, does, something, dot
-          ]
+          literals = [it_, does, something, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-04b definiens: 'This thing does something.'
@@ -1131,13 +1139,11 @@ module Zenlish
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-05d definiens: 'These things belong to them.
-          literals = [these, things, belong, to, them, dot,
-          ]
+          literals = [these, things, belong, to, them, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-06a definiendum: 'This is your X.'
-          literals = [this_as_pronoun, is, your, x_as_noun, dot,
-          ]
+          literals = [this_as_pronoun, is, your, x_as_noun, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-06b definien: 'This X belongs to you.
@@ -1160,18 +1166,17 @@ module Zenlish
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-08a definiendum: 'There is an X here.'
-          literals = [there, is, an, x_as_noun, here, dot,
-          ]
+          literals = [there, is, an, x_as_noun, here, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
-          # Sentence 3-0bb definiens: 'X is some kind of thing.
+          # Sentence 3-08b definiens: 'X is some kind of thing.
           # There is one of this kind of thing here.
           # This is not one that you said something about a short time before now.
           # [I did not know there was a person in this place.]
           literals = [x_as_noun, is, some, kind, of, thing, dot,
             there, is, one, of, this, kind, of, thing, here, dot,
             this_as_pronoun, is, not_, one_as_adj, that, you, said, something,
-              about, a_as_art, short, time, before, now_as_noun, dot
+              about, a_as_art, short, time, before_as_adj, now_as_noun, dot
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
@@ -1181,6 +1186,79 @@ module Zenlish
             lisa, sees, a_as_art, living, thing, that, is, very, big, dot,
             lisa, says, colon, quote, i_pronoun, see, one, living, thing, dot,
               its, body, is, bigger, than, my, body, dot, quote, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 3-C' do
+          # Sentence 3-09a definiendum: 'Something happens to the X.'
+          literals = [something, happens, to, the, x_as_noun, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-09b definiens: Something happens to X.
+          # This is the same X that someone said something about a short time before,
+          # or there is not another thing that is the same kind as X.
+          # [I saw two people here before, and now I do not see the people.]
+          literals = [something, happens, to, x_as_noun, dot,
+            this_as_pronoun, is, the, same, x_as_noun, that, someone, said, something, about,
+              a_as_art, short, time, before_as_adj, comma,
+              or_, there, is, not_, another, thing, that, is, the, same, kind,
+                as, x_as_noun, dot,
+            i_pronoun, saw, two, people, here, before_adverb, comma,
+              and_, now, i_pronoun, do_aux, not_, see, the, people, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-10a definiendum: 'X is an animal.'
+          literals = [x_as_noun, is, an, animal, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-10b definiens: There are many kinds of living things
+          #   that can feel and can move when they want. X is one of these.
+          #   [The animal moved when someone touched its body.]
+          literals = [ there, are, many, kinds, of, living, things,
+              that, can, feel, and_, can, move, when_, they, want, dot,
+              x_as_noun, is, one, of, these_as_pronoun, dot,
+              the, animal, moved, when_, someone, touched, its, body, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-11a definiendum: 'J causes K to happen.'
+          literals = [j_, causes, k_, to, happen, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-11b definiens: K happens because J happens
+          #   or because J does something.
+          #   [Someone bad caused these people to die.]
+          literals = [ k_, happens, because, j_, happens,
+            or_, because, j_, does, something, dot,
+            something, bad, caused, these, people, to, die, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-12a definiendum: 'J is true, but K is not true.'
+          literals = [j_, is, true_, comma, but, k_, is, not_, true_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-12b definiens: You say J is true.
+          # Maybe when some people hear J is true,
+          #   they think K is true because of this.
+          # You want them to know K is not true, and you say this.
+          # [I hear Tony, but I do not see Tony.]
+          literals = [ maybe, when_, some, people, hear, j_, is, true_, comma,
+              they, think, k_, is, true_, because, of, this_as_pronoun, dot,
+            you, want, them, to, know, k_, is, not_, true_, comma,
+            and_, you, say, this_as_pronoun, dot,
+            i_pronoun, hear, tony, comma, but, i_pronoun, do_aux, not_, see, lisa, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-C Xtra Lisa says: "I can hear an animal, but I do not see it."
+          # Tony says: "I can see the animal that you hear.".
+          literals = [ lisa, says, colon, quote, i_pronoun, can, hear, an,
+              animal, comma, but, i_pronoun, do_aux, not_, see, it_, dot, quote,
+            dot, tony, says, colon, quote, i_pronoun, can, see, the, animal,
+              that, you, hear, dot, quote, dot
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end

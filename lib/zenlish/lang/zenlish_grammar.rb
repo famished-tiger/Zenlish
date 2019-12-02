@@ -52,7 +52,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # 3-02d J is one that does this.
   rule 'predicative_complement' => 'adjective_phrase relative_clause_opt'
   # 2-28b X is alive before this moment.
-  rule 'predicative_complement' => 'adjective_phrase adverb_phrase noun_phrase'
+  rule 'predicative_complement' => 'adjective_phrase adverb_phrase noun_phrase_opt'
   # X is far from the start.
   rule 'predicative_complement' => 'adverb_phrase_opt prepositional_phrase'
 
@@ -70,7 +70,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # CGE 287d: verb + direct object + infinitive clause (without to)
   rule 'complex_sentence' => 'main_clause infinitive_clause'
   # Colon used to introduce an explanatory sentence.
-  rule 'complex_sentence' => 'main_clause Colon simple_sentence'
+  rule 'complex_sentence' => 'main_clause Colon sentence'
   rule 'comma_opt' => 'Comma'
   rule 'comma_opt' => []
 
@@ -148,31 +148,33 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # DETERMINERS
   #############
   rule 'determiners' => 'predeterminer_opt central_determiner_opt postdeterminers'
-  rule 'determiners' => 'partitive_determiner PrepositionOf main_determiner_opt postdeterminers'  
+  rule 'determiners' => 'partitive_determiner PrepositionOf main_determiner_opt postdeterminers'
 
   # Pre-determiner
   rule 'predeterminer_opt' => 'predeterminer'
   rule 'predeterminer_opt' => []
   rule 'predeterminer' => 'FrontingQuantifier' # all, both
   # FOR_LATER 'predeterminer' => 'multipler' # twice, thrice, n times
-  # FOR_LATER 'predeterminer' => 'fraction' # half, third, ...  
-  # FOR_LATER 'predeterminer' => 'intensifier' # what (exclamative), such, quite, rather     
+  # FOR_LATER 'predeterminer' => 'fraction' # half, third, ...
+  # FOR_LATER 'predeterminer' => 'intensifier' # what (exclamative), such, quite, rather
 
   # Central determiners: article, demonstrative or possessive
   rule 'central_determiner_opt' => 'main_determiner'
   rule 'central_determiner_opt' => 'DistributiveDeterminer' # each, every, either, neither
-  # FOR_LATER 'central_determiner_opt' => 'InterrogativeDeterminer' # what, which, whose  
+  # FOR_LATER 'central_determiner_opt' => 'InterrogativeDeterminer' # what, which, whose
   rule 'central_determiner_opt' => []
   rule 'main_determiner_opt' => 'main_determiner'
-  rule 'main_determiner_opt' => []  
+  rule 'main_determiner_opt' => []
   rule 'main_determiner' => 'article'
   rule 'main_determiner' => 'DemonstrativeDeterminer' # 'this', .., that, these, those
-  rule 'main_determiner' => 'PossessiveDeterminer' # my, your, his, her, its, our, their  
+  rule 'main_determiner' => 'PossessiveDeterminer' # my, your, his, her, its, our, their
   rule 'article' => 'DefiniteArticle' # 'the'
   rule 'article' => 'IndefiniteArticle' # 'a/an', .., any, some, that, those,
 
   # Post-determiners
   # FOR_LATER 'postdeterminers' => 'ordinal_opt cardinal_opt other_quantifiers'
+  # Example 3-14b: There are two or more things.
+  rule 'postdeterminers' => 'postdeterminers Coordinator postdeterminers'
   rule 'postdeterminers' => 'cardinal_opt other_quantifiers'
   rule 'postdeterminers' => []
   rule 'other_quantifiers' => 'other_quantifiers Quantifier'
@@ -181,9 +183,9 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'partitive_determiner' => 'predeterminer'
   rule 'partitive_determiner' => 'DistributiveDeterminer'
   # FOR_LATER 'partitive_determiner' => 'Ordinal'
-  # FOR_LATER 'partitive_determiner' => 'GeneralOrdinal'  
+  # FOR_LATER 'partitive_determiner' => 'GeneralOrdinal'
   rule 'partitive_determiner' => 'Cardinal'
-  rule 'partitive_determiner' => 'Quantifier'  
+  rule 'partitive_determiner' => 'Quantifier'
 
   #############
   # VERB PHRASE
@@ -221,7 +223,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'mental_verb' => 'IrregularVerbThink'
   rule 'direct_speech' => 'Colon Quote prose Quote'
   rule 'direct_speech' => 'Preposition noun_phrase Colon Quote declarative_simple_sentence Period Quote'
-  rule 'direct_speech' => 'Colon declarative_simple_sentence'
+  rule 'direct_speech' => 'Colon sentence'
 
   ##################
   # ADJECTIVE PHRASE

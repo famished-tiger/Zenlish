@@ -41,6 +41,7 @@ module Zenlish
       def am ; Lex::Literal.new('am', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('and', 'and', '_')
       literal2var('animal', 'animal')
+      literal2var('animal', 'animals')
       literal2var('another', 'another')
       def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('as', 'as')
@@ -48,6 +49,8 @@ module Zenlish
       literal2var('bad', 'bad')
       def be_ ; Lex::Literal.new('be', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('because', 'because')
+      literal2var('become', 'became')
+      literal2var('become', 'becomes')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before_as_adj ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adjective), 0) ; end
       def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
@@ -59,7 +62,7 @@ module Zenlish
       literal2var('body', 'body')
       literal2var('but', 'but')
       literal2var('can', 'can')
-      literal2var('cause', 'cause')      
+      literal2var('cause', 'cause')
       literal2var('cause', 'caused')
       literal2var('cause', 'causes')
       def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
@@ -70,7 +73,10 @@ module Zenlish
       def do_aux ; Lex::Literal.new('do', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
-      literal2var('each', 'each', '_')      
+      literal2var('each', 'each', '_')
+      literal2var('exist', 'exist')
+      literal2var('exist', 'existed')
+      literal2var('exist', 'exists')
       literal2var('false', 'false', '_')
       literal2var('far', 'far')
       literal2var('far from', 'far_from')
@@ -153,6 +159,7 @@ module Zenlish
       literal2var('see', 'see')
       literal2var('see', 'sees')
       literal2var('someone', 'someone')
+      literal2var('someplace', 'someplace')
       literal2var('something', 'something')
       literal2var('the', 'the')
       literal2var('their', 'their')
@@ -181,8 +188,8 @@ module Zenlish
       literal2var('true', 'true', '_')
       def two ; Lex::Literal.new('two', get_lexeme('two', WClasses::Cardinal), 0) ; end
       def two_as_pronoun ; Lex::Literal.new('two', get_lexeme('two', WClasses::IndefinitePronoun), 0) ; end
-      literal2var('use', 'use')      
-      literal2var('use', 'used')       
+      literal2var('use', 'use')
+      literal2var('use', 'used')
       literal2var('very', 'very')
       literal2var('want', 'want')
       literal2var('want', 'wants')
@@ -1266,47 +1273,82 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
-        
+
         it 'should parse sample sentences from lesson 3-D' do
           # Sentence 3-13a definiendum: 'You use this thing.'
           literals = [you, use, this, thing, dot]
-          expect { subject.to_pforest(literals) }.not_to raise_error 
+          expect { subject.to_pforest(literals) }.not_to raise_error
 
-          # Sentence 3-13b definiens: You do something with this thing 
+          # Sentence 3-13b definiens: You do something with this thing
           # because you think this can cause something to happen that you want.
           # [I used something big to cause people far from here to see me.]
           literals = [ you, do_, something, with, this, thing, because, you,
-            think, this_as_pronoun, can, cause, something, to, happen, 
+            think, this_as_pronoun, can, cause, something, to, happen,
             that, you, want, dot,
-            i_pronoun, used, something, big, to, cause, people, far, from, 
+            i_pronoun, used, something, big, to, cause, people, far, from,
             here_as_noun, to, see, me, dot
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 3-14a definiendum: 'You know X about each of these things.'
           literals = [you, know, x_as_noun, about, each_, of, these, things, dot]
-          expect { subject.to_pforest(literals) }.not_to raise_error           
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-14b definiens: There are two or more things.
+          # You think about all these things like this:
+          # If something is one of these things, then you know X about it.
+          # [Each person here said something to me.]
+          # because you think this can cause something to happen that you want.
+          # [I used something big to cause people far from here to see me.]
+          literals = [ there, are, two, or_, more, things, dot,
+            you, think, about, all, these, things, like, this_as_pronoun, colon,
+              if_, something, is, one, of, these, things, comma,
+              then_, you, know, x_as_noun, about, it_, dot,
+            each_, person, here, said, something, to, me, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-15a definiendum: 'Someplace an X exists.'
+          literals = [someplace, an, x_as_noun, exists, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-15b definiens: Someplace there is an X,
+          # or someplace an X is alive.
+          # [This kind of thing did not exist before this time.]
+          literals = [ someplace, there, is, an, x_as_noun, comma,
+            or_, someplace, an, x_as_noun, is, alive, dot,
+            this, kind, of, thing, did, not_, exist, before, this, time, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-16a definiendum: 'J became K.'
+          literals = [j_, became, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-16b definiens: Something happened to J for some time.
+          # After this happened, K is something true you can know about J.
+          # But before this happened, K was not true.
+          # [These two animals were small before, but they became big.]
+          literals = [ something, happened, to, j_, for_, some, time, dot,
+            after_, this_as_pronoun, happened, comma, k_, is, something, true_,
+              you, can, know, about, j_, dot,
+            these, two, animals, were, small, before_adverb, comma,
+            but, they, became, big, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-Dx: There are some animals here.
+          # Each of these animals was small when it existed a short time.
+          # After a long time, each of these animals became big.
+          literals = [there, are, some, animal, here, dot,
+            each_, of, these, animals, was, small, when_, it_,
+              existed, a_as_art, short, time, dot,
+            after_, a_as_art, long, time, comma, each_, of, these, animals,
+              became, big, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
         end
 =begin
 TODO
-3-14. each, each of.
-[You know X about each of these things.] = There are two or more things. You think about all these things like this: If something is one of these things, then you know X about it.
-[Each person here said something to me.]
-
-3-15. exist, exists, to exist, existing, existed.
-[Someplace an X exists.] = Someplace there is an X, or someplace an X is alive.
-[This kind of thing did not exist before this time.]
-
-3-16. become, becomes, to become, becoming, became.
-[J became K.] = Something happened to J for some time. After this happened, K is something true you can know about J. But before this happened, K was not true.
-[These two animals were small before, but they became big.]
-
-There are some animals here.
-Each of these animals was small when it existed a short time.
-After a long time, each of these animals __________.
-became big
-became small
-used many words
 
 Lesson 2.C
 

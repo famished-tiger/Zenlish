@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [0.1.21] - 2019-12-02
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-C from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Added
+ - Class `DistributiveDeterminer` to represent the words `each`, `every`, `either`, `neither`. 
+ - Class `FrontingQuantifier` to represent the quantifiers `all` and `both`.
+
+ ### Changed
+ - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-D (277 sentences in total).
+ - `ZenlishGrammar`: rewrite of rules for determiner syntax.
+ - Class `IndefiniteQuantifier` renamed to `Quantifier`
+ - File `dictionary.rb`: new entries in lexicon `each`, `use`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.20] - 2019-11-30
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-C from
  [Learn These Words First](http://learnthesewordsfirst.com/).

@@ -147,30 +147,43 @@ builder = Rley::Syntax::GrammarBuilder.new do
   #############
   # DETERMINERS
   #############
-  rule 'determiners' => 'predeterminers central_determiner postdeterminers'
+  rule 'determiners' => 'predeterminer_opt central_determiner_opt postdeterminers'
+  rule 'determiners' => 'partitive_determiner PrepositionOf main_determiner_opt postdeterminers'  
 
-  # Pre-determiners
-  rule 'predeterminers' => 'IndefiniteQuantifier' # all, ... both, half
-  rule 'predeterminers' => 'partitive_predeterminer'
-  rule 'predeterminers' => []
-
-  rule 'partitive_predeterminer' => 'numeral PrepositionOf' # one of ...
-  rule 'partitive_predeterminer' => 'IndefiniteQuantifier PrepositionOf' # some of...
+  # Pre-determiner
+  rule 'predeterminer_opt' => 'predeterminer'
+  rule 'predeterminer_opt' => []
+  rule 'predeterminer' => 'FrontingQuantifier' # all, both
+  # FOR_LATER 'predeterminer' => 'multipler' # twice, thrice, n times
+  # FOR_LATER 'predeterminer' => 'fraction' # half, third, ...  
+  # FOR_LATER 'predeterminer' => 'intensifier' # what (exclamative), such, quite, rather     
 
   # Central determiners: article, demonstrative or possessive
-  rule 'central_determiner' => 'article'
-  rule 'central_determiner' => 'demonstrative'
-  rule 'central_determiner' => 'PossessiveDeterminer'
-  rule 'central_determiner' => []
+  rule 'central_determiner_opt' => 'main_determiner'
+  rule 'central_determiner_opt' => 'DistributiveDeterminer' # each, every, either, neither
+  # FOR_LATER 'central_determiner_opt' => 'InterrogativeDeterminer' # what, which, whose  
+  rule 'central_determiner_opt' => []
+  rule 'main_determiner_opt' => 'main_determiner'
+  rule 'main_determiner_opt' => []  
+  rule 'main_determiner' => 'article'
+  rule 'main_determiner' => 'DemonstrativeDeterminer' # 'this', .., that, these, those
+  rule 'main_determiner' => 'PossessiveDeterminer' # my, your, his, her, its, our, their  
   rule 'article' => 'DefiniteArticle' # 'the'
   rule 'article' => 'IndefiniteArticle' # 'a/an', .., any, some, that, those,
-  rule 'demonstrative' => 'DemonstrativeDeterminer' # 'this', .., that, these, those
-  # possessive => possessive_determiner # ...my, your, his, her, its, our, their
 
-  # Postdeterminers
-  rule 'postdeterminers' => 'numeral'
+  # Post-determiners
+  # FOR_LATER 'postdeterminers' => 'ordinal_opt cardinal_opt other_quantifiers'
+  rule 'postdeterminers' => 'cardinal_opt other_quantifiers'
   rule 'postdeterminers' => []
+  rule 'other_quantifiers' => 'other_quantifiers Quantifier'
+  rule 'other_quantifiers' => []
 
+  rule 'partitive_determiner' => 'predeterminer'
+  rule 'partitive_determiner' => 'DistributiveDeterminer'
+  # FOR_LATER 'partitive_determiner' => 'Ordinal'
+  # FOR_LATER 'partitive_determiner' => 'GeneralOrdinal'  
+  rule 'partitive_determiner' => 'Cardinal'
+  rule 'partitive_determiner' => 'Quantifier'  
 
   #############
   # VERB PHRASE
@@ -258,6 +271,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   ######################
   # REMAINING RULES
   ######################
+  rule 'cardinal_opt' => 'Cardinal'
+  rule 'cardinal_opt' => []
   rule 'numeral' => 'Cardinal'
 end
 

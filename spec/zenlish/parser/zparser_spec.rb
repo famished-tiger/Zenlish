@@ -50,6 +50,7 @@ module Zenlish
       def be_ ; Lex::Literal.new('be', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
       literal2var('because', 'because')
       literal2var('become', 'became')
+      literal2var('become', 'become')
       literal2var('become', 'becomes')
       def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
       def before_as_adj ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adjective), 0) ; end
@@ -65,15 +66,22 @@ module Zenlish
       literal2var('cause', 'cause')
       literal2var('cause', 'caused')
       literal2var('cause', 'causes')
+      literal2var('contain', 'contain')
+      literal2var('contain', 'contains')
+      literal2var('container', 'container')
+      literal2var('container', 'containers')
       def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       literal2var('die', 'die')
       literal2var('die', 'died')
       literal2var('die', 'dies')
+      literal2var('different', 'different')
       def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def do_aux ; Lex::Literal.new('do', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
       def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
       literal2var('each', 'each', '_')
+      def each_ ; Lex::Literal.new('each', get_lexeme('each', WClasses::DistributiveDeterminer), 0) ; end
+      def each_as_pronoun ; Lex::Literal.new('each', get_lexeme('each', WClasses::Pronoun), 0) ; end
       literal2var('exist', 'exist')
       literal2var('exist', 'existed')
       literal2var('exist', 'exists')
@@ -117,6 +125,8 @@ module Zenlish
       literal2var('live', 'lived')
       literal2var('living', 'living')
       literal2var('long', 'long')
+      literal2var('make', 'made')
+      literal2var('make', 'make')
       literal2var('many', 'many')
       literal2var('maybe', 'maybe')
       literal2var('me', 'me')
@@ -146,7 +156,8 @@ module Zenlish
       literal2var('people', 'people')
       literal2var('person', 'person')
       literal2var('place', 'place')
-      literal2var('same', 'same')
+      def same ; Lex::Literal.new('same', get_lexeme('same', WClasses::Adjective), 0) ; end
+      def same_as_pronoun ; Lex::Literal.new('same', get_lexeme('same', WClasses::Pronoun), 0) ; end
       literal2var('see', 'saw')
       literal2var('short', 'short')
       literal2var('side', 'side')
@@ -1344,6 +1355,73 @@ module Zenlish
               existed, a_as_art, short, time, dot,
             after_, a_as_art, long, time, comma, each_, of, these, animals,
               became, big, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+        end
+
+        it 'should parse sample sentences from lesson 3-E' do
+          # Sentence 3-17a definiendum: 'These things are different.'
+          literals = [things, are, different, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-17b definiens: These things are not the same.
+          # [I want this kind of thing, but you want something different.]
+          literals = [ these, things, are, not_, the, same_as_pronoun, dot,
+            i_pronoun, want, this, kind, of, thing, comma,
+            but, you, want, something, different, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-18a definiendum: 'J made K.'
+          literals = [j_, made, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-18b definiens: J did something to some things
+          # and caused them to become parts of one different
+          # kind of thing that was not here before.
+          # K is this thing that now exists because of this.
+          # [I used many small things to make this big thing.]
+          # [J made K happen.] = J caused K to happen.
+          literals = [ j_, did, something, to, some, things, and_,
+            caused, them, to, become, parts, of, one, different, kind, of,
+            thing, that, was, not_, here, before_adverb, dot,
+            k_, is, this, thing, that, now, exists, because, of, this_as_pronoun, dot,
+            i_pronoun, used, many, small, things, to, make, this, big, thing, dot,
+            j_, made, k_, happen, dot,
+            j_, caused, k_, to, happen, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-19a definiendum: 'J contains K.'
+          literals = [j_, contains, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-19b definiens: K is inside J.
+          # [I made something to contain all these small things.]
+          # [Your body contains many parts.]
+          literals = [ k_, is, inside, j_, dot,
+            i_pronoun, made, something, to, contain, all, these, small, things, dot,
+            your, body, contains, many, parts, dot,
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-20a definiendum: 'X is a container.'
+          literals = [x_as_noun, is, a_as_art, container, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-20b definiens: X is something that people make because
+          # they want to use it to contain other things.
+          # [There are two things inside this container.]
+          literals = [ x_as_noun, is, something, that, people, make, because,
+            they, want, to, use, it_, to, contain, other, things, dot,
+            there, are, two, things, inside, this, container, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-Fxtra: Someone made these containers.
+          # Each contains a different kind of animal.
+          literals = [someone, made, these, containers, dot,
+            each_as_pronoun, contains, a_as_art, different, kind, of, animal, dot
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end

@@ -55,6 +55,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'predicative_complement' => 'adjective_phrase adverb_phrase noun_phrase_opt'
   # X is far from the start.
   rule 'predicative_complement' => 'adverb_phrase_opt prepositional_phrase'
+  # something that was not here before.
+  rule 'predicative_complement' => 'adverb_phrase_star'
 
   #################
   # Complex sentence
@@ -98,6 +100,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'relative_clause' => 'RelativePronoun tense_phrase'
   # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
   rule 'relative_clause' => 'RelativePronoun affirmation'
+  # Sentence 3-18b: something that was not here before.
+  rule 'relative_clause' => 'RelativePronoun negation'
   rule 'relative_clause' => 'identifying_clause'
   rule 'coordinate_clause' => 'Coordinator simple_sentence'
   # Sentence 3-11b K happens because J happens or because J does something.
@@ -134,6 +138,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'pre_head_np' => 'determiners adjective_phrase_opt'
   rule 'head_np' => 'CommonNoun'
   rule 'head_np' => 'ProperNoun'
+  rule 'head_np' => 'Pronoun'
   rule 'head_np' => 'PersonalPronoun'
   rule 'head_np' => 'DemonstrativePronoun'
   rule 'head_np' => 'IndefinitePronoun'
@@ -241,6 +246,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   ################
   # ADJVERB PHRASE
   ################
+  rule 'adverb_phrase_star' => 'adverb_phrase_star adverb_phrase'
+  rule 'adverb_phrase_star' => []
   rule 'adverb_phrase_opt' => 'adverb_phrase'
   rule 'adverb_phrase_opt' => []
   rule 'adverb_phrase' => 'premodifiers_adv head_adverb'

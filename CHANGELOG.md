@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [0.1.23] - 2019-12-04
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-E from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+ ### Changed
+ - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-F (308 sentences in total).
+ - `ZenlishGrammar`: more rules for negative sentences.
+ - File `dictionary.rb`: new entries in lexicon `contain`, `container`, `make`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.22] - 2019-12-03
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-D from
  [Learn These Words First](http://learnthesewordsfirst.com/).
@@ -7,7 +17,6 @@ __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-D from
  ### Changed
  - File `zparser_spec.rb`: tests include all sentences from lesson 1, 2, and 3-D (290 sentences in total).
  - `ZenlishGrammar`: allow coordination of determiners.
- - Class `IndefiniteQuantifier` renamed to `Quantifier`
  - File `dictionary.rb`: new entries in lexicon `become`, `exist`, `someplace`.
  - File `README.md` Updated the metrics table
 

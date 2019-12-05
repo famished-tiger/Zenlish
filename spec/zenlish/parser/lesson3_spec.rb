@@ -575,17 +575,6 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
-=begin
-
-3-27. machine, machines.
-[] = X is something people make. When people make some things like X, they use many parts to make these things. Some parts of X move. Some parts can cause other parts to move. People make things like this because these things do something that people want. These things can do more than people can do and more than people want to do.
-[I used a machine to cause these big things to move.]
-
-Tony wants to make something using a machine.
-Tony is between two different machines.
-Tony says: "I can choose to use one of these machines."
-
-=end
       end # context
     end # describe
   end # module

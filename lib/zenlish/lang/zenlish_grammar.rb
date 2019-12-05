@@ -48,6 +48,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'affirmation' => 'IrregularVerbBe predicative_complement'
   rule 'negation' => 'IrregularVerbBe AdverbNot predicative_complement'
   rule 'predicative_complement' => 'noun_phrase'
+  # 3-22b:  X is not the same as before.
+  rule 'predicative_complement' => 'noun_phrase ComparativeParticle Adverb'
   rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
   # 3-02d J is one that does this.
   rule 'predicative_complement' => 'adjective_phrase relative_clause_opt'
@@ -66,6 +68,10 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'complex_sentence' => 'main_clause comma_opt subordinated_clause'
   rule 'complex_sentence' => 'main_clause comma_opt relative_clause'
   rule 'complex_sentence' => 'main_clause comma_opt coordinate_clause'
+  # 3-22d: ..., it changed what I thought about them.
+  rule 'complex_sentence' => 'main_clause conjunctive_prefix'
+  # 3-22d: I cannot see what is inside.
+  rule 'complex_sentence' => 'main_clause ConjunctivePronoun verb_phrase'
   rule 'complex_sentence' => 'subordinated_clause Comma main_clause'
   # 3-03b If J is not true, then K is true.
   rule 'complex_sentence' => 'subordinated_clause Comma LinkingAdverb main_clause'
@@ -124,6 +130,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'tense' => 'AuxiliaryBe'
   rule 'tense' => 'AuxiliaryDo'
   rule 'tense' => 'ModalVerbCan'
+  rule 'tense' => 'ModalVerbCould'
 
   #############
   # NOUN PHRASE
@@ -207,6 +214,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
 
   # Cover case where ´that´ conjunction is dropped.
   rule 'head_vp' => 'mental_verb dependent_clause'
+  # 3-21b: ...that you think can cause X to happen.
+  rule 'head_vp' => 'mental_verb tense_verb_phrase'
   # ex. 2-23c
   rule 'head_vp' => 'mental_verb identifying_clause'
 

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [0.1.24] - 2019-12-05
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-F (323 sentences in total) from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+
+### Added
+ - Class `ModalVerbCould` to represent the auxiliary verb `could`.
+ - Support module `Var2Word`: used to create variable names and assign them specific `Literal` objects.
+ 
+ ### Changed
+ - File `zparser_spec.rb` splitted. Lesson-specific test suites have their own spec file.
+ - File `lesson3_spec.rb`: tests include all sentences from lesson 3-A .. 3-F.
+ - `ZenlishGrammar`: more rules for relative clauses.
+ - File `dictionary.rb`: new entries in lexicon `change`, `could`, `surface`, `try`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.23] - 2019-12-04
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-E from
  [Learn These Words First](http://learnthesewordsfirst.com/).

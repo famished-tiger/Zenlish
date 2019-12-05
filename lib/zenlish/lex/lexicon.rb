@@ -19,6 +19,7 @@ module Zenlish
         @name2terminal = {}
       end
 
+      # @param aLemma[String] retrieve the lexeme form the given "head word".
       def get_lexeme(aLemma, aWordClass = nil)
         if aWordClass
           lexeme = nil
@@ -38,7 +39,12 @@ module Zenlish
 
           lexeme
         else
-          lemma2entry.fetch(aLemma).lexemes.first
+          begin
+            lemma2entry.fetch(aLemma).lexemes.first
+          rescue NoMethodError => exc
+            $stderr.puts "Multiple lexemes for #{aLemma}"
+            raise exc
+          end
         end
       end
 

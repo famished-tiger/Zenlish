@@ -36,18 +36,17 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # there + (auxiliary/raising verb) + be + notional subject.
   rule 'existential_sentence' => 'ExistentialThere IrregularVerbBe existential_subject'
   rule 'negative_sentence' => 'negative_tense_phrase'
-  rule 'negative_sentence' => 'negated_predicate_sentence'
   rule 'inexistential_sentence' => 'ExistentialThere IrregularVerbBe AdverbNot existential_subject'
   rule 'existential_subject' => 'noun_phrase adverb_phrase_opt'
   rule 'existential_subject' => 'prepositional_phrase'
 
-  rule 'predicative_sentence' => 'noun_phrase affirmation'
-  rule 'predicative_sentence' => 'conjunctive_prefix affirmation'
-  rule 'negated_predicate_sentence' => 'noun_phrase adverb_phrase_opt negation'
-  rule 'negated_predicate_sentence' => 'conjunctive_prefix negation'
-  rule 'affirmation' => 'IrregularVerbBe predicative_complement'
-  rule 'negation' => 'IrregularVerbBe AdverbNot predicative_complement'
+  rule 'predicative_sentence' => 'noun_phrase adverb_phrase_opt assertion'
+  rule 'predicative_sentence' => 'conjunctive_prefix assertion'
+  rule 'assertion' => 'IrregularVerbBe adverb_not_opt predicative_complement'
   rule 'predicative_complement' => 'noun_phrase'
+  # Sentence 3-25f definiens: X is more than J but not more than K
+  rule 'predicative_complement' => 'predicative_complement Coordinator adverb_not_opt predicative_complement'
+  rule 'adverb_not_opt' => 'AdverbNot'
   # 3-22b:  X is not the same as before.
   rule 'predicative_complement' => 'noun_phrase ComparativeParticle Adverb'
   rule 'predicative_complement' => 'adjective_phrase comparative_clause_opt'
@@ -59,15 +58,17 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'predicative_complement' => 'adverb_phrase_opt prepositional_phrase'
   # something that was not here before.
   rule 'predicative_complement' => 'adverb_phrase_star'
+  rule 'adverb_not_opt' => []
 
   #################
   # Complex sentence
   #################
-  # Case of dropped ´that´ conjunction
   rule 'complex_sentence' => 'AdverbMaybe complex_sentence'
   rule 'complex_sentence' => 'main_clause comma_opt subordinated_clause'
   rule 'complex_sentence' => 'main_clause comma_opt relative_clause'
   rule 'complex_sentence' => 'main_clause comma_opt coordinate_clause'
+  # 3-27b: They can do more than people can do.
+  rule 'complex_sentence' => 'main_clause comma_opt comparative_clause'
   # 3-22d: ..., it changed what I thought about them.
   rule 'complex_sentence' => 'main_clause conjunctive_prefix'
   # 3-22d: I cannot see what is inside.
@@ -79,6 +80,9 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'complex_sentence' => 'main_clause infinitive_clause'
   # Colon used to introduce an explanatory sentence.
   rule 'complex_sentence' => 'main_clause Colon sentence'
+  # sentence 3-24b: after this moment, you try for some time to do this one.
+  rule 'complex_sentence' => 'adverbial Comma main_clause'
+  rule 'adverbial' => 'adverb_phrase noun_phrase'
   rule 'comma_opt' => 'Comma'
   rule 'comma_opt' => []
 
@@ -94,6 +98,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'infinitive_clause' => 'verb_phrase' # Too broad
   rule 'comparative_clause_opt' => 'comparative_clause'
   rule 'comparative_clause_opt' => []
+  # 3-27b: they can do more than people can do AND more than people want to do.
+  rule 'comparative_clause' => 'comparative_clause Coordinator adverb_phrase comparative_clause'
   rule 'comparative_clause' => 'comparative_start noun_phrase'
   rule 'comparative_clause' => 'comparative_start declarative_simple_sentence'
   # rule 'comparative_clause' => 'comparative_start DefiniteArticle Adjective Cardinal'
@@ -105,13 +111,14 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'relative_clause_opt' => []
   rule 'relative_clause' => 'RelativePronoun tense_phrase'
   # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
-  rule 'relative_clause' => 'RelativePronoun affirmation'
   # Sentence 3-18b: something that was not here before.
-  rule 'relative_clause' => 'RelativePronoun negation'
+  rule 'relative_clause' => 'RelativePronoun assertion'
   rule 'relative_clause' => 'identifying_clause'
-  rule 'coordinate_clause' => 'Coordinator simple_sentence'
-  # Sentence 3-11b K happens because J happens or because J does something.
+  rule 'coordinate_clause' => 'Coordinator sentence'
+  # Sentence 3-11b: K happens because J happens or because J does something.
   rule 'coordinate_clause' => 'Coordinator subordinated_clause'
+  # Sentence 3-24b: You think about these and what you want to do.
+  rule 'coordinate_clause' => 'Coordinator conjunctive_prefix'
 
   # Implicit subject. 3-05b: I saw this thing and touched some of its parts.
   rule 'coordinate_clause' => 'Coordinator tense_verb_phrase'
@@ -273,6 +280,8 @@ builder = Rley::Syntax::GrammarBuilder.new do
   ######################
   rule 'prepositional_phrases' => 'prepositional_phrases prepositional_phrase'
   rule 'prepositional_phrases' => []
+  # Sentence 3-25b definiens: X happens after J and before K
+  rule 'prepositional_phrase' => 'prepositional_phrase Coordinator prepositional_phrase'
   rule 'prepositional_phrase' => 'premodifier_prep preposition_head preposition_object'
   # premodifier_prep =>  # "A degree word" example 1: _straight_ across the street example 2: _right_ from the start
   rule 'premodifier_prep' => []

@@ -20,7 +20,7 @@ users with a language that is close enough to English.
 ### Project status
 
 The project is still in inception. Currently, zenlish is able to parse all
-sentences from lessons 1-A up to 3-F from
+sentences from lessons 1-A up to 3-G from
 [Learn These Words First](http://learnthesewordsfirst.com/).   
 The parser is able to cope with syntactical ambiguities generating parse forests
  instead of parse trees.
@@ -33,18 +33,18 @@ Over time, the zenlish gem will contain:
 - A lexicon [STARTED]
 - A context-free grammar [STARTED]
 - A parser [STARTED]
-- Feature unification (for number, gender agreement)[TODO]
+- Feature unification (for number, gender agreement,...)[TODO]
 - A simplified ontology[TODO]
 
 
-#### Some project metrics (v. 0.1.24)
+#### Some project metrics (v. 0.1.25)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in dictionary        | 132 |
+| Number of lemmas in dictionary        | 138 |
 | [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 61% |
-| Number of production rules in grammar | 181 |
-| Number of lessons covered             | 22  |
-| Number of sentences in spec files     | 323 |
+| Number of production rules in grammar | 185 |
+| Number of lessons covered             | 23  |
+| Number of sentences in spec files     | 352 |
 
 
 ## Installation...

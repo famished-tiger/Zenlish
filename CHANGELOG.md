@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [0.1.25] - 2019-12-06
+__Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-G (352 sentences in total) from
+ [Learn These Words First](http://learnthesewordsfirst.com/).
+ 
+ ### Changed
+ - File `lesson3_spec.rb`: tests include all sentences from lesson 3-A to 3-G.
+ - `ZenlishGrammar`: refactoring of the predicative_sentence rules.
+ - File `dictionary.rb`: new entries in lexicon `between`, `choose`, `machine`.
+ - File `README.md` Updated the metrics table
+
 ## [0.1.24] - 2019-12-05
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-F (323 sentences in total) from
  [Learn These Words First](http://learnthesewordsfirst.com/).

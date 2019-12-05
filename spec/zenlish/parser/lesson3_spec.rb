@@ -392,6 +392,7 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
+
         it 'should parse sample sentences from lesson 3-F' do
           # Sentence 3-21a definiendum: 'You try to do X.'
           literals = [you, try_, to, do_, x_as_noun, dot]
@@ -467,6 +468,124 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
+
+        it 'should parse sample sentences from lesson 3-G' do
+          # Sentence 3-24a definiendum: 'You choose one of these things.'
+          literals = [you, choose, one, of, these, things, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-24b definiendum: 'There are two or more things you can do.
+          # If you do one of these, you cannot do another.
+          # You think about these and what you want to do.
+          # There is one moment when you know what one of these you want more,
+          #   and after this moment, you try for some time to do this one.
+          # [You can choose to have one of these things.]
+          # [I chose this big one.]'
+          literals = [there, are, two, or_, more, things, you, can, do_, dot,
+            if_, you, do_, one, of, these_as_pronoun, comma,
+              you, can, not_, do_, another_as_pronoun, dot,
+            you, think, about, these_as_pronoun, and_,
+              what, you, want, to, do_, dot,
+            there, is, one, moment, when_, you, know, what, one, of, these_as_pronoun,
+              you, want, more_as_adverb, comma, and_,
+              after_adverb, this, moment, comma, you, try_, for_, some, time,
+              to, do_, this, one_as_pronoun, dot,
+              you, can, choose, to, have, one, of, these, things, dot,
+              i_pronoun, chose, this, big, one_as_pronoun, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25a definiendum: 'X is in a place between J and K.'
+          literals = [x_as_noun, is, in_, a_as_art, place, between, j_, and_, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25b definiens: X is in a place.
+          # J is on one side of X, and K is on the other side of X.
+          literals = [x_as_noun, is, in_, a_as_art, place, dot,
+            j_, is, on, one, side, of, x_as_noun, comma, and_,
+            k_, is, on, the, other, side, of, x_as_noun, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25c definiendum: 'X happens at a time between J and K.'
+          literals = [x_as_noun, happens, at, a_as_art, time, between, j_, and_, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25d definiens: X happens after J and before K
+          literals = [x_as_noun, happens, after_as_prep, j_, and_,
+            before_as_prep, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25e definiendum: 'X is between J and K.'
+          literals = [x_as_noun, is, between, j_, and_, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-25f definiens: X is more than J but not more than K.
+          literals = [x_as_noun, is, more, than, j_,
+            but, not_, more, than, k_, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-26a definiendum: 'X moved here from this other place.'
+          literals = [x_as_noun, moved, here, from, this, other, place, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-26b definiens: 'X was in this other place before
+          #   it moved for some time. Because X moved, it is here after this,
+          #   and it is not in this other place.'
+          literals = [x_as_noun, was, in_, this, other, place, before,
+            it_, moved, for_, some, time, dot,
+            because, x_as_noun, moved, comma, it_, is, here, after_,
+            this_as_pronoun, comma, and_, it_, is, not_, in_, this, other, place, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-27a definiendum: 'X is a machine.'
+          literals = [x_as_noun, is, a_as_art, machine, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-27b definiens: 'X is something people make.
+          # When people make some things like X, they use many parts to make these things.
+          # Some parts of X move. Some parts can cause other parts to move.
+          # People make things like this because these things do something that people want.
+          # These things can do more than people can do and more than people want to do.
+          # [I used a machine to cause these big things to move.].'
+          literals = [x_as_noun, is, something, people, make, dot,
+            when_, people, make, some, things, like, x_as_noun, comma,
+              they, use, many, parts, to, make, these, things, dot,
+            some, parts, of, x_as_noun, move, dot,
+            some, parts, can, cause, other, parts, to, move, dot,
+            people, make, things, like, this_as_pronoun, because, these, things, do_,
+              something, that, people, want, dot,
+            these, things, can, do_, more_as_adverb, than, people, can, do_,
+              and_, more_as_adverb, than, people, want, to, do_, dot,
+            i_pronoun, used, a_as_art, machine, to, cause, these, big, things,
+              to, move, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-G xtra: Tony wants to make something using a machine.
+          # Tony is between two different machines.
+          # Tony says: "I can choose to use one of these machines."
+          literals = [ tony, wants, to, make, something, using, a_as_art,
+            machine, dot,
+            tony, is, between, two, different, machines, dot,
+            tony, says, colon, quote, i_pronoun, can, choose, to, use,
+              one, of, these, machines, dot, quote, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+        end
+=begin
+
+3-27. machine, machines.
+[] = X is something people make. When people make some things like X, they use many parts to make these things. Some parts of X move. Some parts can cause other parts to move. People make things like this because these things do something that people want. These things can do more than people can do and more than people want to do.
+[I used a machine to cause these big things to move.]
+
+Tony wants to make something using a machine.
+Tony is between two different machines.
+Tony says: "I can choose to use one of these machines."
+
+=end
       end # context
     end # describe
   end # module

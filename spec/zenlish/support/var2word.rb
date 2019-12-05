@@ -24,6 +24,7 @@ module Zenlish
     literal2var('about', 'about')
     literal2var('above', 'above')
     def after_adverb ; Lex::Literal.new('after', get_lexeme('after', WClasses::Adverb), 0) ; end
+    def after_as_prep ; Lex::Literal.new('after', get_lexeme('after', WClasses::Preposition), 0) ; end
     def after_ ; Lex::Literal.new('after', get_lexeme('after', WClasses::SubordinatingConjunction), 0) ; end
     literal2var('alive', 'alive')
     literal2var('all', 'all')
@@ -31,8 +32,9 @@ module Zenlish
     literal2var('and', 'and', '_')
     literal2var('animal', 'animal')
     literal2var('animal', 'animals')
-    literal2var('another', 'another')
-    def are ;     Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+    def another ; Lex::Literal.new('another', get_lexeme('another', WClasses::Adjective), 0) ; end
+    def another_as_pronoun ; Lex::Literal.new('another', get_lexeme('another', WClasses::Pronoun), 0) ; end
+    def are ; Lex::Literal.new('are', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
     literal2var('as', 'as')
     literal2var('at', 'at')
     literal2var('bad', 'bad')
@@ -43,10 +45,12 @@ module Zenlish
     literal2var('become', 'becomes')
     def before_adverb ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adverb), 0) ; end
     def before_as_adj ; Lex::Literal.new('before', get_lexeme('before', WClasses::Adjective), 0) ; end
+    def before_as_prep ; Lex::Literal.new('before', get_lexeme('before', WClasses::Preposition), 0) ; end
     def before ; Lex::Literal.new('before', get_lexeme('before', WClasses::SubordinatingConjunction), 0) ; end
     literal2var('belong', 'belong')
     literal2var('belong', 'belongs')
     literal2var('below', 'below')
+    literal2var('between', 'between')
     literal2var('big', 'big')
     literal2var('big', 'bigger')
     literal2var('body', 'body')
@@ -58,6 +62,8 @@ module Zenlish
     literal2var('change', 'change', '_')
     literal2var('change', 'changed')
     literal2var('change', 'changes')
+    literal2var('choose', 'choose')
+    literal2var('choose', 'chose')
     literal2var('contain', 'contain')
     literal2var('contain', 'contains')
     literal2var('container', 'container')
@@ -118,6 +124,8 @@ module Zenlish
     literal2var('live', 'lived')
     literal2var('living', 'living')
     literal2var('long', 'long')
+    literal2var('machine', 'machine')
+    literal2var('machine', 'machines')
     literal2var('make', 'made')
     literal2var('make', 'make')
     literal2var('many', 'many')
@@ -199,6 +207,7 @@ module Zenlish
     def two_as_pronoun ; Lex::Literal.new('two', get_lexeme('two', WClasses::IndefinitePronoun), 0) ; end
     literal2var('use', 'use')
     literal2var('use', 'used')
+    literal2var('use', 'using')
     literal2var('very', 'very')
     literal2var('want', 'want')
     literal2var('want', 'wants')

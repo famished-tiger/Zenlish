@@ -123,7 +123,7 @@ Litmus test: a Zenlish text should be easy to read to a English reading person.
 Here a tentative roadmap:
 
 #### A) Ability to parse sentences from [Learn These Words First](http://learnthesewordsfirst.com/)
-*STARTED*. 22.9% complete  
+*STARTED*. 24% complete  
 This website advocates the idea of a multi-layered dictionary.
 At the core, there are about 300 essential words.  
 The choice of these words is inspired by the semantic primitives of [NSM

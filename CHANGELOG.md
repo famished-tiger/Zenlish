@@ -1,10 +1,26 @@
 # CHANGELOG
 
+## [0.2.00] - 2020-01-30
+A lot of internal additions, such an initial feature model, embryonic inflection model.
+This is WIP.
+
+### Added
+- New subfolder `feature` that hosts classes for implementing features (= properties that can be attached to words)
+- New subfolder `inflect` that hosts classes for implmenting inflection tables (kind of decision tables)
+### Changed
+- File `dictionary.rb`: new entries in lexicon `damage`, `difficult`
+- File `dictionary.rb`: common nouns with special inflection rules (e.g. pluralized form) have their paradigm specified
+- Class `Lexeme` can have its own set of feature definitions.
+- Class `WordClass` ca have its own set of feature definitions.
+- Class `Noun` has the feature definitions for: `NUMBER`, `COUNTABILITY` and `PARADIGM`
+
+
+
 ## [0.1.25] - 2019-12-06
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-G (352 sentences in total) from
  [Learn These Words First](http://learnthesewordsfirst.com/).
  
- ### Changed
+### Changed
  - File `lesson3_spec.rb`: tests include all sentences from lesson 3-A to 3-G.
  - `ZenlishGrammar`: refactoring of the predicative_sentence rules.
  - File `dictionary.rb`: new entries in lexicon `between`, `choose`, `machine`.

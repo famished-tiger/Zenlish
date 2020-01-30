@@ -33,14 +33,14 @@ Over time, the zenlish gem will contain:
 - A lexicon [STARTED]
 - A context-free grammar [STARTED]
 - A parser [STARTED]
-- Feature unification (for number, gender agreement,...)[TODO]
+- Feature unification (for number, gender agreement,...)[STARTED]
 - A simplified ontology[TODO]
 
 
-#### Some project metrics (v. 0.1.25)
+#### Some project metrics (v. 0.2.00)
 |Metric|Value|  
 |:-:|:-:|
-| Number of lemmas in dictionary        | 138 |
+| Number of lemmas in dictionary        | 141 |
 | [Coverage 100 commonest English words](https://en.wikipedia.org/wiki/Most_common_words_in_English)  | 61% |
 | Number of production rules in grammar | 185 |
 | Number of lessons covered             | 23  |

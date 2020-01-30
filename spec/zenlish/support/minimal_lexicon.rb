@@ -6,5 +6,3 @@ Zenlish::Lang::add_entry('K', 'IndefinitePronoun')
 Zenlish::Lang::add_entry('Lisa', 'ProperNoun')
 Zenlish::Lang::add_entry('Tony', 'ProperNoun')
 Zenlish::Lang::add_entry('X', 'CommonNoun')
-
-

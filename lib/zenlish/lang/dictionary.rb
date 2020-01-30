@@ -1,4 +1,5 @@
 unless defined?(Zenlish::Lang::Dictionary)
+  require_relative '../feature/feature_struct_def_bearer'
   module Zenlish
     module Lang
       require_relative '../lex/empty_lexicon_factory'
@@ -8,12 +9,16 @@ unless defined?(Zenlish::Lang::Dictionary)
       sandbox = Object.new
       sandbox.extend(Zenlish::Lex::EmptyLexiconFactory)
       Dictionary = sandbox.create_empty_lexicon
+      self.extend(Feature::FeatureStructDefBearer)
 
-      def self.add_entry(aLemma, aWClassName)
+      # @param aLemma [String] is the canonical form, dictionary form, 
+      #   or citation form of a headword.
+      # @param aWClassName [String] the name of a word class.
+      def self.add_entry(aLemma, aWClassName, aFeatureHash = nil)
         entry = Zenlish::Lex::LexicalEntry.new(aLemma)
         wclass = Dictionary.name2terminal[aWClassName]
         raise StandardError, "Undefined word class for '#{aLemma}'" unless wclass
-        lexeme = Zenlish::Lex::Lexeme.new(wclass, entry).freeze
+        lexeme = Zenlish::Lex::Lexeme.new(wclass, entry, aFeatureHash).freeze
         Dictionary.add_entry(entry.freeze)
       end
 
@@ -47,6 +52,7 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('big', 'Adjective')
       add_entry('body', 'CommonNoun')
       add_entry('but', 'Coordinator')
+      add_entry('can', 'IrregularVerb')      
       add_entry('can', 'ModalVerbCan')
       add_entry('cause', 'RegularVerb')
       add_entry('change', 'RegularVerb')
@@ -54,7 +60,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('contain', 'RegularVerb')
       add_entry('container', 'CommonNoun')
       add_entry('could', 'ModalVerbCould')
+      add_entry('damage', 'RegularVerb')      
       add_entry('die', 'RegularVerb')
+      add_entry('difficult', 'Adjective')      
       add_entry('different', 'Adjective')
       add_entry('do', 'AuxiliaryDo')
       add_entry('do', 'IrregularVerbDo')
@@ -72,7 +80,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('happen', 'RegularVerb')
       add_entry('hear', 'IrregularLinkingVerb')
       add_entry('here', 'Adverb')
-      add_entry('here', 'CommonNoun') # from here (works as a pronoun of a place)
+      # example: ...from here (works as a pronoun of a place)
+      add_entry('here', 'CommonNoun', {'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only']})
       add_entry('I', 'PersonalPronoun')
       add_entry('if', 'SubordinatingConjunction')
       add_entry('in', 'Preposition')
@@ -99,7 +109,8 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('near', 'Preposition')
       add_entry('near to', 'Preposition')
       add_entry('now', 'Adverb')
-      add_entry('now', 'CommonNoun')
+      add_entry('now', 'CommonNoun', {'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only']})
       add_entry('not', 'AdverbNot')
       add_entry('of', 'PrepositionOf')
       add_entry('on', 'Preposition')
@@ -109,8 +120,10 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('or', 'Coordinator')
       add_entry('other', 'Adjective')
       add_entry('part', 'CommonNoun')
-      add_entry('people', 'CommonNoun')
-      add_entry('person', 'CommonNoun')
+      add_entry('people', 'CommonNoun', {'NUMBER' => enumeration(:plural), 
+        'PARADIGM' => [identifier, 'Plural_only']})
+      add_entry('person', 'CommonNoun', {'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only']})
       add_entry('place', 'CommonNoun')
       add_entry('same', 'Adjective')
       add_entry('same', 'Pronoun')

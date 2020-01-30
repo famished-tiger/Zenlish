@@ -21,20 +21,12 @@ module Zenlish
         it 'should be initialized with a string, a lexeme and a position' do
           expect { Literal.new('things', sample_lexeme, sample_position) }.not_to raise_error
         end
-
-        # it 'should know its word class' do
-          # expect(subject.wclass).to eq(sample_wclass)
-        # end
-
-        # it 'should know its lexical entry' do
-          # expect(subject.entry).to eq(sample_entry)
-        # end
       end # context
 
       context 'Provided services:' do
-        # it 'should know its lemma' do
-          # expect(subject.lemma).to eq(sample_lemma)
-        # end
+        it 'should know its lexeme' do
+          expect(subject.zlexeme).to eq(sample_lexeme)
+        end
       end # context
     end # describe
   end # module

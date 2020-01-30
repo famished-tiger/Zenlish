@@ -237,6 +237,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerbKnow'
   rule 'lexical_verb' => 'IrregularVerbSay'
   rule 'lexical_verb' => 'IrregularVerbThink'
+ 
 
   rule 'linking_verb' => 'IrregularLinkingVerb'
 

@@ -4,6 +4,9 @@ require_relative 'lexicon'
 module Zenlish
   module Lex
     module EmptyLexiconFactory
+      # Factory method. Helps in creating an "empty" lexicon.
+      # It just contains the word classes of Zenlish but no headwords.
+      # @return [Lexicon] the created lexicon object
       def create_empty_lexicon()
         lexicon = Lexicon.new
 

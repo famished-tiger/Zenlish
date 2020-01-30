@@ -55,7 +55,8 @@ module Zenlish
     literal2var('big', 'bigger')
     literal2var('body', 'body')
     literal2var('but', 'but')
-    literal2var('can', 'can')
+    def can ; Lex::Literal.new('can', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end
+    def can_irregular ; Lex::Literal.new('can', get_lexeme('can', WClasses::IrregularVerb), 0) ; end     
     literal2var('cause', 'cause')
     literal2var('cause', 'caused')
     literal2var('cause', 'causes')
@@ -69,15 +70,18 @@ module Zenlish
     literal2var('container', 'container')
     literal2var('container', 'containers')
     literal2var('could', 'could')
+    literal2var('damage', 'damaged')    
     def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     literal2var('die', 'die')
     literal2var('die', 'died')
     literal2var('die', 'dies')
     literal2var('different', 'different')
+    literal2var('difficult', 'difficult')    
     def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     def do_aux ; Lex::Literal.new('do', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
     def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
+    def doing ; Lex::Literal.new('doing', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end    
     literal2var('each', 'each', '_')
     def each_ ; Lex::Literal.new('each', get_lexeme('each', WClasses::DistributiveDeterminer), 0) ; end
     def each_as_pronoun ; Lex::Literal.new('each', get_lexeme('each', WClasses::Pronoun), 0) ; end

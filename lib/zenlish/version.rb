@@ -1,3 +1,3 @@
 module Zenlish
-  VERSION = '0.1.25'.freeze
+  VERSION = '0.2.00'.freeze
 end

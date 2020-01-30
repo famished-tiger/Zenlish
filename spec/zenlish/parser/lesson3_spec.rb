@@ -575,6 +575,50 @@ module Zenlish
           ]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
+        
+        it 'should parse sample sentences from lesson 3-H' do
+          # Sentence 3-28a definiendum: 'J damaged K.'
+          literals = [j_, damaged, k_, dot]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+          
+          # Sentence 3-28b definiens: 'J did something to K that was bad for K 
+          # and it changed K like this: Before this happened, 
+          # some parts of K were good more than now. 
+          # Before this happened, K could do some things more than it can now.
+          # [You cannot move now because something damaged part of your body.]'
+          literals = [j_, did, something, to, k_, that, was, bad, for_, k_, 
+                and_, it_, changed, k_, like, this_as_pronoun, colon,
+              before, this_as_pronoun, happened, comma, some, parts, of, k_, were,
+                good, more, than, now_as_noun, dot, 
+              before, this_as_pronoun, happened, comma, k_, could, do_, some, 
+                things, more, than, it_, can_irregular, now, dot,
+              you, can, not_, move, now, because, something, damaged, 
+                part, of, your, body, dot
+          ]
+          expect { subject.to_pforest(literals) }.not_to raise_error
+
+          # Sentence 3-29a definiendum: 'Doing X is difficult.'
+          # literals = [doing, x_as_noun, is, difficult, dot]
+          # expect { subject.to_pforest(literals) }.not_to raise_error          
+        end
+=begin
+3-29. difficult.
+[Doing X is difficult.] = You cannot do X if you do not do much more or think much more than when you do many other things.
+[Something very big can be more difficult to make than something small.]
+
+3-30. easy, easily.
+[Doing X is easy.] = Doing X is not difficult.
+[I can easily make a small machine.]
+
+3-31. control, controls, to control, controlling, controlled.
+[You control X.] = You can choose what you want X to do and you can cause X to do what you choose. You cause X to do some things and not do other things.
+[When you touch a small part of this machine, you can control where the machine moves.]
+[Animals can be difficult to control.]
+
+Tony tried to make something using this machine.
+The machine was difficult to control and damaged the thing Tony was making.
+
+=end
       end # context
     end # describe
   end # module

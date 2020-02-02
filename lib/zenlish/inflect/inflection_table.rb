@@ -21,12 +21,17 @@ module Zenlish
       end
 
       def inflect(aLexeme, theConstraints)
+        constraints = if theConstraints.nil? || theConstraints.empty?
+          Array.new(headings.size) { |_i| nil }
+        else
+          theConstraints
+        end
         err_msg = "Table has #{headings.size} headings."
-        raise StandardError, err_msg if theConstraints.size != headings.size
+        raise StandardError, err_msg if constraints.size != headings.size
         actuals = []
         headings.each_with_index do |hd, idx|
-          if theConstraints[idx]
-            actuals << theConstraints[idx]
+          if constraints[idx]
+            actuals << constraints[idx]
           else
             actuals << hd.evaluate_for(aLexeme)
           end

@@ -26,8 +26,8 @@ module Zenlish
           feature_heading 'NUMBER'
           method_heading 'base_form'
           rule([equals(:singular), dont_care], col('base_form'))
-          rule([equals(:plural), matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies'))
-          rule([equals(:plural), dont_care], concat(col('base_form'), 's'))
+          rule([equals(:plural),   matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies'))
+          rule([equals(:plural),   dont_care], concat(col('base_form'), 's'))
         end
         add_paradigm(table)
 

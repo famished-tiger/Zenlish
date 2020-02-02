@@ -14,8 +14,9 @@ module Zenlish
         end
       end # context
 
-      # context 'Provided services:' do
-      # end # context
+      context 'Provided services:' do
+        
+      end # context
     end # describe
   end # module
 end # module

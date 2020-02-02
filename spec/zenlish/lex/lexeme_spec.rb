@@ -47,6 +47,10 @@ module Zenlish
           instance =  Lexeme.new(a_wclass, an_entry, a_feat_struct_def)
           expect(instance['NUMBER'].default.val).to eq(:plural)
         end
+        
+        it 'should know its inflection paradigm' do
+          expect(subject.paradigm).to be_kind_of(Inflect::InflectionTable)
+        end
       end # context
     end # describe
   end # module

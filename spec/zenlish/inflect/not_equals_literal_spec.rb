@@ -6,18 +6,18 @@ require_relative '../../../lib/zenlish/lex/lexical_entry'
 require_relative '../../../lib/zenlish/inflect/feature_heading'
 require_relative '../../../lib/zenlish/inflect/formal_argument'
 # Load the class under test
-require_relative '../../../lib/zenlish/inflect/equals_literal'
+require_relative '../../../lib/zenlish/inflect/not_equals_literal'
 
 module Zenlish
   module Inflect
-    describe EqualsLiteral do
+    describe NotEqualsLiteral do
       let(:an_argument) { FormalArgument.new(1) }
       let(:feat_val) { :plural }
-      subject { EqualsLiteral.new(an_argument, feat_val) }
+      subject { NotEqualsLiteral.new(an_argument, feat_val) }
 
       context 'Initialization:' do
-        it 'should be initialized with a formal argument and a literal' do
-          expect { EqualsLiteral.new(an_argument, feat_val) }.not_to raise_error
+        it 'should be initialized with formal argument and a literal' do
+          expect { NotEqualsLiteral.new(an_argument, feat_val) }.not_to raise_error
         end
 
         it 'should know its argument' do
@@ -34,9 +34,9 @@ module Zenlish
           lexeme = double('dummy-lexeme')
           headings = double('fake-headings')
           actual_args = [nil, :plural, nil]
-          expect(subject.success?(headings, lexeme, actual_args)).to be_truthy
-          actual_args[1] = :singular
           expect(subject.success?(headings, lexeme, actual_args)).to be_falsy
+          actual_args[1] = :singular
+          expect(subject.success?(headings, lexeme, actual_args)).to be_truthy
         end
 
         it 'should test the lexeme' do
@@ -44,13 +44,13 @@ module Zenlish
           entry = Lex::LexicalEntry.new('animal')
           lexeme = Lex::Lexeme.new(c_noun, entry)
           headings = [nil, FeatureHeading.new('NUMBER'), nil]
-          expect(subject.success?(headings, lexeme, [])).to be_truthy
+          expect(subject.success?(headings, lexeme, [])).to be_falsy
 
-          instance = EqualsLiteral.new(an_argument, :singular)
+          instance = NotEqualsLiteral.new(an_argument, :singular)
+          expect(instance.success?(headings, lexeme, [])).to be_falsy
+
+          instance = NotEqualsLiteral.new(an_argument, :irregular)
           expect(instance.success?(headings, lexeme, [])).to be_truthy
-
-          instance = EqualsLiteral.new(an_argument, :irregular)
-          expect(instance.success?(headings, lexeme, [])).to be_falsey
         end
       end # context
     end # describe

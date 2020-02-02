@@ -1,4 +1,13 @@
 # CHANGELOG
+## [0.2.01] - 2020-02-02
+Extending the inflection table capabilities.
+Extending the inflection model to regular verbs. Zenlish can inflect all regular verbs in its dictionary.
+
+### Added
+- Class `Inflect::FunctionCall` Now an inflection table can invoke a method of the lexeme argument.
+- Class `Inflect::Membership` Now an inflection table can test whether a value is included in a set of values.
+- Class `Inflect::NotEquals` Now an inflection table can test for inequality
+
 
 ## [0.2.00] - 2020-01-30
 A lot of internal additions, such an initial feature model, embryonic inflection model.
@@ -13,8 +22,6 @@ This is WIP.
 - Class `Lexeme` can have its own set of feature definitions.
 - Class `WordClass` ca have its own set of feature definitions.
 - Class `Noun` has the feature definitions for: `NUMBER`, `COUNTABILITY` and `PARADIGM`
-
-
 
 ## [0.1.25] - 2019-12-06
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-G (352 sentences in total) from

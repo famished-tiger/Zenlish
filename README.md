@@ -136,7 +136,7 @@ The milestone sub-goals are:
 - Zenlish should be able to parse all the example sentences
 
 #### B) Associate lexical features to terms in lexicon
-The sub-goals are:
+*STARTED* The sub-goals are:
 - To enrich the lexicon entries with lexical and syntactical features.
 - Zenlish should be able to derive the declensions of nouns, conjugation of verbs,
 - Also Zenlish should detect agreement errors

@@ -14,11 +14,13 @@ unless defined?(Zenlish::Lang::Dictionary)
       # @param aLemma [String] is the canonical form, dictionary form, 
       #   or citation form of a headword.
       # @param aWClassName [String] the name of a word class.
-      def self.add_entry(aLemma, aWClassName, aFeatureHash = nil)
+      def self.add_entry(aLemma, aWClassName, aFeatureHash = nil, &aBlock)
         entry = Zenlish::Lex::LexicalEntry.new(aLemma)
         wclass = Dictionary.name2terminal[aWClassName]
         raise StandardError, "Undefined word class for '#{aLemma}'" unless wclass
-        lexeme = Zenlish::Lex::Lexeme.new(wclass, entry, aFeatureHash).freeze
+        lexeme = Zenlish::Lex::Lexeme.new(wclass, entry, aFeatureHash)
+        lexeme.instance_exec(&aBlock) if block_given?
+        lexeme.freeze
         Dictionary.add_entry(entry.freeze)
       end
 

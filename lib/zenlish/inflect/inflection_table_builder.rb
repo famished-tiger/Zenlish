@@ -2,9 +2,12 @@ require_relative 'feature_heading'
 require_relative 'method_heading'
 require_relative 'formal_argument'
 require_relative 'equals_literal'
+require_relative 'not_equals_literal'
 require_relative 'unconditionally_true'
 require_relative 'matches_pattern'
+require_relative 'membership'
 require_relative 'input_asis'
+require_relative 'function_call'
 require_relative 'concatenation'
 require_relative 'substitution'
 require_relative 'inflection_rule'
@@ -73,6 +76,22 @@ module Zenlish
         equality_cond
       end
 
+      def not_equal(aValue)
+        arg = FormalArgument.new(conds.size)
+        inequality_cond = NotEqualsLiteral.new(arg, aValue)
+        conds << inequality_cond
+
+        inequality_cond
+      end
+      
+      def in?(*theMembers)
+        arg = FormalArgument.new(conds.size)
+        membership_cond = Membership.new(arg, theMembers)
+        conds << membership_cond
+
+        membership_cond      
+      end
+
       def dont_care
         item = UnconditionallyTrue.new
         conds << item
@@ -93,6 +112,10 @@ module Zenlish
         match_cond = MatchesPattern.new(arg, aPattern)
         conds << match_cond
         match_cond
+      end
+
+      def func(aFuncName)
+        FunctionCall.new(aFuncName)
       end
 
       def sub(original, pattern, replacement)

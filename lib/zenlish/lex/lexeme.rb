@@ -7,8 +7,8 @@ module Zenlish
     # relate to the lexeme for verb 'hide'. Also called 'dictionary word'.
     class Lexeme
       include Feature::FeatureStructDefBearer
-      
-      # @return [Zenlish::WClasses::WordClass]
+
+      # @return [Zenlish::WClasses::WordClass] the word class to which the lexeme belongs
       attr_reader :wclass
 
       # @param aWClass [WClasses::WordClass, Rley::Syntax::Terminal]
@@ -18,32 +18,37 @@ module Zenlish
         @wclass = aWClass
         @entry = anEntry.object_id
         anEntry.add_lexeme(self)
-        
+
         p_struct = aWClass.kind_of?(WClasses::WordClass) ? aWClass.struct : nil
         overriding_struct_defs = aFeatureHash.nil? ? {} : aFeatureHash
         init_struct_def(p_struct, overriding_struct_defs)
       end
 
-      # @return [Zenlish::Lex::LexicalEntry]
+      # @return [Zenlish::Lex::LexicalEntry] Link to its dictionary entry (headword)
       def entry
         ObjectSpace._id2ref(@entry)
       end
-      
+
+      # Inflect the lexeme according the default paradigm of the word class.
+      # @param constraints [Array] Array of values (for each heading of inflection table
+      # @return [String] The word form (spelling) inflected to the given contraints.
       def inflect(constraints)
         table = paradigm
         table.inflect(self, constraints)
       end
 
-      # @return [String]
+      # @return [String] the base (dictionary) form.
       def lemma
         entry.lemma
       end
 
+      # Return the inflection paradigm for the lexeme.
+      # @return [Inflect::InflectionTable]
       def paradigm
         paradigm_feat_def = self['PARADIGM']
-        wclass.paradigms[paradigm_feat_def.default.val]      
+        wclass.paradigms[paradigm_feat_def.default.val]
       end
-      
+
       alias base_form lemma
     end # class
   end # module

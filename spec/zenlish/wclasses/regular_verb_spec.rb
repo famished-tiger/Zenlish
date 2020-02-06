@@ -44,7 +44,7 @@ module Zenlish
           end
         end
 
-        it 'should how to inflect regular verbs' do
+        it 'should know how to inflect regular verbs' do
           expectations_1 = [
             [present_1sg,     'exist'],
             [present_3sg,     'exists'],
@@ -83,7 +83,17 @@ module Zenlish
             [past_simple, 'touched'],
             [past_participle, 'touched']
           ]
-          test_inflection_of('touch', expectations_4)          
+          test_inflection_of('touch', expectations_4)
+
+          expectations_5 = [
+            [present_1sg, 'die'],
+            [present_3sg, 'dies'],
+            [present_1pl, 'die'],
+            [progressive, 'dying'],
+            [past_simple, 'died'],
+            [past_participle, 'died']
+          ]
+          test_inflection_of('die', expectations_5)            
         end
       end # context
     end # describe

@@ -1,4 +1,18 @@
 # CHANGELOG
+## [0.2.02] - 2020-02-06
+Extending the inflection model to irregular verbs. Zenlish can inflect all irregular verbs in its dictionary (except modals and be).
+
+### Added
+- Module `WordClasses::IreegularVerbExtension` mix-in module for extending the lexeme for irregular verbs.
+
+### Changed
+- File `dictionary.rb`: added past simple and past participles to most irregular verbs in lexicon.
+- Class `Lex::Lexeme`: added capability of word class to add dynamically extension (specialization) to lexeme instances.
+- Class `WordClass::IrregularVerb` added inflection table.
+
+### Fixed
+- Class `WordClass::RegularVerb` fixed rules for gerund spelling.
+
 ## [0.2.01] - 2020-02-02
 Extending the inflection table capabilities.
 Extending the inflection model to regular verbs. Zenlish can inflect all regular verbs in its dictionary.
@@ -26,7 +40,7 @@ This is WIP.
 ## [0.1.25] - 2019-12-06
 __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-G (352 sentences in total) from
  [Learn These Words First](http://learnthesewordsfirst.com/).
- 
+
 ### Changed
  - File `lesson3_spec.rb`: tests include all sentences from lesson 3-A to 3-G.
  - `ZenlishGrammar`: refactoring of the predicative_sentence rules.
@@ -40,7 +54,7 @@ __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-F (323 sentences
 ### Added
  - Class `ModalVerbCould` to represent the auxiliary verb `could`.
  - Support module `Var2Word`: used to create variable names and assign them specific `Literal` objects.
- 
+
  ### Changed
  - File `zparser_spec.rb` splitted. Lesson-specific test suites have their own spec file.
  - File `lesson3_spec.rb`: tests include all sentences from lesson 3-A .. 3-F.
@@ -73,7 +87,7 @@ __Zenlish__ can parse all sentences in lesson 1, 2 and 3-A .. 3-C from
  [Learn These Words First](http://learnthesewordsfirst.com/).
 
  ### Added
- - Class `DistributiveDeterminer` to represent the words `each`, `every`, `either`, `neither`. 
+ - Class `DistributiveDeterminer` to represent the words `each`, `every`, `either`, `neither`.
  - Class `FrontingQuantifier` to represent the quantifiers `all` and `both`.
 
  ### Changed
@@ -140,7 +154,7 @@ __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-H from
 ## [0.1.16] - 2019-11-23
 __Zenlish__ can parse all sentences in lesson 1 and 2-A..2-G from
  [Learn These Words First](http://learnthesewordsfirst.com/).
- 
+
 ### Changed
 - `ZenlishGrammar`: Vast grammar reworking.
 - File `dictionary.rb`: `there` in lexicon has `ExistentialThere` as word class.

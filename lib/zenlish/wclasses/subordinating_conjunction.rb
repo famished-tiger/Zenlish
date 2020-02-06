@@ -10,7 +10,7 @@ module Zenlish
     # Common subordinating conjunctions: after, although, as, because, before, 
     # how, if, once, since, than, that, though, till, until, when, where, 
     # whether, while
-    class SubordinatingConjunction < WordClass
+    class SubordinatingConjunction < WordClass     
     end # class
   end # module
 end # module

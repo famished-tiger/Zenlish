@@ -5,6 +5,8 @@ module Zenlish
     class Lexicon
       # @return [Array<Lex::LexicalEntry>] entries in the lexicon
       attr_reader :entries
+      
+      # @return [Hash{String => Lex::LexicalEntry}] the lexical entry for the given lemma.
       attr_reader :lemma2entry
 
       # The list of terminal symbols. Examples of terminal symbols:
@@ -23,6 +25,7 @@ module Zenlish
       # @param aLemma[String] retrieve the lexeme form the given "head word".
       # @param aWordClass [WordClasses::WordClass, NilClass] the word class of 
       #   the lexeme.
+      # @return [Lex::Lexeme]
       def get_lexeme(aLemma, aWordClass = nil)
         if aWordClass
           lexeme = nil
@@ -51,11 +54,13 @@ module Zenlish
         end
       end
 
+      # @param aTerminal [Rley::Syntax::Terminal]
       def add_terminal(aTerminal)
         terminals << aTerminal
         name2terminal[aTerminal.name] = aTerminal
       end
 
+      # @param anEntry [Lex::LexicalEntry]
       def add_entry(anEntry)
         entries << anEntry
         lemma = anEntry.lemma

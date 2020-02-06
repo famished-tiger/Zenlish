@@ -27,8 +27,14 @@ module Zenlish
 
       # Indicates whether all words from the word class have a single (uninflected)
       # form.
+      # @return [FalseClass, TrueClass] true iff the words in the class are invariable.
       def invariable?
-        raise NotImplementedError, "Missing implementation for #{self.class}."
+        return true
+      end
+      
+      # @return [Module, NilClass]
+      def extension
+        nil
       end
     end # class
   end # module

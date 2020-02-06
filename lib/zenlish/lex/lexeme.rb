@@ -18,10 +18,15 @@ module Zenlish
         @wclass = aWClass
         @entry = anEntry.object_id
         anEntry.add_lexeme(self)
-
-        p_struct = aWClass.kind_of?(WClasses::WordClass) ? aWClass.struct : nil
-        overriding_struct_defs = aFeatureHash.nil? ? {} : aFeatureHash
-        init_struct_def(p_struct, overriding_struct_defs)
+        if aWClass.kind_of?(WClasses::WordClass)
+          unless wclass.extension.nil?
+            self.extend(wclass.extension)
+            init_extension(self)
+          end
+          p_struct = aWClass.kind_of?(WClasses::WordClass) ? aWClass.struct : nil
+          overriding_struct_defs = aFeatureHash.nil? ? {} : aFeatureHash
+          init_struct_def(p_struct, overriding_struct_defs)
+        end
       end
 
       # @return [Zenlish::Lex::LexicalEntry] Link to its dictionary entry (headword)

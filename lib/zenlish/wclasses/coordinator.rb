@@ -6,7 +6,7 @@ module Zenlish
     # can join words, phrases, and clauses that share some logical relationhip
     # Common coordinators are enumerated in the FANBOYS acronym:
     # For, And, Nor, But, Or, Yet and So.
-    class Coordinator < WordClass
+    class Coordinator < WordClass    
     end # class
   end # module
 end # module

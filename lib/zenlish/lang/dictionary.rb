@@ -43,7 +43,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('be', 'AuxiliaryBe')
       add_entry('be', 'IrregularVerbBe')
       add_entry('because', 'SubordinatingConjunction')
-      add_entry('become', 'IrregularLinkingVerb')
+      add_entry('become', 'IrregularLinkingVerb') do
+        forms past_simple: 'became', past_participle: 'become'
+      end
       add_entry('before', 'Adverb')
       add_entry('before', 'Adjective')
       add_entry('before', 'Preposition')
@@ -58,7 +60,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('can', 'ModalVerbCan')
       add_entry('cause', 'RegularVerb')
       add_entry('change', 'RegularVerb')
-      add_entry('choose', 'IrregularVerb')
+      add_entry('choose', 'IrregularVerb') do
+        forms past_simple: 'chose', past_participle: 'chosen'
+      end
       add_entry('contain', 'RegularVerb')
       add_entry('container', 'CommonNoun')
       add_entry('could', 'ModalVerbCould')
@@ -67,14 +71,18 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('difficult', 'Adjective')      
       add_entry('different', 'Adjective')
       add_entry('do', 'AuxiliaryDo')
-      add_entry('do', 'IrregularVerbDo')
+      add_entry('do', 'IrregularVerbDo') do
+        forms past_simple: 'did', past_participle: 'done'
+      end
       add_entry('each', 'DistributiveDeterminer')
       add_entry('each', 'Pronoun')
       add_entry('exist', 'RegularVerb')
       add_entry('false', 'Adjective')
       add_entry('far', 'Adverb')
       add_entry('far from', 'Preposition')
-      add_entry('feel', 'IrregularLinkingVerb')
+      add_entry('feel', 'IrregularLinkingVerb') do
+        forms past_simple: 'felt', past_participle: 'felt'
+      end
       add_entry('for', 'Preposition')
       add_entry('from', 'Preposition')
       add_entry('good', 'Adjective')
@@ -92,13 +100,17 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('it', 'PersonalPronoun')
       add_entry('its', 'PossessiveDeterminer')
       add_entry('kind', 'CommonNoun')
-      add_entry('know', 'IrregularVerbKnow')
+      add_entry('know', 'IrregularVerbKnow') do
+        forms past_simple: 'knew', past_participle: 'known'
+      end
       add_entry('like', 'Preposition')
       add_entry('live', 'RegularVerb')
       add_entry('living', 'Adjective')
       add_entry('long', 'Adjective')
       add_entry('machine', 'CommonNoun')
-      add_entry('make', 'IrregularVerb')
+      add_entry('make', 'IrregularVerb') do
+        forms past_simple: 'made', past_participle: 'made'
+      end
       add_entry('many', 'Quantifier')
       add_entry('maybe', 'AdverbMaybe')
       add_entry('me', 'PersonalPronoun')
@@ -129,8 +141,12 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('place', 'CommonNoun')
       add_entry('same', 'Adjective')
       add_entry('same', 'Pronoun')
-      add_entry('say', 'IrregularVerbSay')
-      add_entry('see', 'IrregularVerb')
+      add_entry('say', 'IrregularVerbSay') do
+        forms past_simple: 'said', past_participle: 'said'
+      end
+      add_entry('see', 'IrregularVerb') do
+        forms past_simple: 'saw', past_participle: 'seen'
+      end
       add_entry('short', 'Adjective')
       add_entry('side', 'CommonNoun')
       add_entry('small', 'Adjective')
@@ -148,7 +164,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('there', 'ExistentialThere')
       add_entry('they', 'PersonalPronoun')
       add_entry('thing', 'CommonNoun')
-      add_entry('think', 'IrregularVerbThink')
+      add_entry('think', 'IrregularVerbThink') do
+        forms past_simple: 'thought', past_participle: 'thought'
+      end
       add_entry('this', 'DemonstrativeDeterminer')
       add_entry('this', 'DemonstrativePronoun')
       add_entry('this one', 'DemonstrativePronoun')

@@ -71,9 +71,7 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('difficult', 'Adjective')      
       add_entry('different', 'Adjective')
       add_entry('do', 'AuxiliaryDo')
-      add_entry('do', 'IrregularVerbDo') do
-        forms past_simple: 'did', past_participle: 'done'
-      end
+      add_entry('do', 'IrregularVerbDo')
       add_entry('each', 'DistributiveDeterminer')
       add_entry('each', 'Pronoun')
       add_entry('exist', 'RegularVerb')
@@ -88,7 +86,9 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('good', 'Adjective')
       add_entry('have', 'IrregularVerbHave')
       add_entry('happen', 'RegularVerb')
-      add_entry('hear', 'IrregularLinkingVerb')
+      add_entry('hear', 'IrregularLinkingVerb') do
+        forms past_simple: 'heard', past_participle: 'heard'
+      end
       add_entry('here', 'Adverb')
       # example: ...from here (works as a pronoun of a place)
       add_entry('here', 'CommonNoun', {'NUMBER' => enumeration(:singular),

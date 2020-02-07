@@ -26,7 +26,7 @@ module Zenlish
         else
           theConstraints
         end
-        err_msg = "Table has #{headings.size} headings."
+        err_msg = "Table has #{headings.size} headings, instead of #{constraints.size}"
         raise StandardError, err_msg if constraints.size != headings.size
         actuals = []
         headings.each_with_index do |hd, idx|

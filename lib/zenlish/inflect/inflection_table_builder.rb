@@ -83,13 +83,13 @@ module Zenlish
 
         inequality_cond
       end
-      
+
       def in?(*theMembers)
         arg = FormalArgument.new(conds.size)
         membership_cond = Membership.new(arg, theMembers)
         conds << membership_cond
 
-        membership_cond      
+        membership_cond
       end
 
       def dont_care
@@ -97,6 +97,10 @@ module Zenlish
         conds << item
 
         item
+      end
+
+      def literal(aLiteral)
+        LiteralAsIs.new(aLiteral)
       end
 
       def col(aColName)

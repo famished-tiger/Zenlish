@@ -1,4 +1,12 @@
 # CHANGELOG
+## [0.2.03] - 2020-02-07
+Zenlish can now inflect the irregular verbs `be`, `do`, and `have`.
+
+## Changed
+- Class `WClass::IrreglarVerbBe`: added specific inflection table.
+- Class `WClass::IrreglarVerbDo`: added specific inflection table.
+- Class `WClass::IrreglarVerbHave`: added specific inflection table.
+
 ## [0.2.02] - 2020-02-06
 Extending the inflection model to irregular verbs. Zenlish can inflect all irregular verbs in its dictionary (except modals and be).
 
@@ -9,6 +17,7 @@ Extending the inflection model to irregular verbs. Zenlish can inflect all irreg
 - File `dictionary.rb`: added past simple and past participles to most irregular verbs in lexicon.
 - Class `Lex::Lexeme`: added capability of word class to add dynamically extension (specialization) to lexeme instances.
 - Class `WordClass::IrregularVerb` added inflection table.
+- File `.travis.yml` Added Ruby 2.7 and increased version number for other rubies.
 
 ### Fixed
 - Class `WordClass::RegularVerb` fixed rules for gerund spelling.

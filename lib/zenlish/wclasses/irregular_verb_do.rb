@@ -7,12 +7,12 @@ module Zenlish
       def initialize
         super()
       end
-      
+
       # The mix-in module used to extend the lexeme
       # @return [Module, NilClass]
       def extension
         nil
-      end      
+      end
 
       private
 
@@ -31,19 +31,15 @@ module Zenlish
           feature_heading 'NUMBER'
           feature_heading 'TIME'
           #     PERSON              NUMBER             TIME
-          rule([not_equal(:third), equals(:singular), equals(:present)         ], literal('do'))
+          rule([not_equal(:third), equals(:singular), equals(:present)        ], literal('do'))
           rule([equals(:third),    equals(:singular), equals(:present)        ], literal('does'))
           rule([dont_care,         equals(:plural),   equals(:present)        ], literal('do'))
           rule([dont_care,         dont_care,         equals(:progressive)    ], literal('doing'))
-          rule([dont_care,         dont_care,         equals(:past_simple)    ], literal('did'))          
+          rule([dont_care,         dont_care,         equals(:past_simple)    ], literal('did'))
           rule([dont_care,         dont_care,         equals(:past_participle)], literal('done'))
         end
         add_paradigm(table)
       end
-
-      def add_paradigm(anInflectionTable)
-        @paradigms[anInflectionTable.name] = anInflectionTable
-      end    
     end # class
   end # module
 end # module

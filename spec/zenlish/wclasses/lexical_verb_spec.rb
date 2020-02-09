@@ -7,6 +7,13 @@ require_relative '../../../lib/zenlish/wclasses/lexical_verb'
 
 module Zenlish
   module WClasses
+    class LexicalVerb
+      # Do limited monkeypatching, just for testing purposes
+      def init_paradigms
+        # Empty method
+      end
+    end
+    
     describe LexicalVerb do
       subject { LexicalVerb.new }
 

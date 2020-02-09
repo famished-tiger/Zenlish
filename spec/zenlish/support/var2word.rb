@@ -56,7 +56,7 @@ module Zenlish
     literal2var('body', 'body')
     literal2var('but', 'but')
     def can ; Lex::Literal.new('can', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end
-    def can_irregular ; Lex::Literal.new('can', get_lexeme('can', WClasses::IrregularVerb), 0) ; end     
+    def can_irregular ; Lex::Literal.new('can', get_lexeme('can', WClasses::IrregularVerbCan), 0) ; end     
     literal2var('cause', 'cause')
     literal2var('cause', 'caused')
     literal2var('cause', 'causes')
@@ -69,7 +69,7 @@ module Zenlish
     literal2var('contain', 'contains')
     literal2var('container', 'container')
     literal2var('container', 'containers')
-    literal2var('could', 'could')
+    def could ; Lex::Literal.new('could', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end    
     literal2var('damage', 'damaged')    
     def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     literal2var('die', 'die')

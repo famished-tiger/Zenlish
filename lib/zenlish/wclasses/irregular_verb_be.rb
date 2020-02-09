@@ -43,20 +43,6 @@ module Zenlish
         end
         add_paradigm(table)
       end
-
-      def add_paradigm(anInflectionTable)
-        @paradigms[anInflectionTable.name] = anInflectionTable
-      end
     end # class
-=begin
-
-
-
-      private
-
-
-
-
-=end
   end # module
 end # module

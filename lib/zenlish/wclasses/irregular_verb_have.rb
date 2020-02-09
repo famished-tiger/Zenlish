@@ -39,10 +39,6 @@ module Zenlish
           rule([dont_care,         dont_care,         equals(:past_participle)], literal('had'))
         end
         add_paradigm(table)
-      end
-
-      def add_paradigm(anInflectionTable)
-        @paradigms[anInflectionTable.name] = anInflectionTable
       end    
     end # class
   end # module

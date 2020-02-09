@@ -1,6 +1,5 @@
-example_id                       | status | run_time        |
--------------------------------- | ------ | --------------- |
-./dictionary_spec.rb[1:1:1]      | passed | 0.00574 seconds |
-./dictionary_spec.rb[1:1:2]      | passed | 0.00272 seconds |
-./dictionary_spec.rb[1:1:3]      | passed | 0.00018 seconds |
-./zenlish_grammar_spec.rb[1:1:1] | passed | 0.00287 seconds |
+example_id                  | status | run_time        |
+--------------------------- | ------ | --------------- |
+./dictionary_spec.rb[1:1:1] | passed | 0.00297 seconds |
+./dictionary_spec.rb[1:1:2] | passed | 0.00259 seconds |
+./dictionary_spec.rb[1:1:3] | passed | 0.00026 seconds |

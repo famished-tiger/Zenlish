@@ -9,9 +9,6 @@ module Zenlish
 
       def initialize
         super()
-        @paradigms = {}
-        init_feature_defs
-        init_paradigms
       end
       
       # The mix-in module used to extend the lexeme
@@ -43,16 +40,12 @@ module Zenlish
           rule([equals(:third),    equals(:singular), equals(:present),         matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))             
           rule([equals(:third),    equals(:singular), equals(:present),         dont_care], concat(col('base_form'), 's'))         
           rule([dont_care,         dont_care,         equals(:progressive),     matches(/ie$/)], sub(col('base_form'), /ie$/, 'ying'))          
-          rule([dont_care,         dont_care,         equals(:progressive),     matches(/[^e]e$/)], sub(col('base_form'), /e$/, 'ing'))            
+          rule([dont_care,         dont_care,         equals(:progressive),     matches(/[^eoy]e$/)], sub(col('base_form'), /e$/, 'ing'))            
           rule([dont_care,         dont_care,         equals(:progressive),     dont_care], concat(col('base_form'), 'ing'))
           rule([dont_care,         dont_care,         equals(:past_simple),     dont_care], func('past_simple'))             
           rule([dont_care,         dont_care,         equals(:past_participle), dont_care], func('past_participle'))
         end
         add_paradigm(table)
-      end
-
-      def add_paradigm(anInflectionTable)
-        @paradigms[anInflectionTable.name] = anInflectionTable
       end      
     end # class
   end # module

@@ -137,7 +137,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'tense' => 'AuxiliaryBe'
   rule 'tense' => 'AuxiliaryDo'
   rule 'tense' => 'ModalVerbCan'
-  rule 'tense' => 'ModalVerbCould'
+
 
   #############
   # NOUN PHRASE
@@ -232,6 +232,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'lexical_verb' => 'IrregularVerb'
   rule 'lexical_verb' => 'IrregularLinkingVerb'
   rule 'lexical_verb' => 'IrregularVerbBe'
+  rule 'lexical_verb' => 'IrregularVerbCan'
   rule 'lexical_verb' => 'IrregularVerbDo'
   rule 'lexical_verb' => 'IrregularVerbHave'
   rule 'lexical_verb' => 'IrregularVerbKnow'

@@ -45,11 +45,12 @@ module Zenlish
 
           lexeme
         else
-          begin
-            lemma2entry.fetch(aLemma).lexemes.first
-          rescue NoMethodError => exc
-            $stderr.puts "Multiple lexemes for #{aLemma}"
-            raise exc
+          entry = lemma2entry.fetch(aLemma)
+          if entry.kind_of?(Array)
+            err_msg = "Multiple lexemes for #{aLemma}"
+            raise StandardError, err_msg
+          else
+            entry.lexemes.first
           end
         end
       end

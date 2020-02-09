@@ -1,9 +1,9 @@
-require_relative 'auxiliary'
+require_relative 'irregular_verb'
 
 module Zenlish
   module WClasses
-    # The modal verb `can`
-    class ModalVerbCan < Auxiliary
+    # Irregular verb can
+    class IrregularVerbCan < IrregularVerb
       def initialize
         super()
       end
@@ -28,7 +28,7 @@ module Zenlish
           rule([equals(:past_simple) ], literal('could'))
         end
         add_paradigm(table)
-      end
+      end    
     end # class
   end # module
 end # module

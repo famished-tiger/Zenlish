@@ -81,20 +81,22 @@ module Zenlish
         end
         
         it 'should know how to inflect the verb be' do
-          lexm = subject.get_lexeme('be', WClasses::IrregularVerbBe)
-          expectations_1 = [
-            [present_1sg,     'am'],
-            [present_2sg,     'are'],
-            [present_3sg,     'is'],
-            [present_1pl,     'are'],
-            [progressive,     'being'],
-            [past_simple,     'was'],
-            [past_simple_2sg, 'were'],
-            [past_simple_3sg, 'was'],
-            [past_simple_1pl, 'were'],
-            [past_participle, 'been']           
-          ]
-          test_inflection_of(lexm, expectations_1, true)        
+          [WClasses::IrregularVerbBe, WClasses::AuxiliaryBe].each do |wclass|
+            lexm = subject.get_lexeme('be', wclass)
+            expectations_1 = [
+              [present_1sg,     'am'],
+              [present_2sg,     'are'],
+              [present_3sg,     'is'],
+              [present_1pl,     'are'],
+              [progressive,     'being'],
+              [past_simple,     'was'],
+              [past_simple_2sg, 'were'],
+              [past_simple_3sg, 'was'],
+              [past_simple_1pl, 'were'],
+              [past_participle, 'been']           
+            ]
+            test_inflection_of(lexm, expectations_1, true)
+          end
         end
         
       end # context

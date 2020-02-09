@@ -1,11 +1,29 @@
 # CHANGELOG
+## [0.2.04] - 2020-02-09
+Zenlish can now inflect all the verbs in its lexicon.
+
+### Added
+- Module `WordClasses::IrregularVerbCan` for cases where `can` isn't used as a modal verb.
+
+## Changed
+- File `dictionary.rb`: .
+- Class `Lex::Lexicon`: more explicit error message in case of ambiguous lexeme search.
+- Class `WClass::AuxiliaryBe`: added specific inflection table.
+- Class `WClass::AuxiliaryDo`: added specific inflection table.
+- Class `WClass::ModalVerbCan`: added specific inflection table.
+
+### Fixed
+- Class `WordClass::IrregularVerb` fixed rule for gerund spelling for verbs ending with 'oe' or 'ye'.
+- Class `WordClass::RegularVerb` fixed rule for gerund spelling for verbs ending with 'oe' or 'ye'.
+
+# CHANGELOG
 ## [0.2.03] - 2020-02-07
 Zenlish can now inflect the irregular verbs `be`, `do`, and `have`.
 
 ## Changed
-- Class `WClass::IrreglarVerbBe`: added specific inflection table.
-- Class `WClass::IrreglarVerbDo`: added specific inflection table.
-- Class `WClass::IrreglarVerbHave`: added specific inflection table.
+- Class `WClass::IrregularVerbBe`: added specific inflection table.
+- Class `WClass::IrregularVerbDo`: added specific inflection table.
+- Class `WClass::IrregularVerbHave`: added specific inflection table.
 
 ## [0.2.02] - 2020-02-06
 Extending the inflection model to irregular verbs. Zenlish can inflect all irregular verbs in its dictionary (except modals and be).
@@ -30,7 +48,6 @@ Extending the inflection model to regular verbs. Zenlish can inflect all regular
 - Class `Inflect::FunctionCall` Now an inflection table can invoke a method of the lexeme argument.
 - Class `Inflect::Membership` Now an inflection table can test whether a value is included in a set of values.
 - Class `Inflect::NotEquals` Now an inflection table can test for inequality
-
 
 ## [0.2.00] - 2020-01-30
 A lot of internal additions, such an initial feature model, embryonic inflection model.

@@ -21,20 +21,36 @@ module Zenlish
         end
 
         it 'should support the pluralization of common nouns' do
+          samples = %w[animal body people]          
           lexemes = []
           Lang::Dictionary.entries.each do |ent|
             lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(Zenlish::WClasses::CommonNoun) }
-            lexemes.concat(lexm) if lexm
+            if lexm && samples.include?(ent.lemma)
+              lexemes.concat(lexm)
+            end
           end
-          samples = %w[ animal body people]
           plural_sample = { 'animal' => 'animals',
             'body' => 'bodies',
-            'people' => 'people'}
-          selection = lexemes.select { |lx| samples.include?(lx.entry.lemma) }
+            'people' => 'people'
+          }
 
-          selection.map do |lx|
+          lexemes.map do |lx|
             pluralized = lx.inflect([:plural, nil])
             expect(pluralized).to eq(plural_sample[lx.base_form])
+          end
+        end
+        
+        it 'should know all its inflections' do
+          samples = %w[animal body people]          
+          lexemes = []
+          Lang::Dictionary.entries.each do |ent|
+            lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(Zenlish::WClasses::CommonNoun) }
+            if lexm && samples.include?(ent.lemma)
+              lexemes.concat(lexm)
+            end
+          end
+          lexemes.map do |lxm|
+            lxm.all_inflections
           end
         end
       end # context

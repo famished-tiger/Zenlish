@@ -1,4 +1,25 @@
 # CHANGELOG
+## [0.2.05] - 2020-02-16
+Zenlish can now inflect all the lexemes in its lexicon.
+
+### Changed
+- File `README.md` added demo example showing the inflection capabilities of Zenlish
+- Method `Lex::Lexeme#all_inflections` added.
+- Method `Inflect::InflectionTable#all_inflections` added.
+- Class `WClass::DemonstrativeDeterminer`: added specific inflection tables.
+- Class `WClass::PersonalPronoun`: added specific inflection tables.
+- Class `WClass::PossessiveDeterminer`: added specific inflection tables.
+- Method `Feature::BooleanDomain#to_a` added.
+- Method `Feature::EnumerationDomain#to_a` added.
+- Method `WClasses::WordClass#add_paradigm` added.
+
+### Fixed
+- Inflection table of `WClasses::IrregularVerb`
+- Inflection table of `WClasses::RegularVerb`
+
+### Removed
+- Method `WClasses::Verb#add_paradigm` removed.
+
 ## [0.2.04] - 2020-02-09
 Zenlish can now inflect all the verbs in its lexicon.
 

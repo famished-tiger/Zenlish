@@ -18,11 +18,16 @@ module Zenlish
           expect(subject.include?('invalid')).to be_falsey
           expect(subject.include?(true)).to be_truthy
           expect(subject.include?(false)).to be_truthy
-        end      
+        end
+
         it 'should provide a factory method for boolean values' do
           expect(subject.build_value(true)).to be_kind_of(BooleanValue)
           expect(subject.build_value(false)).to be_kind_of(BooleanValue)
         end
+        
+        it 'should return all valid values in domain when requested' do
+          expect(subject.to_a).to eq([false, true])
+        end         
 
         it 'should complain when asked to build a non-boolean value' do
           err = StandardError

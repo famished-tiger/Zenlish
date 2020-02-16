@@ -36,6 +36,12 @@ module Zenlish
       def extension
         nil
       end
+      
+      protected
+
+      def add_paradigm(anInflectionTable)
+        @paradigms[anInflectionTable.name] = anInflectionTable
+      end      
     end # class
   end # module
 end # module

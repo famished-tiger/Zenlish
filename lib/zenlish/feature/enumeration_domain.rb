@@ -17,6 +17,10 @@ module Zenlish
       def include?(aValue)
         enum.include?(aValue)
       end
+      
+      def to_a
+        enum
+      end
 
       private
 

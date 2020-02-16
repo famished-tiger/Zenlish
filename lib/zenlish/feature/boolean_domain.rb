@@ -14,6 +14,10 @@ module Zenlish
       def include?(aValue)
         aValue.kind_of?(TrueClass) || aValue.kind_of?(FalseClass)
       end
+      
+      def to_a
+        [false, true]
+      end
 
       private
 

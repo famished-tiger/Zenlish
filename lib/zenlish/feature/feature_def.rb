@@ -1,3 +1,4 @@
+require_relative 'boolean_domain'
 require_relative 'enumeration_domain'
 require_relative 'feature_value'
 

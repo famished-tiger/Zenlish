@@ -15,9 +15,13 @@ module Zenlish
           hd = headings[argument.index]
           feat_def = hd.evaluate_for(lexeme)
           feat_def.domain.include?(literal)
-        else
+        else  
           val = actuals[argument.index]
-          val == literal
+          if val.kind_of?(Feature::FeatureDef)
+            val.domain.include?(literal)
+          else
+            val == literal
+          end
         end
       end
     end # class

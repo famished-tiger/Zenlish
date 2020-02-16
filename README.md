@@ -101,6 +101,33 @@ end
 # Rley::Syntax::Terminal
 ```
 
+Demo of lexeme inflections
+
+```ruby
+# Demo inflection (aka declension, conjugation)
+require 'zenlish'
+
+# The Zenlish dictionary is more than a list of words...
+dict = Zenlish::Lang::Dictionary
+
+# What are the spellings of a given common noun?
+noun_body = dict.get_lexeme('body')
+p noun_body.all_inflections # => ["body", "bodies"]
+
+# What are the word forms of a personal pronoun (3rd person)?
+p_3rd_pn = dict.get_lexeme('it')
+p p_3rd_pn.all_inflections # => ["she", "her", "he", "him", "it", "they", "them"]
+
+# What are the distinct forms of a regular verb?
+vb_touch = dict.get_lexeme('touch')
+p vb_touch.all_inflections # => ["touch", "touching", "touched", "touches"]
+
+# What are the forms of the (highly) irregular verb be?
+vb_be = dict.get_lexeme('be', Zenlish::WClasses::IrregularVerbBe)
+p vb_be.all_inflections # => ["am", "being", "was", "been", "are", "were", "is"]
+```
+
+
 More to come...
 
 ## Principles behind the Zenlish language

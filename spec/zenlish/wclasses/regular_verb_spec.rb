@@ -43,6 +43,12 @@ module Zenlish
             expect(verb.inflect(constraints)).to eq(expected_form)
           end
         end
+        
+        def test_all_inflections(verb_form, wforms)
+          verb = build_verb(verb_form)
+          inflected = verb.all_inflections
+          expect(inflected.sort).to eq(wforms.sort)
+        end
 
         it 'should know how to inflect regular verbs' do
           expectations_1 = [
@@ -93,7 +99,21 @@ module Zenlish
             [past_simple, 'died'],
             [past_participle, 'died']
           ]
-          test_inflection_of('die', expectations_5)            
+          test_inflection_of('die', expectations_5)
+
+          expectations_6 = [
+            [present_1sg, 'want'],
+            [present_3sg, 'wants'],
+            [present_1pl, 'want'],
+            [progressive, 'wanting'],
+            [past_simple, 'wanted'],
+            [past_participle, 'wanted']
+          ]
+          test_inflection_of('want', expectations_6)          
+        end
+        
+        it 'should give all word forms of a given verb' do
+          test_all_inflections('die', ['die', 'dies', 'dying', 'died'])
         end
       end # context
     end # describe

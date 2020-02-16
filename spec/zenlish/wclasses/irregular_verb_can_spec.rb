@@ -36,6 +36,12 @@ module Zenlish
             expect(verb.inflect([time])).to eq(expected_form)
           end
         end
+        
+        def test_all_inflections(verb_form, wforms)
+          verb = build_verb(verb_form)
+          inflected = verb.all_inflections
+          expect(inflected.sort).to eq(wforms.sort)
+        end        
 
         it 'should know how to inflect modal verb can' do
           expectations_1 = [
@@ -44,6 +50,10 @@ module Zenlish
           ]
           test_inflection_of('can', expectations_1)
         end
+        
+        it 'should give all word forms of a given verb' do
+          test_all_inflections('can', ['can', 'could'])
+        end        
       end # context
     end # describe
   end # module

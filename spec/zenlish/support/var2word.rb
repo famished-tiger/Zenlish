@@ -56,7 +56,7 @@ module Zenlish
     literal2var('body', 'body')
     literal2var('but', 'but')
     def can ; Lex::Literal.new('can', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end
-    def can_irregular ; Lex::Literal.new('can', get_lexeme('can', WClasses::IrregularVerbCan), 0) ; end     
+    def can_irregular ; Lex::Literal.new('can', get_lexeme('can', WClasses::IrregularVerbCan), 0) ; end
     literal2var('cause', 'cause')
     literal2var('cause', 'caused')
     literal2var('cause', 'causes')
@@ -69,19 +69,19 @@ module Zenlish
     literal2var('contain', 'contains')
     literal2var('container', 'container')
     literal2var('container', 'containers')
-    def could ; Lex::Literal.new('could', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end    
-    literal2var('damage', 'damaged')    
+    def could ; Lex::Literal.new('could', get_lexeme('can', WClasses::ModalVerbCan), 0) ; end
+    literal2var('damage', 'damaged')
     def did ; Lex::Literal.new('did', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     literal2var('die', 'die')
     literal2var('die', 'died')
     literal2var('die', 'dies')
     literal2var('different', 'different')
-    literal2var('difficult', 'difficult')    
+    literal2var('difficult', 'difficult')
     def do_ ; Lex::Literal.new('do', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     def do_aux ; Lex::Literal.new('do', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
     def does ; Lex::Literal.new('does', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     def does_aux ; Lex::Literal.new('does', get_lexeme('do', WClasses::AuxiliaryDo), 0) ; end
-    def doing ; Lex::Literal.new('doing', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end    
+    def doing ; Lex::Literal.new('doing', get_lexeme('do', WClasses::IrregularVerbDo), 0) ; end
     literal2var('each', 'each', '_')
     def each_ ; Lex::Literal.new('each', get_lexeme('each', WClasses::DistributiveDeterminer), 0) ; end
     def each_as_pronoun ; Lex::Literal.new('each', get_lexeme('each', WClasses::Pronoun), 0) ; end
@@ -134,7 +134,7 @@ module Zenlish
     literal2var('make', 'make')
     literal2var('many', 'many')
     literal2var('maybe', 'maybe')
-    literal2var('me', 'me')
+    literal2var('I', 'me')
     literal2var('moment', 'moment')
     def more ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adjective), 0) ; end
     def more_as_adverb ; Lex::Literal.new('more', get_lexeme('more', WClasses::Adverb), 0) ; end
@@ -179,10 +179,10 @@ module Zenlish
     literal2var('something', 'something')
     literal2var('surface', 'surface')
     literal2var('the', 'the')
-    literal2var('their', 'their')
-    literal2var('them', 'them')
+    literal2var('its', 'their')
+    literal2var('it', 'them')
     literal2var('then', 'then', '_')
-    literal2var('they', 'they')
+    literal2var('it', 'they')
     literal2var('than', 'than')
     literal2var('that', 'that')
     literal2var('there', 'there')

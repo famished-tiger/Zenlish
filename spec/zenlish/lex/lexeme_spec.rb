@@ -15,7 +15,8 @@ module Zenlish
       let(:a_lemma) { 'people' }
       let(:an_entry) { LexicalEntry.new(a_lemma) }
       let(:a_feat_struct_def) {
-             { 'NUMBER' => enumeration(:plural) }
+             { 'NUMBER' => enumeration(:plural),
+               'PARADIGM' => [identifier, 'Plural_only'] }
       }
 
       subject { Lexeme.new(a_wclass, an_entry)  }
@@ -39,6 +40,7 @@ module Zenlish
       end # context
 
       context 'Provided services:' do
+        subject { Lexeme.new(a_wclass, an_entry, a_feat_struct_def) }
         it 'should know its lemma' do
           expect(subject.lemma).to eq(a_lemma)
         end
@@ -51,6 +53,10 @@ module Zenlish
         it 'should know its inflection paradigm' do
           expect(subject.paradigm).to be_kind_of(Inflect::InflectionTable)
         end
+        
+        it 'should know all its inflections' do
+          expect(subject.all_inflections).to eq(['people'])
+        end       
       end # context
     end # describe
   end # module

@@ -20,12 +20,6 @@ module Zenlish
         false
       end
 
-      protected
-
-      def add_paradigm(anInflectionTable)
-        @paradigms[anInflectionTable.name] = anInflectionTable
-      end
-
       private
 
       def init_feature_defs

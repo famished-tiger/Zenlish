@@ -28,14 +28,14 @@ module Zenlish
         end
 
         let(:present_1sg)     { [:first,  :singular, :present, nil] }
-        let(:present_2sg)     { [:second, :singular, :present, nil] }        
+        let(:present_2sg)     { [:second, :singular, :present, nil] }
         let(:present_3sg)     { [:third,  :singular, :present, nil] }
         let(:present_1pl)     { [:first,  :plural,   :present, nil] }
         let(:progressive)     { [nil,     nil,       :progressive, nil] }
         let(:past_simple)     { [:first,  :singular, :past_simple, nil] }
         let(:past_simple_2sg) { [:second, :singular, :past_simple, nil] }
         let(:past_simple_3sg) { [:third,  :singular, :past_simple, nil] }
-        let(:past_simple_1pl) { [:first,  :plural,   :past_simple, nil] }         
+        let(:past_simple_1pl) { [:first,  :plural,   :past_simple, nil] }
         let(:past_participle) { [nil,     nil,       :past_participle, nil] }
 
         def test_inflection_of(verb_lexeme, pairs, drop_last_column = false)
@@ -56,7 +56,7 @@ module Zenlish
             [past_participle, 'become']
           ]
           test_inflection_of(lexm, expectations_1)
-          
+
           lexm = subject.get_lexeme('do', WClasses::IrregularVerbDo)
           expectations_2 = [
             [present_1sg,     'do'],
@@ -77,9 +77,9 @@ module Zenlish
             [past_simple,     'had'],
             [past_participle, 'had']
           ]
-          test_inflection_of(lexm, expectations_3, true)           
+          test_inflection_of(lexm, expectations_3, true)
         end
-        
+
         it 'should know how to inflect the verb be' do
           [WClasses::IrregularVerbBe, WClasses::AuxiliaryBe].each do |wclass|
             lexm = subject.get_lexeme('be', wclass)
@@ -93,12 +93,12 @@ module Zenlish
               [past_simple_2sg, 'were'],
               [past_simple_3sg, 'was'],
               [past_simple_1pl, 'were'],
-              [past_participle, 'been']           
+              [past_participle, 'been']
             ]
             test_inflection_of(lexm, expectations_1, true)
           end
         end
-        
+
       end # context
     end # describe
   end # module

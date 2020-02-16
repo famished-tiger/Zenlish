@@ -41,6 +41,11 @@ module Zenlish
         table = paradigm
         table.inflect(self, constraints)
       end
+      
+      def all_inflections
+        table = paradigm
+        table.all_inflections(self)
+      end      
 
       # @return [String] the base (dictionary) form.
       def lemma

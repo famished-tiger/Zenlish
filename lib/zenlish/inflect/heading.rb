@@ -1,3 +1,6 @@
+require_relative '../feature/feature'
+require_relative '../feature/feature_def'
+
 module Zenlish
   module Inflect
     class Heading

@@ -6,7 +6,8 @@ module Zenlish
     class Adjective < WordClass
       # @return [FalseClass] Indicates that an adjective may inflect.
       def invariable?
-        false
+        # TODO: set to false once we introduce the degrees (basic, comparative, superlative)
+        true 
       end    
     end # class
   end # module

@@ -30,12 +30,16 @@ module Zenlish
           value = subject.build_value(:plural)
           expect(value.val).to eq(:plural)
         end
+        
+        it 'should return all valid values in domain when requested' do
+          expect(subject.to_a).to eq([:singular, :plural])
+        end        
 
         it 'should complain when asked to build a non-member value' do
           err = StandardError
           err_msg = "dual isn't part of enumeration [singular, plural]."
           expect { subject.build_value(:dual) }.to raise_error(err, err_msg)
-        end      
+        end
       end # context
     end # describe
   end # module

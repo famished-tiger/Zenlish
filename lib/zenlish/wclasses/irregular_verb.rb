@@ -35,10 +35,11 @@ module Zenlish
           feature_heading 'TIME'
           method_heading  'base_form'
           #     PERSON             NUMBER             TIME                      base_form
-          rule([not_equal(:third), dont_care,         equals(:present),         dont_care], col('base_form'))
+          rule([not_equal(:third), equals(:singular), equals(:present),         dont_care], col('base_form'))
           rule([equals(:third),    equals(:singular), equals(:present),         matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies'))
           rule([equals(:third),    equals(:singular), equals(:present),         matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))             
-          rule([equals(:third),    equals(:singular), equals(:present),         dont_care], concat(col('base_form'), 's'))         
+          rule([equals(:third),    equals(:singular), equals(:present),         dont_care], concat(col('base_form'), 's'))
+          rule([dont_care,         equals(:plural),   equals(:present),         dont_care], col('base_form'))          
           rule([dont_care,         dont_care,         equals(:progressive),     matches(/ie$/)], sub(col('base_form'), /ie$/, 'ying'))          
           rule([dont_care,         dont_care,         equals(:progressive),     matches(/[^eoy]e$/)], sub(col('base_form'), /e$/, 'ing'))            
           rule([dont_care,         dont_care,         equals(:progressive),     dont_care], concat(col('base_form'), 'ing'))

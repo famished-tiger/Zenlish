@@ -41,7 +41,7 @@ module Zenlish
         add_wclass(aLexicon, WClasses::IrregularLinkingVerb)
         add_wclass(aLexicon, WClasses::IrregularVerb)
         add_wclass(aLexicon, WClasses::IrregularVerbBe)
-        add_wclass(aLexicon, WClasses::IrregularVerbCan)        
+        add_wclass(aLexicon, WClasses::IrregularVerbCan)
         add_wclass(aLexicon, WClasses::IrregularVerbDo)
         add_wclass(aLexicon, WClasses::IrregularVerbHave)
         add_wclass(aLexicon, WClasses::IrregularVerbKnow)

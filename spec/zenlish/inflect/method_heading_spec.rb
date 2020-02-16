@@ -25,6 +25,12 @@ module Zenlish
           expect(mocked).to receive(:base_form).and_return('cherry')
           expect(subject.evaluate_for(mocked)).to eq('cherry')
         end
+        
+        it 'should obtain the method result as an array' do
+          mocked = double('dummy-lexeme')
+          expect(mocked).to receive(:base_form).and_return('cherry')
+          expect(subject.all_matches(mocked)).to eq(['cherry'])
+        end        
       end # context
     end # describe
   end # module

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../../spec_helper' # Use the RSpec framework
 require_relative '../support/var2word'
 require_relative '../../../lib/zenlish/parser/zparser' # Load the class under test
@@ -14,7 +15,6 @@ module Zenlish
         it 'should parse sample sentences from lesson 1-A' do
           # Sentence 1-01: "Tony sees Lisa."
           # in absence of a tokenizer, we create a sequence of literals by hand...
-          # prox_tony = ZProxy.new(tony)
           literals = [tony, sees, lisa, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
@@ -126,7 +126,7 @@ module Zenlish
           # Sentence 1-15c: "There are more people inside the other thing
           # than there are inside this thing."
           literals = [there, are, more, people, inside, the, other, thing,
-                      than, there, are, inside, this, thing, dot]
+            than, there, are, inside, this, thing, dot]
           # Ambiguous parse
           expect { subject.to_pforest(literals) }.not_to raise_error
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rley'
 require_relative '../feature/feature_struct_def_bearer'
 
@@ -29,19 +31,19 @@ module Zenlish
       # form.
       # @return [FalseClass, TrueClass] true iff the words in the class are invariable.
       def invariable?
-        return true
+        true
       end
-      
+
       # @return [Module, NilClass]
       def extension
         nil
       end
-      
+
       protected
 
       def add_paradigm(anInflectionTable)
         @paradigms[anInflectionTable.name] = anInflectionTable
-      end      
+      end
     end # class
   end # module
 end # module

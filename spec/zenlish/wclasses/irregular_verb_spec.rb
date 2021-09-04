@@ -45,15 +45,15 @@ module Zenlish
             expect(verb.inflect(constraints)).to eq(expected_form)
           end
         end
-        
+
         def test_all_inflections(verb_form, p_simple, p_participle, wforms)
           verb = build_verb(verb_form, p_simple, p_participle)
           inflected = verb.all_inflections
           expect(inflected.sort).to eq(wforms.sort)
-        end        
+        end
 
         it 'should know how to inflect irregular verbs' do
-          expectations_1 = [
+          expectations1 = [
             [present_1sg,     'see'],
             [present_3sg,     'sees'],
             [present_1pl,     'see'],
@@ -61,9 +61,9 @@ module Zenlish
             [past_simple,     'saw'],
             [past_participle, 'seen']
           ]
-          test_inflection_of('see', 'saw', 'seen', expectations_1)
+          test_inflection_of('see', 'saw', 'seen', expectations1)
 
-          expectations_2 = [
+          expectations2 = [
             [present_1sg, 'make'],
             [present_3sg, 'makes'],
             [present_1pl, 'make'],
@@ -71,12 +71,12 @@ module Zenlish
             [past_simple, 'made'],
             [past_participle, 'made']
           ]
-          test_inflection_of('make', 'made', 'made', expectations_2)
+          test_inflection_of('make', 'made', 'made', expectations2)
         end
-        
+
         it 'should give all word forms of a given verb' do
-          test_all_inflections('see', 'saw', 'seen', ['see', 'sees', 'seeing', 'saw', 'seen'])
-        end        
+          test_all_inflections('see', 'saw', 'seen', %w[see sees seeing saw seen])
+        end
       end # context
     end # describe
   end # module

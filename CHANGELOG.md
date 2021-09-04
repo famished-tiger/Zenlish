@@ -1,4 +1,15 @@
 # CHANGELOG
+## [0.2.06] - 2021-09-04
+- Fixes and code re-styling to please `Rubocop` 1.19.1
+
+### Changed
+- File `zenlish.gemspec` updated dependency towards `rley` gem (now ~> 0.8.03)
+
+### Fixed
+- File `zenlish_grammar.rb` fixed small code breaking caused due to `Rley` v.0.8+ library.
+- File `lexer_spec.rb` corrected a test.
+
+# CHANGELOG
 ## [0.2.05] - 2020-02-16
 Zenlish can now inflect all the lexemes in its lexicon.
 

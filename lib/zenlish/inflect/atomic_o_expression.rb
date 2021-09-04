@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'output_expression'
 
 module Zenlish
@@ -6,4 +8,3 @@ module Zenlish
     end # class
   end # module
 end # module
-

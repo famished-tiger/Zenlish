@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Grammar for a simple subset of English language
 # It is called Zenlish
 
@@ -6,7 +8,7 @@ require_relative 'dictionary'
 
 ########################################
 # Define a grammar for a highly English-like language
-builder = Rley::Syntax::GrammarBuilder.new do
+builder = Rley::grammar_builder do
   add_terminals(*Zenlish::Lang::Dictionary.terminals)
 
   rule 'zenlish' => 'prose'
@@ -19,7 +21,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   #################
   # Simple sentence
   #################
-  rule 'simple_sentence' =>  'front_adverb simple_sentence'
+  rule 'simple_sentence' => 'front_adverb simple_sentence'
   rule 'front_adverb' => 'AdverbMaybe'
   rule 'front_adverb' => 'Adverb'
   rule 'simple_sentence' => 'declarative_simple_sentence'
@@ -107,7 +109,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   rule 'comparative_start' => 'ComparativeParticle'
   rule 'conjunctive_prefix' => 'ConjunctivePronoun noun_phrase verb_phrase'
   rule 'identifying_clause' => 'RelativePronoun tense_verb_phrase'
-  rule 'relative_clause_opt' =>  'relative_clause'
+  rule 'relative_clause_opt' => 'relative_clause'
   rule 'relative_clause_opt' => []
   rule 'relative_clause' => 'RelativePronoun tense_phrase'
   # Sentence 3-Bxa 'Lisa sees a living thing that is very big.
@@ -294,7 +296,7 @@ builder = Rley::Syntax::GrammarBuilder.new do
   # complementation by a verb: gerund -ing form...
   rule 'preposition_object' => 'noun_phrase_opt lexical_verb post_head_vp'
   # preposition_object => "a gerund (a verb form ending in "-ing") that acts as a noun # Example: He beat Lee without overly trying.
-  rule 'preposition_object' => 'conjunctive_prefix'		# It's obvious from _what he said_.
+  rule 'preposition_object' => 'conjunctive_prefix'	# It's obvious from _what he said_.
   rule 'preposition_object' => []
 
   ######################

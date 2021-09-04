@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'word_class'
 require_relative '../inflect/inflection_table_builder'
 
@@ -24,12 +26,12 @@ module Zenlish
 
       def init_feature_defs
         # Create standard feature definitions for lexical verbs.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'NUMBER' => enumeration(:singular, :plural)
           feature_def 'PERSON' => enumeration(:first, :second, :third)
           feature_def 'TIME' => enumeration(:present, :progressive, :past_simple, :past_participle)
           feature_def 'PARADIGM' => [identifier, 'Regular_inflection'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms

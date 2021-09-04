@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Load the class under test
-require_relative '../../../lib/zenlish/feature/enumeration_domain' 
+require_relative '../../../lib/zenlish/feature/enumeration_domain'
 
 module Zenlish
   module Feature
@@ -12,9 +12,9 @@ module Zenlish
         it 'should be initialized with arguments' do
           expect { EnumerationDomain.new(:singular, :plural) }.not_to raise_error
         end
-        
+
         it 'should know the values of enumeration' do
-          expect(subject.enum).to eq([:singular, :plural])
+          expect(subject.enum).to eq(%i[singular plural])
         end
       end # context
 
@@ -24,16 +24,16 @@ module Zenlish
           expect(subject.include?(:singular)).to be_truthy
           expect(subject.include?(:plural)).to be_truthy
         end
-        
+
         it 'should provide a factory method for enumerated value' do
           expect(subject.build_value(:plural)).to be_kind_of(SymbolValue)
           value = subject.build_value(:plural)
           expect(value.val).to eq(:plural)
         end
-        
+
         it 'should return all valid values in domain when requested' do
-          expect(subject.to_a).to eq([:singular, :plural])
-        end        
+          expect(subject.to_a).to eq(%i[singular plural])
+        end
 
         it 'should complain when asked to build a non-member value' do
           err = StandardError

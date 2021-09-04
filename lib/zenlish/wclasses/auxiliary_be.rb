@@ -1,20 +1,20 @@
+# frozen_string_literal: true
+
 require_relative 'auxiliary'
 
 module Zenlish
   module WClasses
     class AuxiliaryBe < Auxiliary
-      def initialize
-        super()
-      end
+      # rubocop: disable Layout/SpaceInsideArrayLiteralBrackets
 
       private
 
       def init_feature_defs
         super
         # Create standard feature definitions for modal verb can.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'PARADIGM' => [identifier, 'Verb_be_inflection'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms
@@ -35,7 +35,8 @@ module Zenlish
           rule([dont_care,           dont_care,         equals(:past_participle)], literal('been'))
         end
         add_paradigm(table)
-      end    
+      end
+      # rubocop: enable Layout/SpaceInsideArrayLiteralBrackets
     end # class
   end # module
 end # module

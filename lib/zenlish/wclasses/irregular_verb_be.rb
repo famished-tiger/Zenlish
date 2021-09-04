@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'irregular_verb'
 
 module Zenlish
   module WClasses
     # The `be` verb used as a lexical verb (as opposed auxiliary verb).
     class IrregularVerbBe < IrregularVerb
-      def initialize
-        super()
-      end
+      # rubocop: disable Layout/SpaceInsideArrayLiteralBrackets
 
       # The mix-in module used to extend the lexeme
       # @return [Module, NilClass]
@@ -18,10 +18,10 @@ module Zenlish
 
       def init_feature_defs
         super
-        # Create standard feature definitions for irregular verbs.
-        feature_def_dsl {
+        # Create standard feature definitiofor irregular verbs.
+        feature_def_dsl do
           feature_def 'PARADIGM' => [identifier, 'Verb_be_inflection'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms
@@ -43,6 +43,7 @@ module Zenlish
         end
         add_paradigm(table)
       end
+      # rubocop: enable Layout/SpaceInsideArrayLiteralBrackets
     end # class
   end # module
 end # module

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boolean_domain'
 require_relative 'identifier_domain'
 require_relative 'enumeration_domain'
@@ -31,17 +33,17 @@ module Zenlish
         struct[aName]
       end
 
-      # @return [Feature::BooleanDomain]      
+      # @return [Feature::BooleanDomain]
       def boolean
         BooleanDomain.instance
       end
 
-      # @return [Feature::EnumerationDomain] 
+      # @return [Feature::EnumerationDomain]
       def enumeration(*items)
         EnumerationDomain.new(*items)
       end
-      
-      def identifier(aDefaultValue = nil)
+
+      def identifier(_default_value = nil)
         IdentifierDomain.instance
       end
 

@@ -36,14 +36,14 @@ module Zenlish
           expect(subject.name).to eq(feat_def.name)
         end
 
-        it "should know the domain of its values" do
+        it 'should know the domain of its values' do
           expect(subject.domain).to eq(a_domain)
         end
 
         it 'should accept a value binding' do
           expect { subject.bind_to(plural_value) }.not_to raise_error
           expect(subject).to be_bound
-           expect(subject.binding).to eq(plural_value)
+          expect(subject.binding).to eq(plural_value)
         end
       end # context
     end # describe

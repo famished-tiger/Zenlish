@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Zenlish
   module Feature
     class FeatureValue
@@ -9,7 +11,7 @@ module Zenlish
 
       protected
 
-      def valid_value()
+      def valid_value
         raise NotImplementedError
       end
     end # class

@@ -24,17 +24,17 @@ module Zenlish
           expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
           expect(subject['PARADIGM'].default.val).to eq('Regular_inflection')
         end
-        
+
         let(:present_1sg) { [:first, :singular, :present, nil] }
         let(:present_3sg) { [:third, :singular, :present, nil] }
         let(:present_1pl) { [:first, :plural,   :present, nil] }
         let(:progressive) { [nil,    nil,       :progressive, nil] }
         let(:past_simple) { [nil,    nil,       :past_simple, nil] }
-        let(:past_participle) { [nil, nil,      :past_participle, nil] }        
-        
+        let(:past_participle) { [nil, nil,      :past_participle, nil] }
+
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          lexeme = Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(subject, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -43,7 +43,7 @@ module Zenlish
             expect(verb.inflect(constraints)).to eq(expected_form)
           end
         end
-        
+
         def test_all_inflections(verb_form, wforms)
           verb = build_verb(verb_form)
           inflected = verb.all_inflections
@@ -51,7 +51,7 @@ module Zenlish
         end
 
         it 'should know how to inflect regular verbs' do
-          expectations_1 = [
+          expectations1 = [
             [present_1sg,     'exist'],
             [present_3sg,     'exists'],
             [present_1pl,     'exist'],
@@ -59,9 +59,9 @@ module Zenlish
             [past_simple,     'existed'],
             [past_participle, 'existed']
           ]
-          test_inflection_of('exist', expectations_1)
+          test_inflection_of('exist', expectations1)
 
-          expectations_2 = [
+          expectations2 = [
             [present_1sg, 'move'],
             [present_3sg, 'moves'],
             [present_1pl, 'move'],
@@ -69,9 +69,9 @@ module Zenlish
             [past_simple, 'moved'],
             [past_participle, 'moved']
           ]
-          test_inflection_of('move', expectations_2)
+          test_inflection_of('move', expectations2)
 
-          expectations_3 = [
+          expectations3 = [
             [present_1sg, 'try'],
             [present_3sg, 'tries'],
             [present_1pl, 'try'],
@@ -79,9 +79,9 @@ module Zenlish
             [past_simple, 'tried'],
             [past_participle, 'tried']
           ]
-          test_inflection_of('try', expectations_3)
+          test_inflection_of('try', expectations3)
 
-          expectations_4 = [
+          expectations4 = [
             [present_1sg, 'touch'],
             [present_3sg, 'touches'],
             [present_1pl, 'touch'],
@@ -89,9 +89,9 @@ module Zenlish
             [past_simple, 'touched'],
             [past_participle, 'touched']
           ]
-          test_inflection_of('touch', expectations_4)
+          test_inflection_of('touch', expectations4)
 
-          expectations_5 = [
+          expectations5 = [
             [present_1sg, 'die'],
             [present_3sg, 'dies'],
             [present_1pl, 'die'],
@@ -99,9 +99,9 @@ module Zenlish
             [past_simple, 'died'],
             [past_participle, 'died']
           ]
-          test_inflection_of('die', expectations_5)
+          test_inflection_of('die', expectations5)
 
-          expectations_6 = [
+          expectations6 = [
             [present_1sg, 'want'],
             [present_3sg, 'wants'],
             [present_1pl, 'want'],
@@ -109,11 +109,11 @@ module Zenlish
             [past_simple, 'wanted'],
             [past_participle, 'wanted']
           ]
-          test_inflection_of('want', expectations_6)          
+          test_inflection_of('want', expectations6)
         end
-        
+
         it 'should give all word forms of a given verb' do
-          test_all_inflections('die', ['die', 'dies', 'dying', 'died'])
+          test_all_inflections('die', %w[die dies dying died])
         end
       end # context
     end # describe

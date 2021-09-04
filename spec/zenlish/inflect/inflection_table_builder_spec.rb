@@ -5,6 +5,9 @@ require_relative '../../../lib/zenlish/inflect/inflection_table_builder'
 
 module Zenlish
   module Inflect
+    # rubocop: disable Layout/SpaceInsideParens
+    # rubocop: disable Naming/VariableNumber
+
     describe InflectionTableBuilder do
       subject { InflectionTableBuilder.new }
 
@@ -95,7 +98,7 @@ module Zenlish
           expect(conds_2[1]).to be_kind_of(UnconditionallyTrue)
         end
 
-        MockFeatureBearer = Struct.new(:NUMBER, :base_form)
+        let(:mock_feature_bearer) { Struct.new(:NUMBER, :base_form) }
 
         it 'should build default paradigm for common nouns' do
           table = subject.build('Common_form') do
@@ -106,22 +109,22 @@ module Zenlish
             rule([equals(:plural), dont_care], concat(col('base_form'), 's'))
           end
 
-          mck_1 = MockFeatureBearer.new(:singular, 'animal')
+          mck_1 = mock_feature_bearer.new(:singular, 'animal')
           expect(table.inflect(mck_1, [nil, nil])).to eq('animal')
           mck_1['NUMBER'] = :plural
           expect(table.inflect(mck_1, [nil, nil])).to eq('animals')
 
-          mck_2 = MockFeatureBearer.new(:singular, 'boy')
+          mck_2 = mock_feature_bearer.new(:singular, 'boy')
           expect(table.inflect(mck_2, [nil, nil])).to eq('boy')
           mck_2['NUMBER'] = :plural
           expect(table.inflect(mck_2, [nil, nil])).to eq('boys')
 
-          mck_3 = MockFeatureBearer.new(:singular, 'body')
+          mck_3 = mock_feature_bearer.new(:singular, 'body')
           expect(table.inflect(mck_3, [nil, nil])).to eq('body')
           mck_3['NUMBER'] = :plural
           expect(table.inflect(mck_3, [nil, nil])).to eq('bodies')
         end
-        
+
         MockRegularVerb = Struct.new(:base_form, :PERSON, :NUMBER, :TIME)
         it 'should build default paradigm for regular verbs' do
           table = subject.build('Regular_form') do
@@ -132,15 +135,15 @@ module Zenlish
             #     PERSON             NUMBER             TIME                         base_form
             rule([not_equal(:third), dont_care,         equals(:present),            dont_care], col('base_form'))
             rule([equals(:third),    equals(:singular), equals(:present),            matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies'))
-            rule([equals(:third),    equals(:singular), equals(:present),            matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))             
-            rule([equals(:third),    equals(:singular), equals(:present),            dont_care], concat(col('base_form'), 's'))         
-            rule([dont_care,         dont_care, equals(:progressive),                matches(/e$/)], sub(col('base_form'), /e$/, 'ing'))            
+            rule([equals(:third),    equals(:singular), equals(:present),            matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))
+            rule([equals(:third),    equals(:singular), equals(:present),            dont_care], concat(col('base_form'), 's'))
+            rule([dont_care,         dont_care, equals(:progressive),                matches(/e$/)], sub(col('base_form'), /e$/, 'ing'))
             rule([dont_care,         dont_care, equals(:progressive),                dont_care], concat(col('base_form'), 'ing'))
-            rule([dont_care,         dont_care, in?(:past_simple, :past_participle), matches(/e$/)], concat(col('base_form'), 'd'))             
-            rule([dont_care,         dont_care, in?(:past_simple, :past_participle), matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ied'))            
+            rule([dont_care,         dont_care, in?(:past_simple, :past_participle), matches(/e$/)], concat(col('base_form'), 'd'))
+            rule([dont_care,         dont_care, in?(:past_simple, :past_participle), matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ied'))
             rule([dont_care,         dont_care, in?(:past_simple, :past_participle), dont_care], concat(col('base_form'), 'ed'))
           end
-          
+
           verb_1 = MockRegularVerb.new('belong', :first, :singular, :present)
           expect(table.inflect(verb_1, [nil,    nil,     nil, nil]             )).to eq('belong')
           expect(table.inflect(verb_1, [:third, nil,     nil, nil]             )).to eq('belongs')
@@ -148,7 +151,7 @@ module Zenlish
           expect(table.inflect(verb_1, [nil,    nil,     :progressive, nil]    )).to eq('belonging')
           expect(table.inflect(verb_1, [nil,    nil,     :past_simple, nil]    )).to eq('belonged')
           expect(table.inflect(verb_1, [nil,    nil,     :past_participle, nil])).to eq('belonged')
-          
+
           verb_2 = MockRegularVerb.new('try', :first, :singular, :present)
           expect(table.inflect(verb_2, [nil,    nil,     nil, nil]             )).to eq('try')
           expect(table.inflect(verb_2, [:third, nil,     nil, nil]             )).to eq('tries')
@@ -158,7 +161,7 @@ module Zenlish
           expect(table.inflect(verb_2, [nil,    nil,     :past_participle, nil])).to eq('tried')
 
           verb_3 = MockRegularVerb.new('touch', :first, :singular, :present)
-          expect(table.inflect(verb_3, [:second,nil,     nil, nil]             )).to eq('touch')
+          expect(table.inflect(verb_3, [:second, nil,    nil, nil]             )).to eq('touch')
           expect(table.inflect(verb_3, [:third, nil,     nil, nil]             )).to eq('touches')
           expect(table.inflect(verb_3, [nil,    :plural, nil, nil]             )).to eq('touch')
           expect(table.inflect(verb_3, [nil,    nil,     :progressive, nil]    )).to eq('touching')
@@ -171,9 +174,9 @@ module Zenlish
           expect(table.inflect(verb_4, [nil,    :plural, nil, nil]             )).to eq('cause')
           expect(table.inflect(verb_4, [nil,    nil,     :progressive, nil]    )).to eq('causing')
           expect(table.inflect(verb_4, [nil,    nil,     :past_simple, nil]    )).to eq('caused')
-          expect(table.inflect(verb_4, [nil,    nil,     :past_participle, nil])).to eq('caused')          
+          expect(table.inflect(verb_4, [nil,    nil,     :past_participle, nil])).to eq('caused')
         end
-        
+
         MockIrregularVerb = Struct.new(:base_form, :PERSON, :NUMBER, :TIME, :past_simple, :past_participle)
         it 'should build default paradigm for irregular verbs' do
           table = subject.build('Irregular_inflection') do
@@ -184,12 +187,12 @@ module Zenlish
             #     PERSON             NUMBER             TIME                      base_form
             rule([not_equal(:third), dont_care,         equals(:present),         dont_care], col('base_form'))
             rule([equals(:third),    equals(:singular), equals(:present),         matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies'))
-            rule([equals(:third),    equals(:singular), equals(:present),         matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))             
-            rule([equals(:third),    equals(:singular), equals(:present),         dont_care], concat(col('base_form'), 's'))         
-            rule([dont_care,         dont_care,         equals(:progressive),     matches(/e$/)], sub(col('base_form'), /e$/, 'ing'))            
+            rule([equals(:third),    equals(:singular), equals(:present),         matches(/(?:[osxz]|ch|sh)$/)], concat(col('base_form'), 'es'))
+            rule([equals(:third),    equals(:singular), equals(:present),         dont_care], concat(col('base_form'), 's'))
+            rule([dont_care,         dont_care,         equals(:progressive),     matches(/e$/)], sub(col('base_form'), /e$/, 'ing'))
             rule([dont_care,         dont_care,         equals(:progressive),     dont_care], concat(col('base_form'), 'ing'))
-            rule([dont_care,         dont_care,         equals(:past_simple),     dont_care], func('past_simple'))             
-            rule([dont_care,         dont_care,         equals(:past_participle), dont_care], func('past_participle'))                       
+            rule([dont_care,         dont_care,         equals(:past_simple),     dont_care], func('past_simple'))
+            rule([dont_care,         dont_care,         equals(:past_participle), dont_care], func('past_participle'))
           end
 
           verb_1 = MockIrregularVerb.new('choose', :first, :singular, :present, 'chose', 'chosen')
@@ -202,5 +205,7 @@ module Zenlish
         end
       end # context
     end # describe
+    # rubocop: enable Naming/VariableNumber
+    # rubocop: enable  Layout/SpaceInsideParens
   end # module
 end # module

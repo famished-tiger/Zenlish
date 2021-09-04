@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Load the class under test
-require_relative '../../../lib/zenlish/feature/identifier_value' 
+require_relative '../../../lib/zenlish/feature/identifier_value'
 
 module Zenlish
   module Feature
@@ -13,10 +13,10 @@ module Zenlish
         it 'should be initialized with a value argument' do
           expect { IdentifierValue.new(its_value) }.not_to raise_error
         end
-        
+
         it 'should know its internal value' do
           expect(subject.val).to eq(its_value)
-        end        
+        end
       end # context
 
       context 'Provided services:' do

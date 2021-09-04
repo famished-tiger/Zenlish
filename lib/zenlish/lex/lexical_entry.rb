@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module Zenlish
   module Lex
     # TODO: document
     class LexicalEntry
-      #@return [String] the lemma (dictionary) form of a word.
+      # @return [String] the lemma (dictionary) form of a word.
       attr_reader :lemma
 
       # @return [Array<Lexeme, Rley::Syntax::Terminal>]
       attr_reader :lexemes
 
-      # @param theLemma [String] lemma (= citation form), a word form used 
+      # @param theLemma [String] lemma (= citation form), a word form used
       #   conventionnaly to represent a lexeme.
       # @param aLexeme [Lexeme, NilClass] the lexeme to link with lexical entry.
       def initialize(theLemma, aLexeme = nil)
@@ -17,7 +19,7 @@ module Zenlish
         add_lexeme(aLexeme)
       end
 
-      # @param aLexeme [Lexeme, NilClass] the lexeme to link with lexical entry.      
+      # @param aLexeme [Lexeme, NilClass] the lexeme to link with lexical entry.
       def add_lexeme(aLexeme)
         lexemes << aLexeme if aLexeme
       end

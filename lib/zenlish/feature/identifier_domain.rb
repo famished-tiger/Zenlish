@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'singleton'
 require_relative 'feature_domain'
 require_relative 'identifier_value'
@@ -10,9 +12,9 @@ module Zenlish
       def build_value(aValue)
         IdentifierValue.new(validated_value(aValue))
       end
-      
+
       def include?(aValue)
-        aValue =~ /^[a-zA-Z\_][a-zA-Z0-9\_]*$/
+        aValue =~ /^[a-zA-Z_][a-zA-Z0-9_]*$/
       end
 
       private
@@ -23,7 +25,7 @@ module Zenlish
         end
 
         aValue
-      end      
+      end
     end # class
   end # module
 end # module

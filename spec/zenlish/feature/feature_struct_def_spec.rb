@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../../../lib/zenlish/feature/boolean_domain'
 require_relative '../../../lib/zenlish/feature/enumeration_domain'
 require_relative '../../../lib/zenlish/feature/feature_def'
@@ -54,10 +55,10 @@ module Zenlish
           sample_parent.add_feature_def(ft_case)
           expect(subject['CASE']).to eq(ft_case)
         end
-        
+
         it "should be able to override parent's feature def" do
           sample_parent.add_feature_def(ft_case)
-          
+
           other_case_domain = BooleanDomain.instance
           other_ft_case = FeatureDef.new('CASE', other_case_domain)
           subject.add_feature_def(other_ft_case)

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'word_class'
 
 module Zenlish
   module WClasses
-    # TODO: document 
+    # TODO: document
     # Example: 'as' in 'same ... as'
-    class ComparativeParticle < WordClass   
+    class ComparativeParticle < WordClass
     end # class
   end # module
 end # module

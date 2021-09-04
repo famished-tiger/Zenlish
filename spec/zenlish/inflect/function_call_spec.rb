@@ -13,7 +13,7 @@ module Zenlish
         it 'should be initialized with a text literal' do
           expect { FunctionCall.new('greet') }.not_to raise_error
         end
-        
+
         it 'should know its method name' do
           expect(subject.mth_name).to eq('greet')
         end
@@ -21,8 +21,8 @@ module Zenlish
 
       context 'Provided services:' do
         it 'should return the affix during word form generation' do
-          headings = double('fake-headings')        
-          lexeme = OpenStruct.new(:greet => 'Hello, world')
+          headings = double('fake-headings')
+          lexeme = OpenStruct.new(greet: 'Hello, world')
           values = double('fake-values')
           expect(subject.generate(headings, lexeme, values)).to eq('Hello, world')
         end

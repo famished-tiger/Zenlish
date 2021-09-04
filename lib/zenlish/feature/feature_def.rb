@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boolean_domain'
 require_relative 'enumeration_domain'
 require_relative 'feature_value'
@@ -27,20 +29,21 @@ module Zenlish
 
       def validated_name(aName)
         raise StandardError, 'feature name cannot be empty.' if aName.empty?
+
         aName.dup
       end
 
       def validated_default(aDomain, aDefault)
         if aDefault
-          default = aDefault
+          @default = aDefault
         elsif aDomain.is_a?(BooleanDomain)
-          default = nil
-        else aDomain.is_a?(EnumerationDomain)
+          @default = nil
+        elsif aDomain.is_a?(EnumerationDomain)
           if aDomain.enum.size == 1
             val = FeatureValue.new(aDomain.enum[0])
-            default = val
+            @default = val
           else
-            default = nil
+            @default = nil
           end
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../wclasses/all_word_classes'
 require_relative 'lexicon'
 
@@ -7,7 +9,7 @@ module Zenlish
       # Factory method. Helps in creating an "empty" lexicon.
       # It just contains the word classes of Zenlish but no headwords.
       # @return [Lexicon] the created lexicon object
-      def create_empty_lexicon()
+      def create_empty_lexicon
         lexicon = Lexicon.new
 
         add_word_classes(lexicon)
@@ -73,7 +75,6 @@ module Zenlish
       def add_wclass(aLexicon, aClass)
         aLexicon.add_terminal(aClass.new.freeze)
       end
-
     end # module
   end # module
 end # module

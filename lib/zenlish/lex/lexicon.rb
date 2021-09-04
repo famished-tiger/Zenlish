@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Zenlish
   module Lex
     # A lexicon is a collection of lexical entries.
@@ -5,7 +7,7 @@ module Zenlish
     class Lexicon
       # @return [Array<Lex::LexicalEntry>] entries in the lexicon
       attr_reader :entries
-      
+
       # @return [Hash{String => Lex::LexicalEntry}] the lexical entry for the given lemma.
       attr_reader :lemma2entry
 
@@ -23,7 +25,7 @@ module Zenlish
       end
 
       # @param aLemma[String] retrieve the lexeme form the given "head word".
-      # @param aWordClass [WordClasses::WordClass, NilClass] the word class of 
+      # @param aWordClass [WordClasses::WordClass, NilClass] the word class of
       #   the lexeme.
       # @return [Lex::Lexeme]
       def get_lexeme(aLemma, aWordClass = nil)
@@ -83,7 +85,6 @@ module Zenlish
           aHash[aKey] = aValue
         end
       end
-
     end # class
   end # module
 end # module

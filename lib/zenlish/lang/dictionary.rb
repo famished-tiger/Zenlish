@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unless defined?(Zenlish::Lang::Dictionary)
   require_relative '../feature/feature_struct_def_bearer'
   module Zenlish
@@ -9,7 +11,7 @@ unless defined?(Zenlish::Lang::Dictionary)
       sandbox = Object.new
       sandbox.extend(Zenlish::Lex::EmptyLexiconFactory)
       Dictionary = sandbox.create_empty_lexicon
-      self.extend(Feature::FeatureStructDefBearer)
+      extend(Feature::FeatureStructDefBearer)
 
       # @param aLemma [String] is the canonical form, dictionary form,
       #   or citation form of a headword.
@@ -18,6 +20,7 @@ unless defined?(Zenlish::Lang::Dictionary)
         entry = Zenlish::Lex::LexicalEntry.new(aLemma)
         wclass = Dictionary.name2terminal[aWClassName]
         raise StandardError, "Undefined word class for '#{aLemma}'" unless wclass
+
         lexeme = Zenlish::Lex::Lexeme.new(wclass, entry, aFeatureHash)
         lexeme.instance_exec(&aBlock) if block_given?
         lexeme.freeze
@@ -90,17 +93,17 @@ unless defined?(Zenlish::Lang::Dictionary)
       end
       add_entry('here', 'Adverb')
       # example: ...from here (works as a pronoun of a place)
-      add_entry('here', 'CommonNoun', {'NUMBER' => enumeration(:singular),
-        'PARADIGM' => [identifier, 'Singular_only']})
+      add_entry('here', 'CommonNoun', { 'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only'] })
       add_entry('I', 'PersonalPronoun', { 'PERSON' => enumeration(:first),
         'GENDER' => enumeration(:feminine, :masculine) })
       add_entry('if', 'SubordinatingConjunction')
       add_entry('in', 'Preposition')
       add_entry('inside', 'Preposition')
       add_entry('it', 'PersonalPronoun', { 'PERSON' => enumeration(:third),
-        'PARADIGM' => [identifier, 'ppn_3rd_paradigm']})
+        'PARADIGM' => [identifier, 'ppn_3rd_paradigm'] })
       add_entry('its', 'PossessiveDeterminer', { 'PERSON' => enumeration(:third),
-        'PARADIGM' => [identifier, 'possdet_3rd_paradigm']})
+        'PARADIGM' => [identifier, 'possdet_3rd_paradigm'] })
       add_entry('kind', 'CommonNoun')
       add_entry('know', 'IrregularVerbKnow') do
         forms past_simple: 'knew', past_participle: 'known'
@@ -120,13 +123,13 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('more', 'Adverb')
       add_entry('move', 'RegularVerb')
       add_entry('much', 'Adverb')
-      add_entry('my', 'PossessiveDeterminer',{ 'PERSON' => enumeration(:first),
-        'GENDER' => enumeration(:feminine, :masculine)})
+      add_entry('my', 'PossessiveDeterminer', { 'PERSON' => enumeration(:first),
+        'GENDER' => enumeration(:feminine, :masculine) })
       add_entry('near', 'Preposition')
       add_entry('near to', 'Preposition')
       add_entry('now', 'Adverb')
-      add_entry('now', 'CommonNoun', {'NUMBER' => enumeration(:singular),
-        'PARADIGM' => [identifier, 'Singular_only']})
+      add_entry('now', 'CommonNoun', { 'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only'] })
       add_entry('not', 'AdverbNot')
       add_entry('of', 'PrepositionOf')
       add_entry('on', 'Preposition')
@@ -136,10 +139,10 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('or', 'Coordinator')
       add_entry('other', 'Adjective')
       add_entry('part', 'CommonNoun')
-      add_entry('people', 'CommonNoun', {'NUMBER' => enumeration(:plural),
-        'PARADIGM' => [identifier, 'Plural_only']})
-      add_entry('person', 'CommonNoun', {'NUMBER' => enumeration(:singular),
-        'PARADIGM' => [identifier, 'Singular_only']})
+      add_entry('people', 'CommonNoun', { 'NUMBER' => enumeration(:plural),
+        'PARADIGM' => [identifier, 'Plural_only'] })
+      add_entry('person', 'CommonNoun', { 'NUMBER' => enumeration(:singular),
+        'PARADIGM' => [identifier, 'Singular_only'] })
       add_entry('place', 'CommonNoun')
       add_entry('same', 'Adjective')
       add_entry('same', 'Pronoun')
@@ -188,10 +191,10 @@ unless defined?(Zenlish::Lang::Dictionary)
       add_entry('word', 'CommonNoun')
       add_entry('you', 'PersonalPronoun', { 'PERSON' => enumeration(:second),
             'GENDER' => enumeration(:feminine, :masculine),
-            'PARADIGM' => [identifier, 'ppn_2nd_paradigm']})
+            'PARADIGM' => [identifier, 'ppn_2nd_paradigm'] })
       add_entry('your', 'PossessiveDeterminer', { 'PERSON' => enumeration(:second),
         'GENDER' => enumeration(:feminine, :masculine),
-        'PARADIGM' => [identifier, 'possdet_2nd_paradigm']})
+        'PARADIGM' => [identifier, 'possdet_2nd_paradigm'] })
 
       # Punctuation signs...
       add_entry(':', 'Colon')

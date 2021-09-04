@@ -32,7 +32,6 @@ module Zenlish
       end # context
 
       context 'Provided services:' do
-
         it 'should accept links with lexeme(s)' do
           subject.add_lexeme(sample_lexeme1)
           expect(subject.lexemes).to eq([sample_lexeme1])

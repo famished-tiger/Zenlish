@@ -12,8 +12,8 @@ module Zenlish
       context 'Provided services:' do
         let(:common_nouns) do
           # Some Zenlish common nouns
-          %w( animal body container here kind machine moment now part people
-              person place side surface thing time word)
+          %w(animal body container here kind machine moment now part people
+            person place side surface thing time word)
         end
 
         it 'should give the list of common nouns' do
@@ -47,7 +47,7 @@ module Zenlish
 
         it 'should know how to inflect an (irregular) verb' do
           lexm = subject.get_lexeme('become')
-          expectations_1 = [
+          expectations1 = [
             [present_1sg,     'become'],
             [present_3sg,     'becomes'],
             [present_1pl,     'become'],
@@ -55,10 +55,10 @@ module Zenlish
             [past_simple,     'became'],
             [past_participle, 'become']
           ]
-          test_inflection_of(lexm, expectations_1)
+          test_inflection_of(lexm, expectations1)
 
           lexm = subject.get_lexeme('do', WClasses::IrregularVerbDo)
-          expectations_2 = [
+          expectations2 = [
             [present_1sg,     'do'],
             [present_3sg,     'does'],
             [present_1pl,     'do'],
@@ -66,10 +66,10 @@ module Zenlish
             [past_simple,     'did'],
             [past_participle, 'done']
           ]
-          test_inflection_of(lexm, expectations_2, true)
+          test_inflection_of(lexm, expectations2, true)
 
           lexm = subject.get_lexeme('have', WClasses::IrregularVerbHave)
-          expectations_3 = [
+          expectations3 = [
             [present_1sg,     'have'],
             [present_3sg,     'has'],
             [present_1pl,     'have'],
@@ -77,13 +77,13 @@ module Zenlish
             [past_simple,     'had'],
             [past_participle, 'had']
           ]
-          test_inflection_of(lexm, expectations_3, true)
+          test_inflection_of(lexm, expectations3, true)
         end
 
         it 'should know how to inflect the verb be' do
           [WClasses::IrregularVerbBe, WClasses::AuxiliaryBe].each do |wclass|
             lexm = subject.get_lexeme('be', wclass)
-            expectations_1 = [
+            expectations1 = [
               [present_1sg,     'am'],
               [present_2sg,     'are'],
               [present_3sg,     'is'],
@@ -95,10 +95,9 @@ module Zenlish
               [past_simple_1pl, 'were'],
               [past_participle, 'been']
             ]
-            test_inflection_of(lexm, expectations_1, true)
+            test_inflection_of(lexm, expectations1, true)
           end
         end
-
       end # context
     end # describe
   end # module

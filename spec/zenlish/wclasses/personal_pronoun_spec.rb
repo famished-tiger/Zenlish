@@ -25,7 +25,7 @@ module Zenlish
       context 'Provided services:' do
         def build_ppn(aBaseForm, aFeatureHash)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          lexeme = Zenlish::Lex::Lexeme.new(subject, entry, aFeatureHash)
+          Zenlish::Lex::Lexeme.new(subject, entry, aFeatureHash)
         end
 
         def test_all_inflections(det_form, aFeatureHash, wforms)
@@ -44,24 +44,21 @@ module Zenlish
 
         it 'should give all word forms for the first person' do
           feature_defs = { 'PERSON' => enumeration(:first),
-            'GENDER' => enumeration(:feminine, :masculine)
-          }
-          test_all_inflections('I', feature_defs, ['I', 'we', 'me', 'us'])
+            'GENDER' => enumeration(:feminine, :masculine) }
+          test_all_inflections('I', feature_defs, %w[I we me us])
         end
 
         it 'should give all word forms for the second person' do
           feature_defs = { 'PERSON' => enumeration(:second),
             'GENDER' => enumeration(:feminine, :masculine),
-            'PARADIGM' => [identifier, 'ppn_2nd_paradigm']
-          }
+            'PARADIGM' => [identifier, 'ppn_2nd_paradigm'] }
           test_all_inflections('you', feature_defs, ['you'])
         end
 
         it 'should give all word forms for the third person' do
           feature_defs = { 'PERSON' => enumeration(:third),
-            'PARADIGM' => [identifier, 'ppn_3rd_paradigm']
-          }
-          test_all_inflections('it', feature_defs, ['she', 'he', 'it', 'they', 'her', 'him', 'them'])
+            'PARADIGM' => [identifier, 'ppn_3rd_paradigm'] }
+          test_all_inflections('it', feature_defs, %w[she he it they her him them])
         end
       end # context
     end # describe

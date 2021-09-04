@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Zenlish
   module Inflect
@@ -28,6 +29,7 @@ module Zenlish
         end
         err_msg = "Table has #{headings.size} headings, instead of #{constraints.size}"
         raise StandardError, err_msg if constraints.size != headings.size
+
         actuals = []
         headings.each_with_index do |hd, idx|
           if constraints[idx]
@@ -50,7 +52,7 @@ module Zenlish
       def all_inflections(aLexeme)
         constraints = Array.new(headings.size) { |_i| nil }
         heading_matches = []
-        headings.each_with_index do |hd, idx|
+        headings.each_with_index do |hd, _idx|
           heading_matches << hd.all_matches(aLexeme)
         end
         w_forms = nil
@@ -60,8 +62,8 @@ module Zenlish
             inflect(aLexeme, [item])
           end
         else
-          vector_1 = heading_matches.shift
-          all_combos = vector_1.product(*heading_matches)
+          vector1 = heading_matches.shift
+          all_combos = vector1.product(*heading_matches)
           w_forms = all_combos.map do |combination|
             inflect(aLexeme, combination)
           end

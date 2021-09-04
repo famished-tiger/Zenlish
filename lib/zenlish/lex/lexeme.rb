@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../feature/feature_struct_def_bearer'
 module Zenlish
   module Lex
@@ -20,7 +22,7 @@ module Zenlish
         anEntry.add_lexeme(self)
         if aWClass.kind_of?(WClasses::WordClass)
           unless wclass.extension.nil?
-            self.extend(wclass.extension)
+            extend(wclass.extension)
             init_extension(self)
           end
           p_struct = aWClass.kind_of?(WClasses::WordClass) ? aWClass.struct : nil
@@ -41,11 +43,11 @@ module Zenlish
         table = paradigm
         table.inflect(self, constraints)
       end
-      
+
       def all_inflections
         table = paradigm
         table.all_inflections(self)
-      end      
+      end
 
       # @return [String] the base (dictionary) form.
       def lemma

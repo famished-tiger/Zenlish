@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../feature/feature'
 require_relative '../feature/feature_def'
 

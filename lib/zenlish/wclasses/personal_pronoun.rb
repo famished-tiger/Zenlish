@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'pronoun'
 require_relative '../inflect/inflection_table_builder'
 
@@ -23,13 +25,13 @@ module Zenlish
 
       def init_feature_defs
         # Create standard feature definitions for irregular verbs.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'NUMBER' => enumeration(:singular, :plural)
           feature_def 'PERSON' => enumeration(:first, :second, :third)
           feature_def 'GENDER' => enumeration(:feminine, :masculine, :neuter)
           feature_def 'CASE' => enumeration(:subject, :object)
           feature_def 'PARADIGM' => [identifier, 'ppn_1st_paradigm'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms
@@ -57,14 +59,14 @@ module Zenlish
           rule([equals(:second), dont_care, not_equal(:neuter), dont_care], func('base_form'))
         end
         add_paradigm(table)
-        
+
         table = builder.build('ppn_3rd_paradigm') do
           feature_heading 'PERSON'
           feature_heading 'NUMBER'
           feature_heading 'GENDER'
           feature_heading 'CASE'
           #     PERSON          NUMBER             GENDER              CASE
-          rule([equals(:third), equals(:singular), equals(:neuter),    dont_care],         func('base_form'))          
+          rule([equals(:third), equals(:singular), equals(:neuter),    dont_care],         func('base_form'))
           rule([equals(:third), equals(:singular), equals(:feminine),  equals(:subject)],  literal('she'))
           rule([equals(:third), equals(:singular), equals(:masculine), equals(:subject)],  literal('he'))
           rule([equals(:third), equals(:plural),   dont_care,          equals(:subject)],  literal('they'))
@@ -72,7 +74,7 @@ module Zenlish
           rule([equals(:third), equals(:singular), equals(:masculine), equals(:object)],   literal('him'))
           rule([equals(:third), equals(:plural),   dont_care,          equals(:object)],   literal('them'))
         end
-        add_paradigm(table)        
+        add_paradigm(table)
       end
     end # class
   end # module

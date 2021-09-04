@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'unary_input_expression'
 
 module Zenlish
@@ -15,7 +17,7 @@ module Zenlish
           hd = headings[argument.index]
           feat_def = hd.evaluate_for(lexeme)
           feat_def.domain.include?(literal)
-        else  
+        else
           val = actuals[argument.index]
           if val.kind_of?(Feature::FeatureDef)
             val.domain.include?(literal)

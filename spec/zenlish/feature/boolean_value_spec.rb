@@ -13,7 +13,7 @@ module Zenlish
         it 'should be initialized with a value argument' do
           expect { BooleanValue.new(its_value) }.not_to raise_error
         end
-        
+
         it 'should know its internal value' do
           expect(subject.val.class).to eq(FalseClass)
         end

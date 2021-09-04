@@ -31,7 +31,7 @@ module Zenlish
           headings = double('fake-headings')
           expect(subject.generate(headings, lexeme, sample_values)).to eq('Hello, world.')
         end
-        
+
         it 'should return the text of given lexeme during generation' do
           c_noun = WClasses::CommonNoun.new
           an_entry = Lex::LexicalEntry.new('cherry')
@@ -40,10 +40,6 @@ module Zenlish
           headings = [nil, nil, heading, nil]
           expect(subject.generate(headings, lexeme, [])).to eq('cherry')
         end
-        
-=begin
-
-=end        
       end # context
     end # describe
   end # module

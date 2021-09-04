@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'literal_asis'
 require_relative 'composite_o_expression'
 

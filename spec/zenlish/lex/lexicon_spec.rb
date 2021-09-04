@@ -12,7 +12,8 @@ module Zenlish
     describe Lexicon do
       def create_entry(aLemma, aWordClass)
         entry = Zenlish::Lex::LexicalEntry.new(aLemma)
-        lexeme = Zenlish::Lex::Lexeme.new(aWordClass, entry)
+        # lexeme =
+        Zenlish::Lex::Lexeme.new(aWordClass, entry)
         entry
       end
 
@@ -72,24 +73,24 @@ module Zenlish
           expect(subject.entries).to eq([sample_entry, distinct_entry, similar_entry])
           expect(subject.lemma2entry['other']).to eq([sample_entry, similar_entry])
         end
-        
+
         it 'should retrieve the lexeme of an entry with unique lemma' do
           subject.add_entry(sample_entry)
-          subject.add_entry(distinct_entry)          
+          subject.add_entry(distinct_entry)
           subject.add_entry(similar_entry)
-          
+
           lexeme = subject.get_lexeme('hope')
           expect(lexeme.wclass).to be_kind_of(Zenlish::WClasses::IrregularVerb)
         end
-        
+
         it 'should retrieve the lexeme of an entry with duplicate lemma' do
           subject.add_entry(sample_entry)
-          subject.add_entry(distinct_entry)          
+          subject.add_entry(distinct_entry)
           subject.add_entry(similar_entry)
-          
+
           lexeme = subject.get_lexeme('other', Zenlish::WClasses::Pronoun)
           expect(lexeme).to be_kind_of(Zenlish::Lex::Lexeme)
-        end        
+        end
 
         it 'should complain when retrieving an non-existing entry' do
           subject.add_entry(sample_entry)

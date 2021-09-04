@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'feature_heading'
 require_relative 'method_heading'
 require_relative 'formal_argument'
@@ -13,19 +15,19 @@ require_relative 'substitution'
 require_relative 'inflection_rule'
 require_relative 'inflection_table'
 
-        # DecisionTable: Common_form
-        # | NUMBER   | .base_form      | Common_form                |
-        # | singular | X               | base_form                  |
-        # | plural   | ~ /[^aeiouy]y$/ | sub(base_form, /y$/, "ies")|
-        # | plural   | X               | base_form + "s"            |
-        # build('Common_form') do
-        #   feature_heading 'NUMBER'
-        #   method_heading  'base_form'
-        #       | NUMBER          | base_form             | Common_form               |
-        #   rule [equals(:singular), dont_care             ], col('base_form')
-        #   rule [equals(:plural)  , matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies')
-        #   rule [equals(:plural)  , dont_care             ], concat(col('base_form'), 's')
-        # end
+# DecisionTable: Common_form
+# | NUMBER   | .base_form      | Common_form                |
+# | singular | X               | base_form                  |
+# | plural   | ~ /[^aeiouy]y$/ | sub(base_form, /y$/, "ies")|
+# | plural   | X               | base_form + "s"            |
+# build('Common_form') do
+#   feature_heading 'NUMBER'
+#   method_heading  'base_form'
+#       | NUMBER          | base_form              | Common_form               |
+#   rule [equals(:singular), dont_care             ], col('base_form')
+#   rule [equals(:plural)  , matches(/[^aeiouy]y$/)], sub(col('base_form'), /y$/, 'ies')
+#   rule [equals(:plural)  , dont_care             ], concat(col('base_form'), 's')
+# end
 
 module Zenlish
   module Inflect
@@ -50,20 +52,20 @@ module Zenlish
       def feature_heading(aFeatureName)
         hd = FeatureHeading.new(aFeatureName)
         headings << hd
-        table.add_heading(hd) if table
+        table&.add_heading(hd)
       end
 
       def method_heading(aMethodName)
         hd = MethodHeading.new(aMethodName)
         headings << hd
-        table.add_heading(hd) if table
+        table&.add_heading(hd)
       end
 
       def rule(conditions, consequent)
         @conds = []
         rl = InflectionRule.new(conditions.dup, consequent)
         rules << rl
-        table.add_rule(rl) if table
+        table&.add_rule(rl)
 
         rl
       end
@@ -107,6 +109,7 @@ module Zenlish
         col_index = headings.find_index { |hd| hd.label == aColName }
         err_msg = "Cannot find heading named '#{aColName}'."
         raise StandardError, err_msg if col_index.nil?
+
         formal = FormalArgument.new(col_index)
         InputAsIs.new(formal)
       end
@@ -132,7 +135,7 @@ module Zenlish
 
       private
 
-      def reset()
+      def reset
         @table = nil
         @headings = []
         @conds = []

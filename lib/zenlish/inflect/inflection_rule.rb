@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Zenlish
   module Inflect
     # An inflection rule has two-parts:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../../lib/zenlish/lang/dictionary'
 
 # Add a few words to dictionary for testing purposes...

@@ -11,7 +11,7 @@ module Zenlish
 
       context 'Initialization:' do
         it 'should be initialized without argument' do
-          expect { UnconditionallyTrue.new}.not_to raise_error
+          expect { UnconditionallyTrue.new }.not_to raise_error
         end
       end # context
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'feature_domain'
 
 module Zenlish
@@ -8,6 +10,7 @@ module Zenlish
 
       # @param aParent [FeatureStructDef]
       def initialize(aParent = nil)
+        super()
         @parent = validated_parent(aParent)
         @struct = {}
       end
@@ -15,6 +18,7 @@ module Zenlish
       # @param aFeatureName [String]
       def [](aFeatureName)
         return struct[aFeatureName] if struct.include? aFeatureName
+
         if parent
           p_struct = parent.struct
           return p_struct[aFeatureName] if p_struct.include? aFeatureName

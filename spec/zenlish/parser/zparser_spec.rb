@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../../spec_helper' # Use the RSpec framework
 require_relative '../support/var2word'
 require_relative '../../../lib/zenlish/parser/zparser' # Load the class under test
@@ -7,7 +8,7 @@ module Zenlish
   module Parser
     describe ZParser do
       include Var2Word
-      
+
       subject { ZParser.new }
 
       context 'Initialization:' do

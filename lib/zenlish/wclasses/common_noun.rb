@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'noun'
 require_relative '../inflect/inflection_table_builder'
 

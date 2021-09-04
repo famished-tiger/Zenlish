@@ -27,7 +27,7 @@ module Zenlish
 
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          lexeme = Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(subject, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -38,11 +38,11 @@ module Zenlish
         end
 
         it 'should know how to inflect modal verb can' do
-          expectations_1 = [
+          expectations1 = [
             [:present,     'can'],
             [:past_simple, 'could']
           ]
-          test_inflection_of('can', expectations_1)
+          test_inflection_of('can', expectations1)
         end
       end # context
     end # describe

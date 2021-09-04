@@ -12,7 +12,7 @@ module Zenlish
   module Inflect
     describe Membership do
       let(:an_argument) { FormalArgument.new(1) }
-      let(:feat_val) { [:singular, :plural] }
+      let(:feat_val) { %i[singular plural] }
       subject { Membership.new(an_argument, feat_val) }
 
       context 'Initialization:' do
@@ -38,7 +38,7 @@ module Zenlish
           actual_args[1] = :singular
           expect(subject.success?(headings, lexeme, actual_args)).to be_truthy
           actual_args[1] = :dual
-          expect(subject.success?(headings, lexeme, actual_args)).to be_falsy          
+          expect(subject.success?(headings, lexeme, actual_args)).to be_falsy
         end
 
         # it 'should test the lexeme' do

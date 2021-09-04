@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'determiner'
 require_relative '../inflect/inflection_table_builder'
 
@@ -11,7 +13,7 @@ module Zenlish
         super()
         init_feature_defs
         init_paradigms
-      end    
+      end
 
       # @return [FalseClass] Indicates that demonstrative determiners inflects.
       def invariable?
@@ -22,12 +24,12 @@ module Zenlish
 
       def init_feature_defs
         # Create standard feature definitions for irregular verbs.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'NUMBER' => enumeration(:singular, :plural)
           feature_def 'PERSON' => enumeration(:first, :second, :third)
           feature_def 'GENDER' => enumeration(:feminine, :masculine, :neuter)
           feature_def 'PARADIGM' => [identifier, 'possdet_1st_paradigm'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms
@@ -37,7 +39,7 @@ module Zenlish
           feature_heading 'PERSON'
           feature_heading 'NUMBER'
           feature_heading 'GENDER'
-          #     PERSON          NUMBER             GENDER             
+          #     PERSON          NUMBER             GENDER
           rule([equals(:first), equals(:singular), not_equal(:neuter)], func('base_form'))
           rule([equals(:first), equals(:plural),   not_equal(:neuter)], literal('our'))
         end
@@ -47,24 +49,23 @@ module Zenlish
           feature_heading 'PERSON'
           feature_heading 'NUMBER'
           feature_heading 'GENDER'
-          #     PERSON           NUMBER     GENDER             
-          rule([equals(:second), dont_care, not_equal(:neuter)],  func('base_form'))
-
+          #     PERSON           NUMBER     GENDER
+          rule([equals(:second), dont_care, not_equal(:neuter)], func('base_form'))
         end
         add_paradigm(table)
-        
+
         table = builder.build('possdet_3rd_paradigm') do
           feature_heading 'PERSON'
           feature_heading 'NUMBER'
           feature_heading 'GENDER'
-          #     PERSON          NUMBER             GENDER             
+          #     PERSON          NUMBER             GENDER
           rule([equals(:third), equals(:singular), equals(:neuter)],    func('base_form'))
           rule([equals(:third), equals(:singular), equals(:feminine)],  literal('her'))
           rule([equals(:third), equals(:singular), equals(:masculine)], literal('his'))
-          rule([equals(:third), equals(:plural), dont_care],            literal('their'))           
+          rule([equals(:third), equals(:plural), dont_care],            literal('their'))
         end
-        add_paradigm(table)        
-      end   
+        add_paradigm(table)
+      end
     end # class
   end # module
 end # module

@@ -17,6 +17,8 @@ require_relative '../../../lib/zenlish/inflect/inflection_rule'
 
 module Zenlish
   module Inflect
+    # rubocop: disable Naming/VariableNumber
+
     describe InflectionRule do
       # One rule in row representation:
       # | plural   | ~ /[^aeiouy]y$/ | sub(base_form, /y$/, "ies")|
@@ -26,7 +28,7 @@ module Zenlish
       let(:method_name) { 'base_form' }
       let(:heading1) { MethodHeading.new(method_name) }
       let(:headings) { [heading0, heading1] }
-      
+
       # Condition part
       let(:feature_value) { :plural }
       let(:arg_0) { FormalArgument.new(0) }
@@ -46,8 +48,9 @@ module Zenlish
 
       context 'Initialization:' do
         it 'should be initialized with condition and consequent parts' do
-          expect { InflectionRule.new(conditions, consequent)
-            }.not_to raise_error
+          expect do
+            InflectionRule.new(conditions, consequent)
+          end.not_to raise_error
         end
 
         it 'should know its condition part' do
@@ -82,7 +85,7 @@ module Zenlish
           actuals = [:plural, 'cherry']
           expect(subject.apply(headings, fake_lexeme, actuals)).to eq('cherries')
         end
-        
+
         it 'should succeed when all conditions succeed for given lexeme' do
           expect(subject.success?(headings, lexeme, [])).to be_truthy
         end
@@ -95,8 +98,9 @@ module Zenlish
 
         it 'should generate inflected form when rule works for given lexeme' do
           expect(subject.apply(headings, lexeme, [])).to eq('cherries')
-        end        
+        end
       end # context
     end # describe
+    # rubocop: enable Naming/VariableNumber
   end # module
 end # module

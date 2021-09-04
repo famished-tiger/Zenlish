@@ -27,7 +27,7 @@ module Zenlish
 
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          lexeme = Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(subject, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -36,24 +36,24 @@ module Zenlish
             expect(verb.inflect([time])).to eq(expected_form)
           end
         end
-        
+
         def test_all_inflections(verb_form, wforms)
           verb = build_verb(verb_form)
           inflected = verb.all_inflections
           expect(inflected.sort).to eq(wforms.sort)
-        end        
+        end
 
         it 'should know how to inflect modal verb can' do
-          expectations_1 = [
+          expectations1 = [
             [:present,     'can'],
             [:past_simple, 'could']
           ]
-          test_inflection_of('can', expectations_1)
+          test_inflection_of('can', expectations1)
         end
-        
+
         it 'should give all word forms of a given verb' do
-          test_all_inflections('can', ['can', 'could'])
-        end        
+          test_all_inflections('can', %w[can could])
+        end
       end # context
     end # describe
   end # module

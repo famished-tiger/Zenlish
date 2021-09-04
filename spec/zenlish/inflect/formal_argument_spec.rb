@@ -12,7 +12,7 @@ module Zenlish
         it 'should be initialized with a text literal' do
           expect { FormalArgument.new(1) }.not_to raise_error
         end
-        
+
         it 'should know its index value' do
           expect(subject.index).to eq(3)
         end

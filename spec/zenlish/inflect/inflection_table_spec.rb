@@ -19,6 +19,8 @@ require_relative '../../../lib/zenlish/inflect/inflection_table'
 
 module Zenlish
   module Inflect
+    # rubocop: disable Naming/VariableNumber
+
     describe InflectionTable do
       let(:table_name) { 'Common_form' }
       subject { InflectionTable.new(table_name) }
@@ -39,7 +41,7 @@ module Zenlish
         it 'should not have rules at start' do
           expect(subject.rules).to be_empty
         end
-      end # context      
+      end # context
 
       context 'Provided services:' do
         # DecisionTable: Common_form
@@ -77,9 +79,8 @@ module Zenlish
         let(:a_wclass) { WClasses::CommonNoun.new }
         let(:a_lemma) { 'body' }
         let(:an_entry) { Lex::LexicalEntry.new(a_lemma) }
-        let(:lexm_body) { Lex::Lexeme.new(a_wclass, an_entry) }       
-        
-        MockFeatureBearer = Struct.new(:NUMBER, :base_form)
+        let(:lexm_body) { Lex::Lexeme.new(a_wclass, an_entry) }
+        let(:mock_feature_bearer) { Struct.new(:NUMBER, :base_form) }
 
         it 'should accept the addition of heading(s)' do
           expect { subject.add_heading(heading0) }.not_to raise_error
@@ -96,13 +97,13 @@ module Zenlish
           subject.add_rule(rule_c)
           expect(subject.rules.last).to eq(rule_c)
         end
-        
+
         def init_table(aTable)
           aTable.add_heading(heading0)
           aTable.add_heading(heading1)
           aTable.add_rule(rule_a)
           aTable.add_rule(rule_b)
-          aTable.add_rule(rule_c)        
+          aTable.add_rule(rule_c)
         end
 
         # DecisionTable: Common_form
@@ -120,15 +121,15 @@ module Zenlish
         # end
         it 'should determine the word form given input entries' do
           init_table(subject)
-          mck_1 = MockFeatureBearer.new(:singular, 'animal')
-          expect(subject.inflect(mck_1, [nil, nil])).to eq('animal')
-          mck_1['NUMBER'] = :plural
-          expect(subject.inflect(mck_1, [nil, nil])).to eq('animals')
+          mck1 = mock_feature_bearer.new(:singular, 'animal')
+          expect(subject.inflect(mck1, [nil, nil])).to eq('animal')
+          mck1['NUMBER'] = :plural
+          expect(subject.inflect(mck1, [nil, nil])).to eq('animals')
 
-          mck_2 = MockFeatureBearer.new(:singular, 'boy')
-          expect(subject.inflect(mck_2, [nil, nil])).to eq('boy')
-          mck_2['NUMBER'] = :plural
-          expect(subject.inflect(mck_2, [nil, nil])).to eq('boys')
+          mck2 = mock_feature_bearer.new(:singular, 'boy')
+          expect(subject.inflect(mck2, [nil, nil])).to eq('boy')
+          mck2['NUMBER'] = :plural
+          expect(subject.inflect(mck2, [nil, nil])).to eq('boys')
 
           expect(subject.inflect(lexm_body, [:singular, nil])).to eq('body')
           expect(subject.inflect(lexm_body, [:plural, nil])).to eq('bodies')
@@ -136,9 +137,10 @@ module Zenlish
 
         it 'should know all the word forms of a given lexeme' do
           init_table(subject)
-          expect(subject.all_inflections(lexm_body)).to eq(['body', 'bodies'])
+          expect(subject.all_inflections(lexm_body)).to eq(%w[body bodies])
         end
       end # context
     end # describe
+    # rubocop: enable Naming/VariableNumber
   end # module
 end # module

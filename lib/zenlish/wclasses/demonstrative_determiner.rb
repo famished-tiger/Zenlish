@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'determiner'
 require_relative '../inflect/inflection_table_builder'
 
@@ -10,7 +12,7 @@ module Zenlish
         super()
         init_feature_defs
         init_paradigms
-      end    
+      end
 
       # @return [FalseClass] Indicates that demonstrative determiners inflects.
       def invariable?
@@ -21,11 +23,11 @@ module Zenlish
 
       def init_feature_defs
         # Create standard feature definitions for irregular verbs.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'NUMBER' => enumeration(:singular, :plural)
           feature_def 'DISTANCE' => enumeration(:near, :far)
           feature_def 'PARADIGM' => [identifier, 'Demonstrative_det_paradigm'] # 2nd item is default value
-        }
+        end
       end
 
       def init_paradigms
@@ -37,7 +39,7 @@ module Zenlish
           rule([equals(:singular), equals(:near)],  func('base_form'))
           rule([equals(:singular), equals(:far)],   literal('that'))
           rule([equals(:plural),   equals(:near)],  literal('these'))
-          rule([equals(:plural),   equals(:far), ], literal('those'))
+          rule([equals(:plural),   equals(:far)],   literal('those'))
         end
         add_paradigm(table)
       end

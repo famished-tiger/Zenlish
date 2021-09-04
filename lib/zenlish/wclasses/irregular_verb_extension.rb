@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lexical_verb'
 require_relative 'irregular_verb_extension'
 
@@ -10,10 +12,10 @@ module Zenlish
       def init_extension(host)
         host.instance_variable_set(:@forms, [])
       end
-      
+
       # @param theForm [Hash{Symbol => String}]
       def forms(theForms)
-        valid_symbols = [:past_simple, :past_participle]
+        valid_symbols = %i[past_simple past_participle]
         actual_symbols = theForms.keys
         actual_symbols.each do |symb|
           raise StandardError, "Invalid verb form #{symb}" unless valid_symbols.include?(symb)
@@ -26,14 +28,14 @@ module Zenlish
         @forms[0] = theForms[valid_symbols[0]]
         @forms[1] = theForms[valid_symbols[1]]
       end
-      
+
       def past_simple
         @forms.first
       end
-      
+
       def past_participle
         @forms.last
-      end      
+      end
     end # class
   end # module
 end # module

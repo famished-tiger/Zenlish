@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../../spec_helper' # Use the RSpec framework
 require_relative '../support/var2word'
 require_relative '../../../lib/zenlish/parser/zparser' # Load the class under test
@@ -180,10 +181,9 @@ module Zenlish
           # Sentence 2-Dx: "Lisa thinks about something bad happening to this
           # living thing. Thinking about this feels bad for Lisa."
           literals = [lisa, thinks, about, something, bad, happening, to, this,
-            living, thing, dot,
-            #thinking, about, this_as_pronoun, feels, bad,
-            #for_, lisa, dot
-          ]
+            living, thing, dot]
+            # thinking, about, this_as_pronoun, feels, bad,
+            # for_, lisa, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
@@ -255,7 +255,7 @@ module Zenlish
 
           # Sentence 2-19a definiens: 'Tony says something about Tony. Tony says: Tony did X.'
           literals = [tony, says, something, about, tony, dot,
-                      tony, says, colon, tony, did, x_as_noun, dot]
+            tony, says, colon, tony, did, x_as_noun, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-19a: 'Tony says: "I see Lisa.".'
@@ -268,7 +268,7 @@ module Zenlish
 
           # Sentence 2-19b definiens: 'Lisa says something about Lisa. Lisa says: X happened to Lisa.'
           literals = [lisa, says, something, about, lisa, dot,
-                      lisa, says, colon, x_as_noun, happened, to, lisa, dot]
+            lisa, says, colon, x_as_noun, happened, to, lisa, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-19c: 'Lisa says: "Tony sees me."'
@@ -282,8 +282,8 @@ module Zenlish
           # Sentence 2-20a definiens: 'Tony says something about Lisa.
           # Tony says this to Lisa. Tony says: Tony can see Lisa.'
           literals = [tony, says, something, about, lisa, dot,
-                      tony, says, this_as_pronoun, to, lisa, dot,
-                      tony, says, colon, tony, can, see, lisa, dot]
+            tony, says, this_as_pronoun, to, lisa, dot,
+            tony, says, colon, tony, can, see, lisa, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-20b: "I know you have something good."
@@ -300,7 +300,7 @@ module Zenlish
 
           # Sentence 2-21a definiens: "Tony is in a place. Tony says: X happens in this place."
           literals = [tony, is, in_, a_as_art, place, dot,
-                      tony, says, colon, x_as_noun, happens, in_, this, place, dot]
+            tony, says, colon, x_as_noun, happens, in_, this, place, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-21b: "Many people were here at one time."
@@ -314,16 +314,16 @@ module Zenlish
           # Sentence 2-22a definiens: 'Lisa says something at a time.
           #   Lisa says: X happens at this same time.'
           literals = [lisa, says, something, at, a_as_art, time, dot,
-                      lisa, says, colon, x_as_noun, happens, at, this, time, dot]
+            lisa, says, colon, x_as_noun, happens, at, this, time, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-22b: "There are not many people here now."
-          literals = [there, are, not_, many, people, here, now , dot]
+          literals = [there, are, not_, many, people, here, now, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-Fa: "Lisa says to Tony: "I can see many living things here."."
           literals = [lisa, says, to, tony, colon, quote, i_pronoun,
-                      can, see, many, living, things, here, dot, quote, dot]
+            can, see, many, living, things, here, dot, quote, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
 
@@ -335,8 +335,8 @@ module Zenlish
           # Sentence 2-23a definiens: 'Something does X. This something can
           #   think like people think. This something can be one person.'
           literals = [something, does, x_as_noun, dot,
-                      this, something, can, think, like, people, think, dot,
-                      this, something, can, be_, a_as_art, person, dot]
+            this, something, can, think, like, people, think, dot,
+            this, something, can, be_, a_as_art, person, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-23b: Someone said something to Tony.
@@ -406,7 +406,7 @@ module Zenlish
           # Sentence 2-26b: In a moment, I knew something here was not good.
           # 'here' is adverb that modifies the 'knew' verb
           literals = [in_, a_as_art, moment, comma, i_pronoun, knew, something,
-                      here, was, not_, good, dot ]
+            here, was, not_, good, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-Gx: Tony is inside this thing for some time.
@@ -415,7 +415,7 @@ module Zenlish
           # Tony says this after Tony hears Lisa.
           literals = [tony, is, inside, this, thing, for_, some, time, dot,
             lisa, says, colon, quote, i_pronoun, want, to, know, who, is,
-            inside, this, thing, dot, quote, dot,  tony, hears, lisa, dot,
+            inside, this, thing, dot, quote, dot, tony, hears, lisa, dot,
             because, of, this_as_pronoun, comma, tony, says, colon,
             quote, i_pronoun, am, inside, dot, quote, dot,
             tony, says, this_as_pronoun, after_, tony, hears, lisa, dot]
@@ -431,12 +431,11 @@ module Zenlish
           #  Parts of this person can touch other parts inside this person.
           #  X is all of these parts of this person."
           # [One part of the body of this person felt very bad.]
-          literals = [ parts, of, this, person, can, touch, other, things, dot,
+          literals = [parts, of, this, person, can, touch, other, things, dot,
             parts, of, this, person, can, touch, other, parts, inside,
-              this, person, dot,
+            this, person, dot,
             x_as_noun, is, all, of, these, parts, of, this, person, dot,
-            one, part, of, the, body, of, this, person, felt, very, bad, dot
-          ]
+            one, part, of, the, body, of, this, person, felt, very, bad, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-28a definiendum "X dies."
@@ -446,13 +445,12 @@ module Zenlish
           # Sentence 2-28b definiens "Something happens to X in a moment.
           # X is alive before this moment. X is not alive after this moment.
           # [After this person lived for a long time, this person died."
-          literals = [ something, happens, to, x_as_noun, in_, a_as_art,
-              moment, dot,
+          literals = [something, happens, to, x_as_noun, in_, a_as_art,
+            moment, dot,
             x_as_noun, is, alive, before_adverb, this, moment, dot,
             x_as_noun, is, not_, alive, after_adverb, this, moment, dot,
             after_, this, person, lived, for_, a_as_art, long, time, comma,
-              this, person, died, dot
-          ]
+            this, person, died, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-29a definiendum "You think maybe X is true."
@@ -463,10 +461,9 @@ module Zenlish
           # can be true. You do not know X is true.
           # You do not know X is not true.
           # [Maybe some people far from here can see me.]"
-          literals = [  you, do_aux, not_, know, x_as_noun, is, true_, dot,
+          literals = [you, do_aux, not_, know, x_as_noun, is, true_, dot,
             you, do_aux, not_, know, x_as_noun, is, not_, true_, dot,
-            maybe, some, people, far_from, here_as_noun, can, see, me, dot
-          ]
+            maybe, some, people, far_from, here_as_noun, can, see, me, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-30a definiendum "J is below K."
@@ -475,17 +472,15 @@ module Zenlish
 
           # Sentence 2-30b definiens "K is above J.
           # [I am touching this thing below me.]
-          literals = [  j_, is, below, k_, dot,
-            i_pronoun, am, touching, this, thing, below, me, dot
-          ]
+          literals = [j_, is, below, k_, dot,
+            i_pronoun, am, touching, this, thing, below, me, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
 
           # Sentence 2-H extra "Someone sees this thing.
           #   The body of this thing is not moving.
           #   Maybe this thing is dead."
-          literals = [ someone, sees, thing, dot,
-            the, body, of, this, thing, is_aux, not_, moving, dot
-          ]
+          literals = [someone, sees, thing, dot,
+            the, body, of, this, thing, is_aux, not_, moving, dot]
           expect { subject.to_pforest(literals) }.not_to raise_error
         end
 =begin
@@ -493,9 +488,9 @@ TODO
 
 Lesson 2.C
 
-	Xtra:
-		Tony knows Lisa has something, because Tony sees what Lisa has.
-		Tony thinks about what Lisa has, because Tony want to have the same kind of thing.
+  Xtra:
+    Tony knows Lisa has something, because Tony sees what Lisa has.
+    Tony thinks about what Lisa has, because Tony want to have the same kind of thing.
 =end
       end # context
     end # describe

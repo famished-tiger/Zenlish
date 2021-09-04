@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require_relative 'literal_asis'
 require_relative 'composite_o_expression'
 
 module Zenlish
   module Inflect
     class Concatenation < CompositeOExpression
-
       def initialize(argument1, argument2)
         super([validated_argument(argument1), validated_argument(argument2)])
       end

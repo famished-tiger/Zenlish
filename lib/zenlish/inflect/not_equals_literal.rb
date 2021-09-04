@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'unary_input_expression'
 
 module Zenlish

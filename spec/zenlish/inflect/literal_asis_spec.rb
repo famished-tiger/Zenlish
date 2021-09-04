@@ -12,7 +12,7 @@ module Zenlish
         it 'should be initialized with a text literal' do
           expect { LiteralAsIs.new('s') }.not_to raise_error
         end
-        
+
         it 'should know its text value' do
           expect(subject.text).to eq('s')
         end
@@ -20,7 +20,7 @@ module Zenlish
 
       context 'Provided services:' do
         it 'should return the affix during word form generation' do
-          headings = double('fake-headings')        
+          headings = double('fake-headings')
           lexeme = double('fake-lexeme')
           values = double('fake-values')
           expect(subject.generate(headings, lexeme, values)).to eq('s')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'atomic_o_expression'
 
 module Zenlish
@@ -6,6 +8,7 @@ module Zenlish
       attr_reader :text
 
       def initialize(aLiteralValue)
+        super()
         @text = aLiteralValue
       end
 

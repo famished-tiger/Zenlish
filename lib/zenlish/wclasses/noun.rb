@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'word_class'
 
 module Zenlish
@@ -21,11 +23,11 @@ module Zenlish
 
       def init_feature_defs
         # Create standard feature definitions for nouns.
-        feature_def_dsl {
+        feature_def_dsl do
           feature_def 'NUMBER' => enumeration(:singular, :plural)
           feature_def 'COUNTABILITY' => enumeration(:count, :non_count)
           feature_def 'PARADIGM' => [identifier, 'Common_form'] # 2nd item is default value
-        }
+        end
       end
     end # class
   end # module

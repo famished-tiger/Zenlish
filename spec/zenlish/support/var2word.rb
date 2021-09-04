@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
 require_relative 'minimal_lexicon'
 require_relative '../../../lib/zenlish/lex/literal'
 
 module Zenlish
+  # rubocop: disable Layout/EmptyLineBetweenDefs
+  # rubocop: disable Layout/SpaceBeforeSemicolon
+  # rubocop: disable Style/SingleLineMethods
+
   # Utility module. It defines variables that each are assgned a
   # Literal object.
   module Var2Word
@@ -106,8 +112,8 @@ module Zenlish
     literal2var('hear', 'hear')
     literal2var('hear', 'heard')
     literal2var('hear', 'hears')
-    def here ;     Lex::Literal.new('here', get_lexeme('here', WClasses::Adverb), 0) ; end
-    def here_as_noun ;  Lex::Literal.new('here', get_lexeme('here', WClasses::CommonNoun), 0) ; end
+    def here ; Lex::Literal.new('here', get_lexeme('here', WClasses::Adverb), 0) ; end
+    def here_as_noun ; Lex::Literal.new('here', get_lexeme('here', WClasses::CommonNoun), 0) ; end
     def i_pronoun ; Lex::Literal.new('I', get_lexeme('I'), 0) ; end
     literal2var('if', 'if', '_')
     literal2var('in', 'in', '_')
@@ -115,7 +121,7 @@ module Zenlish
     literal2var('it', 'it', '_')
     literal2var('its', 'its')
     literal2var('J', 'j', '_')
-    def is ;     Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+    def is ; Lex::Literal.new('is', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
     def is_aux ; Lex::Literal.new('is', get_lexeme('be', WClasses::AuxiliaryBe), 0) ; end
     literal2var('K', 'k', '_')
     literal2var('kind', 'kind')
@@ -216,7 +222,7 @@ module Zenlish
     literal2var('want', 'want')
     literal2var('want', 'wants')
     def was ; Lex::Literal.new('was', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
-    def were ;     Lex::Literal.new('were', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
+    def were ; Lex::Literal.new('were', get_lexeme('be', WClasses::IrregularVerbBe), 0) ; end
     literal2var('what', 'what')
     literal2var('when', 'when', '_')
     def where ; Lex::Literal.new('where', get_lexeme('where', WClasses::Adverb), 0) ; end
@@ -228,9 +234,12 @@ module Zenlish
     literal2var('you', 'you')
     literal2var('you', 'your')
 
-    def colon ;  Lex::Literal.new(':', get_lexeme(':'), 0) ; end
-    def comma ;  Lex::Literal.new(',', get_lexeme(','), 0) ; end
-    def dot ;  Lex::Literal.new('.', get_lexeme('.'), 0) ; end
-    def quote ;  Lex::Literal.new('"', get_lexeme('"'), 0) ; end
+    def colon ; Lex::Literal.new(':', get_lexeme(':'), 0) ; end
+    def comma ; Lex::Literal.new(',', get_lexeme(','), 0) ; end
+    def dot ; Lex::Literal.new('.', get_lexeme('.'), 0) ; end
+    def quote ; Lex::Literal.new('"', get_lexeme('"'), 0) ; end
   end # module
+  # rubocop: enable Style/SingleLineMethods
+  # rubocop: enable Layout/SpaceBeforeSemicolon
+  # rubocop: enable Layout/EmptyLineBetweenDefs
 end # module

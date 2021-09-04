@@ -19,7 +19,7 @@ module Zenlish
       context 'Provided services:' do
         def build_det(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          lexeme = Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(subject, entry)
         end
 
         def test_all_inflections(det_form, wforms)
@@ -39,7 +39,7 @@ module Zenlish
         end
 
         it 'should give all word forms' do
-          test_all_inflections('this', ['this', 'that', 'these', 'those'])
+          test_all_inflections('this', %w[this that these those])
         end
       end # context
     end # describe

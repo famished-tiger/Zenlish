@@ -4,7 +4,7 @@ require_relative '../../spec_helper' # Use the RSpec framework
 require_relative '../../../lib/zenlish/lang/zenlish_grammar' # Load the class under test
 
 module Zenlish
-  module Parser
+  module Lang
     describe ZenlishGrammar do
       subject { ZenlishGrammar }
 

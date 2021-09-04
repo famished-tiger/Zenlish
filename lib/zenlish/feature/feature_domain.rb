@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Zenlish
   module Feature
     class FeatureDomain
-      def include?(aValue)
+      def include?(_value)
         raise NotImplementedError, "Implement #{__callee__} method in subclass(es)."
       end
 

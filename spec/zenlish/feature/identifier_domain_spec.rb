@@ -18,8 +18,8 @@ module Zenlish
           expect(subject.include?('CommonForm')).to be_truthy
           expect(subject.include?('Common Form')).to be_falsey
           expect(subject.include?('+123')).to be_falsey
-        end 
-        
+        end
+
         it 'should provide a factory method for identifier values' do
           expect(subject.build_value('CommonForm')).to be_kind_of(IdentifierValue)
           expect(subject.build_value('Common_Form')).to be_kind_of(IdentifierValue)

@@ -1,6 +1,8 @@
-lib = File.expand_path("../lib", __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "zenlish/version"
+require 'zenlish/version'
 
 # Implementation module
 module PkgExtending
@@ -14,7 +16,7 @@ module PkgExtending
       'Gemfile',
       'Rakefile',
       'CHANGELOG.md',
-      'CODE_OF_CONDUCT.md',      
+      'CODE_OF_CONDUCT.md',
       'LICENSE.txt',
       'README.md',
       'zenlish.gemspec',
@@ -34,29 +36,30 @@ module PkgExtending
   end
 end # module
 
-
 Gem::Specification.new do |spec|
   spec.name          = 'zenlish'
   spec.version       = Zenlish::VERSION
   spec.authors       = ['Dimitri Geshef']
   spec.email         = ['famished.tiger@yahoo.com']
 
-  spec.summary       = %q{A toolkit for the Zenlish language (a simplified English language).}
-  spec.description   = %q{A toolkit for the Zenlish language (a simplified English language).}
-  spec.homepage      = "https://github.com/famished-tiger/zenlish"
+  spec.summary       = 'A toolkit for the Zenlish language (a simplified English language).'
+  spec.description   = 'A toolkit for the Zenlish language (a simplified English language).'
+  spec.homepage      = 'https://github.com/famished-tiger/zenlish'
   spec.license       = 'MIT'
 
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
-  
+  spec.require_paths = ['lib']
+
   PkgExtending.pkg_files(spec)
   PkgExtending.pkg_documentation(spec)
-  
-  # Runtime dependencies
-  spec.add_dependency 'rley', '~> 0.7.06'  
 
-  spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rake", "~> 12.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.required_ruby_version = '>= 2.5.0'
+
+  # Runtime dependencies
+  spec.add_dependency 'rley', '~> 0.8.03'
+
+  spec.add_development_dependency 'bundler', '~> 2.0'
+  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rley'
 
 module Zenlish
@@ -7,7 +9,7 @@ module Zenlish
       attr_reader :zlexeme
 
       # initialize(theLexeme, aTerminal, aPosition) ⇒ Token
-      # @param literalText [String] the portion of input text that represents 
+      # @param literalText [String] the portion of input text that represents
       #   an occurence of the lexeme.
       # @param aLexeme [Lex::Lexeme] the lexeme matched by the literal text.
       # @param aPosition [Integer] the position of the literal in the input.

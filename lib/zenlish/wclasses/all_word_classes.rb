@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Load the WordClass class hierarchy
 # Algorithm: load the leaf classes from hierarchy
 

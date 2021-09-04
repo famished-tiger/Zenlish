@@ -8,12 +8,12 @@ require_relative '../../../lib/zenlish/lex/literal' # Load the class under test
 
 module Zenlish
   module Lex
-    describe Lexeme do
+    describe Literal do
       let(:sample_wclass) { WClasses::CommonNoun.new }
       let(:sample_lemma) { 'thing' }
       let(:sample_entry) { LexicalEntry.new(sample_lemma) }
       let(:sample_position) { double('position') }
-      let(:sample_lexeme) { Lexeme.new(sample_wclass, sample_entry)  }
+      let(:sample_lexeme) { Lexeme.new(sample_wclass, sample_entry) }
 
       subject { Literal.new('things', sample_lexeme, sample_position) }
 

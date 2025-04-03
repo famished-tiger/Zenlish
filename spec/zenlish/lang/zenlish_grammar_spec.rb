@@ -6,11 +6,11 @@ require_relative '../../../lib/zenlish/lang/zenlish_grammar' # Load the class un
 module Zenlish
   module Lang
     describe ZenlishGrammar do
-      subject { ZenlishGrammar }
+      subject(:grammar) { described_class }
 
       context 'Initialization:' do
-        it 'should know its terminal symbols' do
-          expect { subject.name2symbol['CommonNoun'] }.not_to raise_error
+        it 'knows its terminal symbols' do
+          expect { grammar.name2symbol['CommonNoun'] }.not_to raise_error
         end
       end # context
 

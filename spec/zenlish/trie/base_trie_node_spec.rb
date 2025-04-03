@@ -6,26 +6,26 @@ require_relative '../../../lib/zenlish/trie/base_trie_node' # Load the class und
 module Zenlish
   module Trie
     describe BaseTrieNode do
-      subject { BaseTrieNode.new }
+      subject(:node) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { BaseTrieNode.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
 
-        it 'should be a leaf node at start' do
-          expect(subject).to be_leaf
+        it 'is a leaf node at start' do
+          expect(node).to be_leaf
         end
       end # context
 
       context 'Provided services:' do
-        it 'should accept the addition of a successor' do
-          some_node = BaseTrieNode.new
+        it 'accepts the addition of a successor' do
+          some_node = described_class.new
 
-          expect(subject.include?('f')).to be_falsy
-          expect { subject.add_succ('f', some_node) }.not_to raise_error
-          expect(subject.include?('f')).to be_truthy
-          expect(subject.succ['f']).to eq(some_node)
+          expect(node).not_to include('f')
+          expect { node.add_succ('f', some_node) }.not_to raise_error
+          expect(node).to include('f')
+          expect(node.succ['f']).to eq(some_node)
         end
       end # context
     end # describe

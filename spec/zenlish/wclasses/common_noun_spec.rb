@@ -7,24 +7,24 @@ require_relative '../../../lib/zenlish/wclasses/common_noun' # Load the class un
 module Zenlish
   module WClasses
     describe CommonNoun do
-      subject { CommonNoun.new }
+      subject(:noun) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { CommonNoun.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should provide a default inflection paradigm' do
-          expect(subject.paradigm).not_to be_nil
+        it 'provides a default inflection paradigm' do
+          expect(noun.paradigm).not_to be_nil
         end
 
-        it 'should support the pluralization of common nouns' do
+        it 'supports the pluralization of common nouns' do
           samples = %w[animal body people]
           lexemes = []
           Lang::Dictionary.entries.each do |ent|
-            lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(Zenlish::WClasses::CommonNoun) }
+            lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(described_class) }
             if lexm && samples.include?(ent.lemma)
               lexemes.concat(lexm)
             end
@@ -38,11 +38,11 @@ module Zenlish
           end
         end
 
-        it 'should know all its inflections' do
+        it 'knows all its inflections' do
           samples = %w[animal body people]
           lexemes = []
           Lang::Dictionary.entries.each do |ent|
-            lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(Zenlish::WClasses::CommonNoun) }
+            lexm = ent.lexemes.select { |lx| lx.wclass.kind_of?(described_class) }
             if lexm && samples.include?(ent.lemma)
               lexemes.concat(lexm)
             end

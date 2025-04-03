@@ -9,11 +9,11 @@ module Zenlish
     describe ZParser do
       include Var2Word
 
-      subject { ZParser.new }
+      subject(:parser) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { ZParser.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
@@ -22,14 +22,14 @@ module Zenlish
           # # OK, non-ambiguous sentence: "Lisa sees Tony."
           # literals = [lisa, sees, tony, dot]
           # result_type = Rley::PTree::ParseTree
-          # expect(subject.to_pforest(literals)).to be_kind_of(result_type)
+          # expect(parser.to_pforest(literals)).to be_a(result_type)
         # end
 
-        it 'should produce forest' do
+        it 'produces forest' do
           # Sentence: "Lisa sees Tony."
           literals = [lisa, sees, tony, dot]
           result_type = Rley::SPPF::ParseForest
-          expect(subject.to_pforest(literals)).to be_kind_of(result_type)
+          expect(parser.to_pforest(literals)).to be_a(result_type)
         end
       end # context
     end # describe

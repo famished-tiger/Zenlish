@@ -6,23 +6,23 @@ require_relative '../../../lib/zenlish/wclasses/noun' # Load the class under tes
 module Zenlish
   module WClasses
     describe Noun do
-      subject { Noun.new }
+      subject(:noun) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { Noun.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know that it is variable (has inflected forms)' do
-          expect(subject).not_to be_invariable
+        it 'knows that it is variable (has inflected forms)' do
+          expect(noun).not_to be_invariable
         end
 
-        it 'should know its feature names' do
+        it 'knows its feature names' do
           expectations = %w(NUMBER COUNTABILITY)
           expectations.each do |name|
-            expect(subject[name]).not_to be_nil
+            expect(noun[name]).not_to be_nil
           end
         end
       end # context

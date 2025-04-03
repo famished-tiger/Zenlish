@@ -12,20 +12,20 @@ module Zenlish
       let(:sample_wclass) { WClasses::CommonNoun.new }
       let(:sample_lemma) { 'thing' }
       let(:sample_entry) { LexicalEntry.new(sample_lemma) }
-      let(:sample_position) { double('position') }
+      let(:sample_position) { instance_double(Rley::Lexical::Position) }
       let(:sample_lexeme) { Lexeme.new(sample_wclass, sample_entry) }
 
-      subject { Literal.new('things', sample_lexeme, sample_position) }
+      subject(:literal) { described_class.new('things', sample_lexeme, sample_position) }
 
       context 'Initialization:' do
-        it 'should be initialized with a string, a lexeme and a position' do
-          expect { Literal.new('things', sample_lexeme, sample_position) }.not_to raise_error
+        it 'is initialized with a string, a lexeme and a position' do
+          expect { described_class.new('things', sample_lexeme, sample_position) }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know its lexeme' do
-          expect(subject.zlexeme).to eq(sample_lexeme)
+        it 'knows its lexeme' do
+          expect(literal.zlexeme).to eq(sample_lexeme)
         end
       end # context
     end # describe

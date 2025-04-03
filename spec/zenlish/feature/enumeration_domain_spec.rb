@@ -6,39 +6,39 @@ require_relative '../../../lib/zenlish/feature/enumeration_domain'
 module Zenlish
   module Feature
     describe EnumerationDomain do
-      subject { EnumerationDomain.new(:singular, :plural) }
+      subject(:enumeration) { described_class.new(:singular, :plural) }
 
       context 'Initialization:' do
-        it 'should be initialized with arguments' do
-          expect { EnumerationDomain.new(:singular, :plural) }.not_to raise_error
+        it 'is initialized with arguments' do
+          expect { described_class.new(:singular, :plural) }.not_to raise_error
         end
 
-        it 'should know the values of enumeration' do
-          expect(subject.enum).to eq(%i[singular plural])
+        it 'knows the values of enumeration' do
+          expect(enumeration.enum).to eq(%i[singular plural])
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know whether a value is in domain' do
-          expect(subject.include?(:dual)).to be_falsey
-          expect(subject.include?(:singular)).to be_truthy
-          expect(subject.include?(:plural)).to be_truthy
+        it 'knows whether a value is in domain' do
+          expect(enumeration).not_to include(:dual)
+          expect(enumeration).to include(:singular)
+          expect(enumeration).to include(:plural)
         end
 
-        it 'should provide a factory method for enumerated value' do
-          expect(subject.build_value(:plural)).to be_kind_of(SymbolValue)
-          value = subject.build_value(:plural)
+        it 'provides a factory method for enumerated value' do
+          expect(enumeration.build_value(:plural)).to be_a(SymbolValue)
+          value = enumeration.build_value(:plural)
           expect(value.val).to eq(:plural)
         end
 
-        it 'should return all valid values in domain when requested' do
-          expect(subject.to_a).to eq(%i[singular plural])
+        it 'returns all valid values in domain when requested' do
+          expect(enumeration.to_a).to eq(%i[singular plural])
         end
 
-        it 'should complain when asked to build a non-member value' do
+        it 'complains when asked to build a non-member value' do
           err = StandardError
           err_msg = "dual isn't part of enumeration [singular, plural]."
-          expect { subject.build_value(:dual) }.to raise_error(err, err_msg)
+          expect { enumeration.build_value(:dual) }.to raise_error(err, err_msg)
         end
       end # context
     end # describe

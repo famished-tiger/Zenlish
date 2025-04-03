@@ -39,8 +39,6 @@ module Zenlish
           aParent
         elsif aParent
           aParent.struct
-        else
-          nil
         end
       end
     end # class

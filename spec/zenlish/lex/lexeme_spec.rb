@@ -19,43 +19,43 @@ module Zenlish
                'PARADIGM' => [identifier, 'Plural_only'] }
       end
 
-      subject { Lexeme.new(a_wclass, an_entry) }
+      subject(:a_lexeme) { described_class.new(a_wclass, an_entry) }
 
       context 'Initialization:' do
-        it 'could be initialized with a word class and a lexical entry' do
-          expect { Lexeme.new(a_wclass, an_entry) }.not_to raise_error
+        it 'can be initialized with a word class and a lexical entry' do
+          expect { described_class.new(a_wclass, an_entry) }.not_to raise_error
         end
 
-        it 'could be initialized with a w. class, lexical ent., feature hash' do
-          expect { Lexeme.new(a_wclass, an_entry, a_feat_struct_def) }.not_to raise_error
+        it 'can be initialized with a w. class, lexical ent., feature hash' do
+          expect { described_class.new(a_wclass, an_entry, a_feat_struct_def) }.not_to raise_error
         end
 
-        it 'should know its word class' do
-          expect(subject.wclass).to eq(a_wclass)
+        it 'knows its word class' do
+          expect(a_lexeme.wclass).to eq(a_wclass)
         end
 
-        it 'should know its lexical entry' do
-          expect(subject.entry).to eq(an_entry)
+        it 'knows its lexical entry' do
+          expect(a_lexeme.entry).to eq(an_entry)
         end
       end # context
 
       context 'Provided services:' do
-        subject { Lexeme.new(a_wclass, an_entry, a_feat_struct_def) }
-        it 'should know its lemma' do
-          expect(subject.lemma).to eq(a_lemma)
+        subject(:a_lexeme) { described_class.new(a_wclass, an_entry, a_feat_struct_def) }
+        it 'knows its lemma' do
+          expect(a_lexeme.lemma).to eq(a_lemma)
         end
 
-        it 'should know its own feature defs' do
-          instance = Lexeme.new(a_wclass, an_entry, a_feat_struct_def)
+        it 'knows its own feature defs' do
+          instance = described_class.new(a_wclass, an_entry, a_feat_struct_def)
           expect(instance['NUMBER'].default.val).to eq(:plural)
         end
 
-        it 'should know its inflection paradigm' do
-          expect(subject.paradigm).to be_kind_of(Inflect::InflectionTable)
+        it 'knows its inflection paradigm' do
+          expect(a_lexeme.paradigm).to be_a(Inflect::InflectionTable)
         end
 
-        it 'should know all its inflections' do
-          expect(subject.all_inflections).to eq(['people'])
+        it 'knows all its inflections' do
+          expect(a_lexeme.all_inflections).to eq(['people'])
         end
       end # context
     end # describe

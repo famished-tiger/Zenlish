@@ -13,44 +13,45 @@ module Zenlish
     describe MatchesPattern do
       let(:an_argument) { FormalArgument.new(1) }
       let(:patt) { /[^aeiouy]y$/ }
-      subject { MatchesPattern.new(an_argument, patt) }
+
+      subject(:pattern) { described_class.new(an_argument, patt) }
 
       context 'Initialization:' do
-        it 'should be initialized with an argument and pattern' do
-          expect { MatchesPattern.new(an_argument, patt) }.not_to raise_error
+        it 'is initialized with an argument and pattern' do
+          expect { described_class.new(an_argument, patt) }.not_to raise_error
         end
 
-        it 'should know its argument' do
-          expect(subject.argument).to eq(an_argument)
+        it 'knows its argument' do
+          expect(pattern.argument).to eq(an_argument)
         end
 
-        it 'should know the pattern' do
-          expect(subject.pattern).to eq(patt)
+        it 'knows the pattern' do
+          expect(pattern.pattern).to eq(patt)
         end
       end # context
 
       context 'Provided services:' do
-        it 'should check the actual argument' do
+        it 'checks the actual argument' do
           lexeme = double('dummy-lexeme')
           headings = double('fake-headings')
           actual_args = [nil, 'cherry', nil]
-          expect(subject.success?(headings, lexeme, actual_args)).to be_truthy
+          expect(pattern).to be_success(headings, lexeme, actual_args)
           actual_args[1] = 'boy'
-          expect(subject.success?(headings, lexeme, actual_args)).to be_falsy
+          expect(pattern).not_to be_success(headings, lexeme, actual_args)
           actual_args[1] = 'girl'
-          expect(subject.success?(headings, lexeme, actual_args)).to be_falsy
+          expect(pattern).not_to be_success(headings, lexeme, actual_args)
         end
 
-        it 'should test the lexeme' do
+        it 'tests the lexeme' do
           c_noun = WClasses::CommonNoun.new
           entry = Lex::LexicalEntry.new('cherry')
           lexeme = Lex::Lexeme.new(c_noun, entry)
           headings = [nil, MethodHeading.new('lemma'), nil]
-          expect(subject.success?(headings, lexeme, [])).to be_truthy
+          expect(pattern).to be_success(headings, lexeme, [])
 
           entry2 = Lex::LexicalEntry.new('boy')
           lexeme2 = Lex::Lexeme.new(c_noun, entry2)
-          expect(subject.success?(headings, lexeme2, [])).to be_falsey
+          expect(pattern).not_to be_success(headings, lexeme2, [])
 
           # instance = EqualsLiteral.new(an_argument, :irregular)
           # expect(instance.success?(headings, lexeme, [])).to be_falsey

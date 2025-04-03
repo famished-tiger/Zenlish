@@ -5,34 +5,34 @@ require_relative '../../../lib/zenlish/feature/boolean_domain' # Load the class 
 module Zenlish
   module Feature
     describe BooleanDomain do
-      subject { BooleanDomain.instance }
+      subject(:bool_dom) { described_class.instance }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { BooleanDomain.instance }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.instance }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know whether a value is in domain' do
-          expect(subject.include?('invalid')).to be_falsey
-          expect(subject.include?(true)).to be_truthy
-          expect(subject.include?(false)).to be_truthy
+        it 'knows whether a value is in domain' do
+          expect(bool_dom).not_to include('invalid')
+          expect(bool_dom).to include(true)
+          expect(bool_dom).to include(false)
         end
 
-        it 'should provide a factory method for boolean values' do
-          expect(subject.build_value(true)).to be_kind_of(BooleanValue)
-          expect(subject.build_value(false)).to be_kind_of(BooleanValue)
+        it 'provides a factory method for boolean values' do
+          expect(bool_dom.build_value(true)).to be_a(BooleanValue)
+          expect(bool_dom.build_value(false)).to be_a(BooleanValue)
         end
 
-        it 'should return all valid values in domain when requested' do
-          expect(subject.to_a).to eq([false, true])
+        it 'returns all valid values in domain when requested' do
+          expect(bool_dom.to_a).to eq([false, true])
         end
 
-        it 'should complain when asked to build a non-boolean value' do
+        it 'complains when asked to build a non-boolean value' do
           err = StandardError
           err_msg = 'Expected a boolean instead of String.'
-          expect { subject.build_value('?') }.to raise_error(err, err_msg)
+          expect { bool_dom.build_value('?') }.to raise_error(err, err_msg)
         end
       end # context
     end # describe

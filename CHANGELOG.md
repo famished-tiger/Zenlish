@@ -1,4 +1,12 @@
 # CHANGELOG
+## [0.2.07] - 2025-04-03
+Minor changes
+
+### Changed
+- File `zenlish.gempsec` updated versions in depedencies
+- Code re-styling to please `Rubocop` 1.75.1
+- Spec files re-styling to please `rubocop-rspec` 3.5.0
+
 ## [0.2.06] - 2021-09-04
 - Fixes and code re-styling to please `Rubocop` 1.19.1
 

@@ -7,20 +7,22 @@ module Zenlish
   module Inflect
     describe UnconditionallyTrue do
       let(:method_name) { 'base_form' }
-      subject { UnconditionallyTrue.new }
+
+      subject(:u_true) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { UnconditionallyTrue.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should always return true' do
+        it 'always return true' do
           headings = double('dummy-headings')
           lexeme = double('dummy-lexeme')
           values = double('dummy-heading-values')
-          expect(subject.success?(headings, lexeme, values)).to be_truthy
+          # expect(u_true.success?(headings, lexeme, values)).to be_truthy
+          expect(u_true).to be_success(headings, lexeme, values)
         end
       end # context
     end # describe

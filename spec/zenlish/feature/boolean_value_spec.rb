@@ -7,15 +7,16 @@ module Zenlish
   module Feature
     describe BooleanValue do
       let(:its_value) { false }
-      subject { BooleanValue.new(its_value) }
+
+      subject(:boolean) { described_class.new(its_value) }
 
       context 'Initialization:' do
-        it 'should be initialized with a value argument' do
-          expect { BooleanValue.new(its_value) }.not_to raise_error
+        it 'is initialized with a value argument' do
+          expect { described_class.new(its_value) }.not_to raise_error
         end
 
-        it 'should know its internal value' do
-          expect(subject.val.class).to eq(FalseClass)
+        it 'knows its internal value' do
+          expect(boolean.val.class).to eq(FalseClass)
         end
       end # context
 

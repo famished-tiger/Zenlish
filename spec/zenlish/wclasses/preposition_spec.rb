@@ -6,17 +6,17 @@ require_relative '../../../lib/zenlish/wclasses/preposition' # Load the class un
 module Zenlish
   module WClasses
     describe Preposition do
-      subject { Preposition.new }
+      subject(:preposition) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { Preposition.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know that it is invariable' do
-          expect(subject).to be_invariable
+        it 'is invariable' do
+          expect(preposition).to be_invariable
         end
       end # context
     end # describe

@@ -9,35 +9,36 @@ module Zenlish
       let(:sample_lemma) { 'other' }
       let(:sample_lexeme1) { double('other-as-adjective') }
       let(:sample_lexeme2) { double('other-as-pronoun') }
-      subject { LexicalEntry.new(sample_lemma) }
+
+      subject(:lex_entry) { described_class.new(sample_lemma) }
 
       context 'Initialization:' do
         it 'can be initialized with a lemma only' do
-          expect { LexicalEntry.new(sample_lemma) }.not_to raise_error
+          expect { described_class.new(sample_lemma) }.not_to raise_error
         end
 
         it 'can be initialized with a lemma and a word class' do
-          expect { LexicalEntry.new(sample_lemma, sample_lexeme1) }.not_to raise_error
+          expect { described_class.new(sample_lemma, sample_lexeme1) }.not_to raise_error
         end
 
-        it 'should know its lemma' do
-          expect(subject.lemma).to eq(sample_lemma)
+        it 'knows its lemma' do
+          expect(lex_entry.lemma).to eq(sample_lemma)
         end
 
-        it 'should know its lexeme (if any)' do
-          expect(subject.lexemes).to be_empty
-          instance = LexicalEntry.new(sample_lemma, sample_lexeme1)
+        it 'knows its lexeme (if any)' do
+          expect(lex_entry.lexemes).to be_empty
+          instance = described_class.new(sample_lemma, sample_lexeme1)
           expect(instance.lexemes).to eq([sample_lexeme1])
         end
       end # context
 
       context 'Provided services:' do
-        it 'should accept links with lexeme(s)' do
-          subject.add_lexeme(sample_lexeme1)
-          expect(subject.lexemes).to eq([sample_lexeme1])
+        it 'accepts links with lexeme(s)' do
+          lex_entry.add_lexeme(sample_lexeme1)
+          expect(lex_entry.lexemes).to eq([sample_lexeme1])
 
-          subject.add_lexeme(sample_lexeme2)
-          expect(subject.lexemes).to eq([sample_lexeme1, sample_lexeme2])
+          lex_entry.add_lexeme(sample_lexeme2)
+          expect(lex_entry.lexemes).to eq([sample_lexeme1, sample_lexeme2])
         end
       end # context
     end # describe

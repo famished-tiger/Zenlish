@@ -18,26 +18,26 @@ module Zenlish
       # let(:sample_lexeme) { Lexeme.new(sample_wclass, sample_entry)  }
       let(:sample_sentence) { 'Tony sees Lisa.' }
 
-      subject { Lexer.new(sample_sentence) }
+      subject(:lexer) { described_class.new(sample_sentence) }
 
       context 'Initialization:' do
-        it 'should be initialized with Zenlish text' do
-          expect { Lexer.new(sample_sentence) }.not_to raise_error
+        it 'is initialized with Zenlish text' do
+          expect { described_class.new(sample_sentence) }.not_to raise_error
         end
 
-        it 'should its scanner object' do
-          expect(subject.scanner).not_to be_nil
+        it 'knows its scanner object' do
+          expect(lexer.scanner).not_to be_nil
         end
 
-        it 'should have an initial position' do
-          expect(subject.lineno).to eq(1)
-          expect(subject.line_start).to eq(0)
+        it 'has an initial position' do
+          expect(lexer.lineno).to eq(1)
+          expect(lexer.line_start).to eq(0)
         end
       end # context
 
       context 'Provided services:' do
-        it 'should return a sequence of literals' do
-          tokens = subject.tokens
+        it 'returns a sequence of literals' do
+          tokens = lexer.tokens
           expect(tokens.size).to eq(4)
           expect(tokens[0].lexeme).to eq('Tony')
           expect(tokens[0].terminal).to eq('WORD')

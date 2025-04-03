@@ -6,24 +6,24 @@ require_relative '../../../lib/zenlish/inflect/literal_asis'
 module Zenlish
   module Inflect
     describe LiteralAsIs do
-      subject { LiteralAsIs.new('s') }
+      subject(:literal) { described_class.new('s') }
 
       context 'Initialization:' do
-        it 'should be initialized with a text literal' do
-          expect { LiteralAsIs.new('s') }.not_to raise_error
+        it 'is initialized with a text literal' do
+          expect { described_class.new('s') }.not_to raise_error
         end
 
-        it 'should know its text value' do
-          expect(subject.text).to eq('s')
+        it 'knows its text value' do
+          expect(literal.text).to eq('s')
         end
       end # context
 
       context 'Provided services:' do
-        it 'should return the affix during word form generation' do
+        it 'returns the affix during word form generation' do
           headings = double('fake-headings')
           lexeme = double('fake-lexeme')
           values = double('fake-values')
-          expect(subject.generate(headings, lexeme, values)).to eq('s')
+          expect(literal.generate(headings, lexeme, values)).to eq('s')
         end
       end # context
     end # describe

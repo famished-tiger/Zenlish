@@ -9,36 +9,37 @@ module Zenlish
     describe FeatureDef do
       let(:a_name) { 'NUMBER' }
       let(:a_domain) { EnumerationDomain.new(:singular, :plural) }
-      subject { FeatureDef.new(a_name, a_domain) }
+
+      subject(:ft_def) { described_class.new(a_name, a_domain) }
 
       context 'Initialization:' do
-        it 'should be initialized with at least two arguments' do
-          expect { FeatureDef.new(a_name, a_domain) }.not_to raise_error
+        it 'is initialized with at least two arguments' do
+          expect { described_class.new(a_name, a_domain) }.not_to raise_error
         end
 
-        it 'could be initialized with a default value argument' do
+        it 'can be initialized with a default value argument' do
           deflt = double('dummy')
-          expect { FeatureDef.new(a_name, a_domain, deflt) }.not_to raise_error
+          expect { described_class.new(a_name, a_domain, deflt) }.not_to raise_error
         end
 
-        it 'should know its name' do
-          expect(subject.name).to eq(a_name)
+        it 'knows its name' do
+          expect(ft_def.name).to eq(a_name)
         end
 
-        it 'should know the domain of its values' do
-          expect(subject.domain).to eq(a_domain)
+        it 'knows the domain of its values' do
+          expect(ft_def.domain).to eq(a_domain)
         end
 
-        it 'should know the domain of its default value' do
-          expect(subject.default).to be_nil
+        it 'knows the domain of its default value' do
+          expect(ft_def.default).to be_nil
           deflt = double('dummy')
-          instance = FeatureDef.new(a_name, a_domain, deflt)
+          instance = described_class.new(a_name, a_domain, deflt)
           expect(instance.default).to eq(deflt)
         end
 
-        it 'should guess its default if enumeration has a single member' do
+        it 'guesses its default if enumeration has a single member' do
           basic_domain = EnumerationDomain.new(:plural)
-          instance = FeatureDef.new(a_name, basic_domain)
+          instance = described_class.new(a_name, basic_domain)
           expect(instance.default.val).to eq(:plural)
         end
       end # context

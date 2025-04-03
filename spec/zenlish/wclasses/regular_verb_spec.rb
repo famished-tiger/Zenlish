@@ -10,21 +10,15 @@ require_relative '../../../lib/zenlish/wclasses/regular_verb'
 module Zenlish
   module WClasses
     describe RegularVerb do
-      subject { RegularVerb.new }
+      subject(:regular_verb) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { RegularVerb.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know its inherited feature definitions' do
-          expect(subject['NUMBER']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PARADIGM'].default.val).to eq('Regular_inflection')
-        end
-
         let(:present_1sg) { [:first, :singular, :present, nil] }
         let(:present_3sg) { [:third, :singular, :present, nil] }
         let(:present_1pl) { [:first, :plural,   :present, nil] }
@@ -34,7 +28,7 @@ module Zenlish
 
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(regular_verb, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -50,7 +44,13 @@ module Zenlish
           expect(inflected.sort).to eq(wforms.sort)
         end
 
-        it 'should know how to inflect regular verbs' do
+        it 'knows its inherited feature definitions' do
+          expect(regular_verb['NUMBER']).to be_a(Feature::FeatureDef)
+          expect(regular_verb['PERSON']).to be_a(Feature::FeatureDef)
+          expect(regular_verb['PARADIGM'].default.val).to eq('Regular_inflection')
+        end
+
+        it 'knows how to inflect regular verbs' do
           expectations1 = [
             [present_1sg,     'exist'],
             [present_3sg,     'exists'],
@@ -112,7 +112,7 @@ module Zenlish
           test_inflection_of('want', expectations6)
         end
 
-        it 'should give all word forms of a given verb' do
+        it 'gives all word forms of a given verb' do
           test_all_inflections('die', %w[die dies dying died])
         end
       end # context

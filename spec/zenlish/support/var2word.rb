@@ -4,7 +4,6 @@ require_relative 'minimal_lexicon'
 require_relative '../../../lib/zenlish/lex/literal'
 
 module Zenlish
-  # rubocop: disable Layout/EmptyLineBetweenDefs
   # rubocop: disable Layout/SpaceBeforeSemicolon
   # rubocop: disable Style/SingleLineMethods
 
@@ -241,5 +240,4 @@ module Zenlish
   end # module
   # rubocop: enable Style/SingleLineMethods
   # rubocop: enable Layout/SpaceBeforeSemicolon
-  # rubocop: enable Layout/EmptyLineBetweenDefs
 end # module

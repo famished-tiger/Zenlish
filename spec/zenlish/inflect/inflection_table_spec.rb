@@ -23,23 +23,24 @@ module Zenlish
 
     describe InflectionTable do
       let(:table_name) { 'Common_form' }
-      subject { InflectionTable.new(table_name) }
+
+      subject(:inflection) { described_class.new(table_name) }
 
       context 'Initialization:' do
-        it 'should be initialized with a name' do
-          expect { InflectionTable.new(table_name) }.not_to raise_error
+        it 'is initialized with a name' do
+          expect { described_class.new(table_name) }.not_to raise_error
         end
 
-        it 'should now its name' do
-          expect(subject.name).to eq(table_name)
+        it 'knows its name' do
+          expect(inflection.name).to eq(table_name)
         end
 
-        it 'should not have headings at start' do
-          expect(subject.headings).to be_empty
+        it "doesn't have headings at start" do
+          expect(inflection.headings).to be_empty
         end
 
-        it 'should not have rules at start' do
-          expect(subject.rules).to be_empty
+        it "doesn't not have rules at start" do
+          expect(inflection.rules).to be_empty
         end
       end # context
 
@@ -82,20 +83,20 @@ module Zenlish
         let(:lexm_body) { Lex::Lexeme.new(a_wclass, an_entry) }
         let(:mock_feature_bearer) { Struct.new(:NUMBER, :base_form) }
 
-        it 'should accept the addition of heading(s)' do
-          expect { subject.add_heading(heading0) }.not_to raise_error
-          expect(subject.headings.size).to eq(1)
-          subject.add_heading(heading1)
-          expect(subject.headings.last).to eq(heading1)
+        it 'accepts the addition of heading(s)' do
+          expect { inflection.add_heading(heading0) }.not_to raise_error
+          expect(inflection.headings.size).to eq(1)
+          inflection.add_heading(heading1)
+          expect(inflection.headings.last).to eq(heading1)
         end
 
-        it 'should accept the addition of rule(s)' do
-          expect { subject.add_rule(rule_a) }.not_to raise_error
-          expect(subject.rules.size).to eq(1)
-          subject.add_rule(rule_b)
-          expect(subject.rules.last).to eq(rule_b)
-          subject.add_rule(rule_c)
-          expect(subject.rules.last).to eq(rule_c)
+        it 'accepts the addition of rule(s)' do
+          expect { inflection.add_rule(rule_a) }.not_to raise_error
+          expect(inflection.rules.size).to eq(1)
+          inflection.add_rule(rule_b)
+          expect(inflection.rules.last).to eq(rule_b)
+          inflection.add_rule(rule_c)
+          expect(inflection.rules.last).to eq(rule_c)
         end
 
         def init_table(aTable)
@@ -119,25 +120,25 @@ module Zenlish
         #   rule(equals(:plural)  , matches(/[^aeiouy]y$/), sub(col(1), /y$/, 'ies'))
         #   rule(equals(:plural)  , dont_care             , concat(col(1), 's'))
         # end
-        it 'should determine the word form given input entries' do
-          init_table(subject)
+        it 'determines the word form given input entries' do
+          init_table(inflection)
           mck1 = mock_feature_bearer.new(:singular, 'animal')
-          expect(subject.inflect(mck1, [nil, nil])).to eq('animal')
+          expect(inflection.inflect(mck1, [nil, nil])).to eq('animal')
           mck1['NUMBER'] = :plural
-          expect(subject.inflect(mck1, [nil, nil])).to eq('animals')
+          expect(inflection.inflect(mck1, [nil, nil])).to eq('animals')
 
           mck2 = mock_feature_bearer.new(:singular, 'boy')
-          expect(subject.inflect(mck2, [nil, nil])).to eq('boy')
+          expect(inflection.inflect(mck2, [nil, nil])).to eq('boy')
           mck2['NUMBER'] = :plural
-          expect(subject.inflect(mck2, [nil, nil])).to eq('boys')
+          expect(inflection.inflect(mck2, [nil, nil])).to eq('boys')
 
-          expect(subject.inflect(lexm_body, [:singular, nil])).to eq('body')
-          expect(subject.inflect(lexm_body, [:plural, nil])).to eq('bodies')
+          expect(inflection.inflect(lexm_body, [:singular, nil])).to eq('body')
+          expect(inflection.inflect(lexm_body, [:plural, nil])).to eq('bodies')
         end
 
-        it 'should know all the word forms of a given lexeme' do
-          init_table(subject)
-          expect(subject.all_inflections(lexm_body)).to eq(%w[body bodies])
+        it 'knows all the word forms of a given lexeme' do
+          init_table(inflection)
+          expect(inflection.all_inflections(lexm_body)).to eq(%w[body bodies])
         end
       end # context
     end # describe

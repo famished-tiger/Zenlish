@@ -2,6 +2,6 @@
 
 RSpec.describe Zenlish do
   it 'has a version number' do
-    expect(Zenlish::VERSION).not_to be nil
+    expect(Zenlish::VERSION).not_to be_nil
   end
 end

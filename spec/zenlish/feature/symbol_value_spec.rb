@@ -8,15 +8,16 @@ module Zenlish
   module Feature
     describe SymbolValue do
       let(:its_value) { :plural }
-      subject { SymbolValue.new(its_value) }
+
+      subject(:symbolic) { described_class.new(its_value) }
 
       context 'Initialization:' do
-        it 'should be initialized with a value argument' do
-          expect { SymbolValue.new(its_value) }.not_to raise_error
+        it 'is initialized with a value argument' do
+          expect { described_class.new(its_value) }.not_to raise_error
         end
 
-        it 'should know its internal value' do
-          expect(subject.val).to eq(its_value)
+        it 'knows its internal value' do
+          expect(symbolic.val).to eq(its_value)
         end
       end # context
 

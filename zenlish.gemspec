@@ -54,12 +54,13 @@ Gem::Specification.new do |spec|
   PkgExtending.pkg_files(spec)
   PkgExtending.pkg_documentation(spec)
 
-  spec.required_ruby_version = '>= 2.5.0'
+  spec.required_ruby_version = '>= 3.1.0'
+  spec.metadata = { 'rubygems_mfa_required' => 'true' }
 
   # Runtime dependencies
-  spec.add_dependency 'rley', '~> 0.8.03'
+  spec.add_dependency 'rley', '~> 0.9', '>= 0.9.02'
 
-  spec.add_development_dependency 'bundler', '~> 2.0'
-  spec.add_development_dependency 'rake', '~> 12.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'bundler', '~> 2.4', '>= 2.4.1'
+  spec.add_development_dependency 'rake', '~> 13'
+  spec.add_development_dependency 'rspec', '~> 3', '>= 3.10.0'
 end

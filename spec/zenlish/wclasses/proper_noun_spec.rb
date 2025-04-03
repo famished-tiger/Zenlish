@@ -6,11 +6,11 @@ require_relative '../../../lib/zenlish/wclasses/proper_noun' # Load the class un
 module Zenlish
   module WClasses
     describe ProperNoun do
-      subject { ProperNoun.new }
+      subject { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { ProperNoun.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 

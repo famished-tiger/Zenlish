@@ -12,27 +12,27 @@ module Zenlish
       let(:sample_argument) { FormalArgument.new(2) }
       let(:base_form) { InputAsIs.new(sample_argument) }
 
-      subject { Concatenation.new(base_form, suffix) }
+      subject(:concatenation) { described_class.new(base_form, suffix) }
 
       context 'Initialization:' do
-        it 'should be initialized with two arguments' do
-          expect { Concatenation.new(base_form, suffix) }.not_to raise_error
+        it 'is initialized with two arguments' do
+          expect { described_class.new(base_form, suffix) }.not_to raise_error
         end
 
-        it 'should know its arguments' do
-          expect(subject.children.first).to eq(base_form)
-          expect(subject.children.last).to eq(suffix)
+        it 'knows its arguments' do
+          expect(concatenation.children.first).to eq(base_form)
+          expect(concatenation.children.last).to eq(suffix)
         end
       end # context
 
       context 'Provided services:' do
         let(:sample_values) { [nil, nil, 'place', nil] }
 
-        it 'should do the concatenation of children results' do
+        it 'concatenates children results' do
           headings = double('fake-headings')
           lexeme = double('fake-lexeme')
 
-          expect(subject.generate(headings, lexeme, sample_values)).to eq('places')
+          expect(concatenation.generate(headings, lexeme, sample_values)).to eq('places')
         end
       end # context
     end # describe

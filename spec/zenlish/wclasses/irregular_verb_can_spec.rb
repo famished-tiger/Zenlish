@@ -10,24 +10,24 @@ require_relative '../../../lib/zenlish/wclasses/irregular_verb_can'
 module Zenlish
   module WClasses
     describe IrregularVerbCan do
-      subject { IrregularVerbCan.new }
+      subject(:irreg_can) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { IrregularVerbCan.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know its inherited feature definitions' do
-          expect(subject['NUMBER']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PARADIGM'].default.val).to eq('Verb_can_inflection')
+        it 'knows its inherited feature definitions' do
+          expect(irreg_can['NUMBER']).to be_a(Feature::FeatureDef)
+          expect(irreg_can['PERSON']).to be_a(Feature::FeatureDef)
+          expect(irreg_can['PARADIGM'].default.val).to eq('Verb_can_inflection')
         end
 
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(irreg_can, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -43,7 +43,7 @@ module Zenlish
           expect(inflected.sort).to eq(wforms.sort)
         end
 
-        it 'should know how to inflect modal verb can' do
+        it 'knows how to inflect modal verb can' do
           expectations1 = [
             [:present,     'can'],
             [:past_simple, 'could']
@@ -51,7 +51,7 @@ module Zenlish
           test_inflection_of('can', expectations1)
         end
 
-        it 'should give all word forms of a given verb' do
+        it 'gives all word forms of a given verb' do
           test_all_inflections('can', %w[can could])
         end
       end # context

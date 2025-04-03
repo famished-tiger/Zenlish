@@ -13,23 +13,23 @@ module Zenlish
     end
 
     describe Verb do
-      subject { Verb.new }
+      subject(:a_verb) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { Verb.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know that it has inflected forms' do
-          expect(subject).not_to be_invariable
+        it 'knows that it has inflected forms' do
+          expect(a_verb).not_to be_invariable
         end
 
-        it 'should know its feature definitions' do
-          expect(subject['NUMBER']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PARADIGM'].default.val).to eq('Regular_inflection')
+        it 'knows its feature definitions' do
+          expect(a_verb['NUMBER']).to be_a(Feature::FeatureDef)
+          expect(a_verb['PERSON']).to be_a(Feature::FeatureDef)
+          expect(a_verb['PARADIGM'].default.val).to eq('Regular_inflection')
         end
       end # context
     end # describe

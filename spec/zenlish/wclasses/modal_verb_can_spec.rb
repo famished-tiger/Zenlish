@@ -10,24 +10,24 @@ require_relative '../../../lib/zenlish/wclasses/modal_verb_can'
 module Zenlish
   module WClasses
     describe ModalVerbCan do
-      subject { ModalVerbCan.new }
+      subject(:modal_can) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { ModalVerbCan.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know its inherited feature definitions' do
-          expect(subject['NUMBER']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PARADIGM'].default.val).to eq('Verb_can_inflection')
+        it 'knows its inherited feature definitions' do
+          expect(modal_can['NUMBER']).to be_a(Feature::FeatureDef)
+          expect(modal_can['PERSON']).to be_a(Feature::FeatureDef)
+          expect(modal_can['PARADIGM'].default.val).to eq('Verb_can_inflection')
         end
 
         def build_verb(aBaseForm)
           entry = Zenlish::Lex::LexicalEntry.new(aBaseForm)
-          Zenlish::Lex::Lexeme.new(subject, entry)
+          Zenlish::Lex::Lexeme.new(modal_can, entry)
         end
 
         def test_inflection_of(verb_form, pairs)
@@ -37,7 +37,7 @@ module Zenlish
           end
         end
 
-        it 'should know how to inflect modal verb can' do
+        it 'knows how to inflect modal verb can' do
           expectations1 = [
             [:present,     'can'],
             [:past_simple, 'could']

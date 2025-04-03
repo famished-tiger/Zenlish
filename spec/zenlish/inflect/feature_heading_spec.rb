@@ -7,15 +7,16 @@ module Zenlish
   module Inflect
     describe FeatureHeading do
       let(:feature_name) { 'NUMBER' }
-      subject { FeatureHeading.new(feature_name) }
+
+      subject(:ft_heading) { described_class.new(feature_name) }
 
       context 'Initialization:' do
-        it 'should be initialized with a feature name' do
-          expect { FeatureHeading.new(feature_name) }.not_to raise_error
+        it 'is initialized with a feature name' do
+          expect { described_class.new(feature_name) }.not_to raise_error
         end
 
-        it 'should know its label' do
-          expect(subject.label).to eq(feature_name)
+        it 'knows its label' do
+          expect(ft_heading.label).to eq(feature_name)
         end
       end # context
 
@@ -25,24 +26,24 @@ module Zenlish
         let(:b_domain) { Feature::BooleanDomain.instance }
         let(:bool_def) { Feature::FeatureDef.new(feature_name, b_domain) }
 
-        it 'should obtain the value of a feature' do
+        it 'obtains the value of a feature' do
           mocked = { 'NUMBER' => :plural }
-          expect(subject.evaluate_for(mocked)).to eq(:plural)
+          expect(ft_heading.evaluate_for(mocked)).to eq(:plural)
         end
 
-        it 'should obtain all possible values of a feature' do
+        it 'obtains all possible values of a feature' do
           mocked = { 'NUMBER' => :plural }
-          expect(subject.all_matches(mocked)).to eq([:plural])
+          expect(ft_heading.all_matches(mocked)).to eq([:plural])
         end
 
-        it 'should obtain all possible values of a enumeration domain' do
+        it 'obtains all possible values of a enumeration domain' do
           mocked = { 'NUMBER' => enum_def }
-          expect(subject.all_matches(mocked)).to eq(%i[singular plural])
+          expect(ft_heading.all_matches(mocked)).to eq(%i[singular plural])
         end
 
-        it 'should obtain all possible values of a enumeration domain' do
+        it 'obtains all possible values of a enumeration domain' do
           mocked = { 'NUMBER' => bool_def }
-          expect(subject.all_matches(mocked)).to eq([false, true])
+          expect(ft_heading.all_matches(mocked)).to eq([false, true])
         end
       end # context
     end # describe

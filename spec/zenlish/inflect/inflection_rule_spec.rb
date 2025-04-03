@@ -44,21 +44,21 @@ module Zenlish
       let(:pattern) { /y$/ }
       let(:consequent) { Substitution.new(base, pattern, suffix) }
 
-      subject { InflectionRule.new(conditions, consequent) }
+      subject(:i_rule) { described_class.new(conditions, consequent) }
 
       context 'Initialization:' do
-        it 'should be initialized with condition and consequent parts' do
+        it 'is initialized with condition and consequent parts' do
           expect do
-            InflectionRule.new(conditions, consequent)
+            described_class.new(conditions, consequent)
           end.not_to raise_error
         end
 
-        it 'should know its condition part' do
-          expect(subject.conditions).to eq(conditions)
+        it 'knows its condition part' do
+          expect(i_rule.conditions).to eq(conditions)
         end
 
-        it 'should know its consequent part' do
-          expect(subject.consequent).to eq(consequent)
+        it 'knows its consequent part' do
+          expect(i_rule.consequent).to eq(consequent)
         end
       end # context
 
@@ -68,36 +68,36 @@ module Zenlish
         let(:an_entry) { Lex::LexicalEntry.new('cherry') }
         let(:lexeme) { Lex::Lexeme.new(c_noun, an_entry) }
 
-        it 'should succeed when all conditions succeed with actuals' do
+        it 'succeeds when all conditions succeed with actuals' do
           actuals = [:plural, 'cherry']
-          expect(subject.success?(headings, fake_lexeme, actuals)).to be_truthy
+          expect(i_rule).to be_success(headings, fake_lexeme, actuals)
         end
 
-        it 'should fail when one condition fails with actuals' do
+        it 'fails when one condition fails with actuals' do
           actuals = [:singular, 'cherry']
-          expect(subject.success?(headings, fake_lexeme, actuals)).to be_falsy
+          expect(i_rule).not_to be_success(headings, fake_lexeme, actuals)
 
           actuals = [:plural, 'girl']
-          expect(subject.success?(headings, fake_lexeme, actuals)).to be_falsy
+          expect(i_rule).not_to be_success(headings, fake_lexeme, actuals)
         end
 
-        it 'should generate inflected form when rule iworks for actuals' do
+        it 'generates inflected form when rule iworks for actuals' do
           actuals = [:plural, 'cherry']
-          expect(subject.apply(headings, fake_lexeme, actuals)).to eq('cherries')
+          expect(i_rule.apply(headings, fake_lexeme, actuals)).to eq('cherries')
         end
 
-        it 'should succeed when all conditions succeed for given lexeme' do
-          expect(subject.success?(headings, lexeme, [])).to be_truthy
+        it 'succeeds when all conditions succeed for given lexeme' do
+          expect(i_rule).to be_success(headings, lexeme, [])
         end
 
-        it 'should fail when one condition fails with given lexeme' do
+        it 'fails when one condition fails with given lexeme' do
           entry_2 = Lex::LexicalEntry.new('animal')
           lex_m2 = Lex::Lexeme.new(c_noun, entry_2)
-          expect(subject.success?(headings, lex_m2, [])).to be_falsy
+          expect(i_rule).not_to be_success(headings, lex_m2, [])
         end
 
-        it 'should generate inflected form when rule works for given lexeme' do
-          expect(subject.apply(headings, lexeme, [])).to eq('cherries')
+        it 'generates inflected form when rule works for given lexeme' do
+          expect(i_rule.apply(headings, lexeme, [])).to eq('cherries')
         end
       end # context
     end # describe

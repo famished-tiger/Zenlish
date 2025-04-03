@@ -13,18 +13,17 @@ module Zenlish
       let(:base) { InputAsIs.new(sample_argument) }
       let(:pattern) { /y$/ }
 
-
-      subject { Substitution.new(base, pattern, suffix) }
+      subject(:substitution) { described_class.new(base, pattern, suffix) }
 
       context 'Initialization:' do
-        it 'should be initialized with two arguments' do
-          expect { Substitution.new(base, pattern, suffix) }.not_to raise_error
+        it 'is initialized with two arguments' do
+          expect { described_class.new(base, pattern, suffix) }.not_to raise_error
         end
 
-        it 'should know its arguments' do
-          expect(subject.children.first).to eq(base)
-          expect(subject.children[1]).to eq(pattern)
-          expect(subject.children.last).to eq(suffix)
+        it 'knows its arguments' do
+          expect(substitution.children.first).to eq(base)
+          expect(substitution.children[1]).to eq(pattern)
+          expect(substitution.children.last).to eq(suffix)
         end
       end # context
 
@@ -32,10 +31,10 @@ module Zenlish
         let(:sample_heading) { double('fake-headings') }
         let(:sample_values) { [nil, 'cherry', nil] }
 
-        it 'should do the concatenation of children results' do
+        it 'concatenates children results' do
           lexeme = double('fake-lexeme')
 
-          expect(subject.generate(sample_heading, lexeme, sample_values)).to eq('cherries')
+          expect(substitution.generate(sample_heading, lexeme, sample_values)).to eq('cherries')
         end
       end # context
     end # describe

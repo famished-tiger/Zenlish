@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'lexical_verb'
-require_relative 'irregular_verb_extension'
 
 module Zenlish
   module WClasses

@@ -15,19 +15,19 @@ module Zenlish
     end
 
     describe LexicalVerb do
-      subject { LexicalVerb.new }
+      subject(:verb) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { LexicalVerb.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
       end # context
 
       context 'Provided services:' do
-        it 'should know its inherited feature definitions' do
-          expect(subject['NUMBER']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PERSON']).to be_kind_of(Feature::FeatureDef)
-          expect(subject['PARADIGM'].default.val).to eq('Regular_inflection')
+        it 'knows its inherited feature definitions' do
+          expect(verb['NUMBER']).to be_a(Feature::FeatureDef)
+          expect(verb['PERSON']).to be_a(Feature::FeatureDef)
+          expect(verb['PARADIGM'].default.val).to eq('Regular_inflection')
         end
       end # context
     end # describe

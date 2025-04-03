@@ -9,35 +9,35 @@ module Zenlish
     # rubocop: disable Naming/VariableNumber
 
     describe InflectionTableBuilder do
-      subject { InflectionTableBuilder.new }
+      subject(:builder) { described_class.new }
 
       context 'Initialization:' do
-        it 'should be initialized without argument' do
-          expect { InflectionTableBuilder.new }.not_to raise_error
+        it 'is initialized without argument' do
+          expect { described_class.new }.not_to raise_error
         end
 
-        it 'should not have headings after initialization' do
-          expect(subject.headings).to be_empty
+        it "doesn't not have headings after initialization" do
+          expect(builder.headings).to be_empty
         end
       end # context
 
       context 'Basic services:' do
-        it 'should retain the table name' do
-          subject.build('Common_form')
-          expect(subject.table.name).to eq('Common_form')
+        it 'retains the table name' do
+          builder.build('Common_form')
+          expect(builder.table.name).to eq('Common_form')
         end
 
-        it 'should accept heading creation' do
+        it 'accepts heading creation' do
           # First way
-          subject.feature_heading 'NUMBER'
-          expect(subject.headings.size).to eq(1)
-          expect(subject.headings.last.label).to eq('NUMBER')
-          subject.method_heading 'base_form'
-          expect(subject.headings.last).to be_kind_of(MethodHeading)
-          expect(subject.headings.last.label).to eq('base_form')
+          builder.feature_heading 'NUMBER'
+          expect(builder.headings.size).to eq(1)
+          expect(builder.headings.last.label).to eq('NUMBER')
+          builder.method_heading 'base_form'
+          expect(builder.headings.last).to be_a(MethodHeading)
+          expect(builder.headings.last.label).to eq('base_form')
 
           # Second way
-          table = subject.build('Common_form') do
+          table = builder.build('Common_form') do
             feature_heading 'NUMBER'
             method_heading 'base_form'
           end
@@ -47,8 +47,10 @@ module Zenlish
       end # context
 
       context 'Table building:' do
-        it 'should be able to build consequents' do
-          table = subject.build('Common_form') do
+        let(:mock_feature_bearer) { Struct.new(:NUMBER, :base_form) }
+
+        it 'is able to build consequents' do
+          table = builder.build('Common_form') do
             feature_heading 'NUMBER'
             method_heading 'base_form'
             rule([], col('base_form'))
@@ -57,23 +59,23 @@ module Zenlish
           end
           expect(table.rules).not_to be_empty
           consequent_0 = table.rules[0].consequent
-          expect(consequent_0).to be_kind_of(InputAsIs)
+          expect(consequent_0).to be_a(InputAsIs)
           expect(consequent_0.formal.index).to eq(1)
 
           consequent_1 = table.rules[1].consequent
-          expect(consequent_1).to be_kind_of(Substitution)
+          expect(consequent_1).to be_a(Substitution)
           expect(consequent_1.children[0].formal.index).to eq(1)
           expect(consequent_1.pattern).to eq(/y$/)
           expect(consequent_1.children[-1].text).to eq('ies')
 
           consequent_2 = table.rules[2].consequent
           expect(consequent_2.children[0].formal.index).to eq(1)
-          expect(consequent_2).to be_kind_of(Concatenation)
+          expect(consequent_2).to be_a(Concatenation)
           expect(consequent_2.children[-1].text).to eq('s')
         end
 
-        it 'should be able to build conditions' do
-          table = subject.build('Common_form') do
+        it 'is able to build conditions' do
+          table = builder.build('Common_form') do
             feature_heading 'NUMBER'
             method_heading 'base_form'
             rule([equals(:singular), dont_care], col('base_form'))
@@ -82,26 +84,24 @@ module Zenlish
           end
 
           conds_0 = table.rules[0].conditions
-          expect(conds_0[0]).to be_kind_of(EqualsLiteral)
+          expect(conds_0[0]).to be_a(EqualsLiteral)
           expect(conds_0[0].literal).to eq(:singular)
-          expect(conds_0[1]).to be_kind_of(UnconditionallyTrue)
+          expect(conds_0[1]).to be_a(UnconditionallyTrue)
 
           conds_1 = table.rules[1].conditions
-          expect(conds_1[0]).to be_kind_of(EqualsLiteral)
+          expect(conds_1[0]).to be_a(EqualsLiteral)
           expect(conds_1[0].literal).to eq(:plural)
-          expect(conds_1[1]).to be_kind_of(MatchesPattern)
+          expect(conds_1[1]).to be_a(MatchesPattern)
           expect(conds_1[1].pattern).to eq(/[^aeiouy]y$/)
 
           conds_2 = table.rules[2].conditions
-          expect(conds_2[0]).to be_kind_of(EqualsLiteral)
+          expect(conds_2[0]).to be_a(EqualsLiteral)
           expect(conds_2[0].literal).to eq(:plural)
-          expect(conds_2[1]).to be_kind_of(UnconditionallyTrue)
+          expect(conds_2[1]).to be_a(UnconditionallyTrue)
         end
 
-        let(:mock_feature_bearer) { Struct.new(:NUMBER, :base_form) }
-
-        it 'should build default paradigm for common nouns' do
-          table = subject.build('Common_form') do
+        it 'builds default paradigm for common nouns' do
+          table = builder.build('Common_form') do
             feature_heading 'NUMBER'
             method_heading 'base_form'
             rule([equals(:singular), dont_care], col('base_form'))
@@ -126,8 +126,8 @@ module Zenlish
         end
 
         MockRegularVerb = Struct.new(:base_form, :PERSON, :NUMBER, :TIME)
-        it 'should build default paradigm for regular verbs' do
-          table = subject.build('Regular_form') do
+        it 'builds default paradigm for regular verbs' do
+          table = builder.build('Regular_form') do
             feature_heading 'PERSON'
             feature_heading 'NUMBER'
             feature_heading 'TIME'
@@ -178,8 +178,8 @@ module Zenlish
         end
 
         MockIrregularVerb = Struct.new(:base_form, :PERSON, :NUMBER, :TIME, :past_simple, :past_participle)
-        it 'should build default paradigm for irregular verbs' do
-          table = subject.build('Irregular_inflection') do
+        it 'builds default paradigm for irregular verbs' do
+          table = builder.build('Irregular_inflection') do
             feature_heading 'PERSON'
             feature_heading 'NUMBER'
             feature_heading 'TIME'
